@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="011877451bc14193b752bac8cc027949" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLyThietBiModel.DanhMuc" Width="1.5" PointX="3.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.HopDong" Width="1.5" PointX="9" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.HopDongThietBi" Width="1.5" PointX="11.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.LichSuLinhKien" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.LichSuThietBi" Width="1.5" PointX="8.25" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.LinhKien" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.LinhKienThietBi" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.LoaiLinhKien" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.NguoiSuDung" Width="1.5" PointX="6" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.PhongBan" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.ThietBi" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.TinhTrang" Width="1.5" PointX="6" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.sysdiagram" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_ThietBi_DanhMuc" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_HopDongThietBi_HopDong" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_HopDongThietBi_ThietBi" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LichSuThietBi_NguoiSuDung" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKienThietBi_ThietBi" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_NguoiSuDung_PhongBan" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
