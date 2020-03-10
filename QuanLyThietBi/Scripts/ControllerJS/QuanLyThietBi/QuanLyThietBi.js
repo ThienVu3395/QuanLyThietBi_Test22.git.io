@@ -280,8 +280,14 @@
         $scope.showSerial = function () {
             if ($scope.SoLuongThietBi > 1) {
                 $scope.ThietBi.Serial = "Nhập các số serial bên dưới...";
+                
             }
             else $scope.ThietBi.Serial = "";
+        }
+
+        // Render người dùng theo phòng ban với số lượng > 1
+        $scope.renderNguoiDung = function (index) {
+            console.log(index);
         }
 
         // Thêm Thiết Bị
@@ -295,42 +301,45 @@
                 for (let i = 0; i < $scope.SoLuongThietBi; i++) {
                     $scope.ThietBiMoi = { ...$scope.ThietBi };
                     $scope.ThietBiMoi.Serial = document.getElementById("Serial" + (i + 1)).value;
+                    $scope.ThietBiMoi.MaTaiSan = document.getElementById("MaTaiSan" + (i + 1)).value;
+                    $scope.ThietBiMoi.MaTinhTrang = document.getElementById("MaTinhTrang" + (i + 1)).value;
+                    $scope.ThietBiMoi.MaNguoiDung = document.getElementById("MaNguoiDung" + (i + 1)).value;
                     $scope.listDanhSachThietBi.push($scope.ThietBiMoi);
                 }
             }
             console.log($scope.listDanhSachThietBi);
-            let closeBtn = document.getElementById("closeBTN");
-            var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
-            res.then(
-                function succ(response) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: response.data,
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    closeBtn.click();
-                    var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
-                    var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
-                    ress.then(
-                        function succ(response) {
-                            $scope.DanhSachThietBi = response.data;
-                            $scope.totalItems = $scope.DanhSachThietBi.length;
-                            $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
-                        },
+            //let closeBtn = document.getElementById("closeBTN");
+            //var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
+            //res.then(
+            //    function succ(response) {
+            //        Swal.fire({
+            //            position: 'center',
+            //            icon: 'success',
+            //            title: response.data,
+            //            showConfirmButton: false,
+            //            timer: 1500
+            //        })
+            //        closeBtn.click();
+            //        var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
+            //        var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
+            //        ress.then(
+            //            function succ(response) {
+            //                $scope.DanhSachThietBi = response.data;
+            //                $scope.totalItems = $scope.DanhSachThietBi.length;
+            //                $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
+            //            },
 
-                        function errorCallback(response) {
-                            swal(response.data.Message, "", "error");
-                        }
-                    )
+            //            function errorCallback(response) {
+            //                swal(response.data.Message, "", "error");
+            //            }
+            //        )
 
-                },
+            //    },
 
-                function errorCallback(response) {
-                    console.log(response.data.Message);
-                }
-            )
+            //    function errorCallback(response) {
+            //        console.log(response.data.Message);
+            //    }
+            //)
         }
 
         // Xem chi tiết thiết bị
@@ -396,9 +405,11 @@
         $scope.ChonDonVi = function (MaPhongBan) {
             $scope.objLoc.MaPhongBan = MaPhongBan;
         }
+
         $scope.ChonTinhTrang = function (MaTinhTrang) {
             $scope.objLoc.MaTinhTrang = MaTinhTrang;
         }
+
         $scope.LocThietBi = function () {
             var urlAPI = "";
             if ($scope.objLoc.MaPhongBan === 0 && $scope.objLoc.MaTinhTrang !== 0) {
@@ -438,6 +449,7 @@
                 x.type = "password";
             }
         }
+
         $scope.TrangThaiDangNhap = sessionStorage.length;
 
         $scope.KiemTra = function () {
