@@ -310,6 +310,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     thietBi.Model = tb.Model;
                     thietBi.NgayNhapKho = tb.NgayNhapKho;
                     thietBi.NgayXuatKho = null;
+                    thietBi.MaTaiSan = tb.MaTaiSan;
                     thietBi.MaDanhMuc = tb.MaDanhMuc;
                     thietBi.MaNhaCungCap = tb.MaNhaCungCap;
                     thietBi.Serial = tb.Serial;
@@ -403,7 +404,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             thietBiModel.Ten = thietBi.Ten;
             thietBiModel.Gia = thietBi.Gia;
             thietBiModel.Model = thietBi.Model;
-            //thietBiModel.SoLuong = thietBi.SoLuong;
+            thietBiModel.MaTaiSan = thietBi.MaTaiSan == null || thietBi.MaTaiSan == "" ? "Đang Cập Nhật..." : thietBi.MaTaiSan;
             thietBiModel.DonViTinh = thietBi.DonViTinh;
             var danhMuc2 = dbContext.DanhMucs.Where(x => x.MaDanhMuc == danhMuc.ParentID).FirstOrDefault();
             if (danhMuc2 != null)
@@ -434,9 +435,12 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     var linhKien = dbContext.LinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).FirstOrDefault();
                     LinhKienModel linhKienModel = new LinhKienModel();
                     linhKienModel.MaLinhKien = linhKien.MaLinhKien;
+                    var tenLinhKien = dbContext.LoaiLinhKiens.Where(x => x.MaLoaiLinhKien == linhKien.MaLoaiLinhKien).FirstOrDefault();
+                    linhKienModel.TenLoaiLinhKien = tenLinhKien.TenLinhKien;
                     linhKienModel.Serial = linhKien.Serial;
                     linhKienModel.Model = linhKien.Model;
                     linhKienModel.MaNhaCungCap = linhKien.MaNhaCungCap;
+                    linhKienModel.GhiChu = linhKien.GhiChu;
                     var nhaCungCap = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == linhKien.MaNhaCungCap).FirstOrDefault();
                     linhKienModel.NhaCungCap = nhaCungCap.Ten;
                     DanhSachLinhKien.Add(linhKienModel);
@@ -479,7 +483,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     hopDongModel.Ten = hopdong.Ten;
                     hopDongModel.GiaTriHD = item.GiaTriHD;
                     hopDongModel.NgayKy = item.NgayKy;
-                    hopDongModel.SoHopDong = item.SoHopDong;
+                    hopDongModel.SoHopDong = item.SoHopDong == null || item.SoHopDong == "" ? "Đang Cập Nhật..." : item.SoHopDong;
                     hopDongModel.Ngay = item.Ngay;
                     danhSachHopDong.Add(hopDongModel);
                 }

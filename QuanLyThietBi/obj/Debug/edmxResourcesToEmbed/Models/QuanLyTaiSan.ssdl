@@ -141,6 +141,7 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
       <PropertyRef Name="MaThietBi" />
     </Key>
     <Property Name="MaThietBi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaTaiSan" Type="nvarchar" MaxLength="200" />
     <Property Name="Ten" Type="nvarchar" MaxLength="200" />
     <Property Name="Gia" Type="decimal" Precision="18" Scale="3" Nullable="false" />
     <Property Name="Model" Type="nvarchar" MaxLength="150" />

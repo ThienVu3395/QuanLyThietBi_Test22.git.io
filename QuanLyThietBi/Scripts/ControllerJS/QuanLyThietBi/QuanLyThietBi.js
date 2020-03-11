@@ -71,7 +71,7 @@
 
         // Lấy Danh Sách nhóm thiết bị
         $scope.SoLuongThietBi = 1;
-        $scope.ThietBi = { Serial: "", DonViTinh: "Cm", GhiChu: "", GiaTriHD: "", MaTaiSan: "", DanhSachLinhKien: [] };
+        $scope.ThietBi = { Serial: "", DonViTinh: "Cm", GhiChu: "", SoHopDong: "", Gia: "", GiaTriHD: "", NgayKy: "", NgayNhapKho: "", ThoiGianBaoHanh: "", MaTaiSan: "", DanhSachLinhKien: [] };
 
         $scope.LayDanhSachNhom = function (MaDanhMuc) {
             var param = "?MaDanhMuc=" + MaDanhMuc;
@@ -280,14 +280,33 @@
         $scope.showSerial = function () {
             if ($scope.SoLuongThietBi > 1) {
                 $scope.ThietBi.Serial = "Nhập các số serial bên dưới...";
-                
+
             }
             else $scope.ThietBi.Serial = "";
         }
 
         // Render người dùng theo phòng ban với số lượng > 1
-        $scope.renderNguoiDung = function (index) {
-            console.log(index);
+        $scope.renderNguoiDung = function (event) {
+            let pb = event.target.parentNode;
+            let mpb = document.getElementById(pb.id).value;
+            var param = "?MaPhongBan=" + mpb;
+            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNguoiDungTheoPhongBan, param);
+            res.then(
+                function succ(response) {
+                    let dsUser = response.data;
+                    let content = ``;
+                    for (let j = 0; j < dsUser.length; j++) {
+                        content += `<option value=${dsUser[j].MaNguoiDung}>
+                                            ${dsUser[j].Ten}
+                                        </option>`;
+                    }
+                    document.getElementById("MaNguoiDung" + pb.name).innerHTML = content;
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
         }
 
         // Thêm Thiết Bị
@@ -308,38 +327,37 @@
                 }
             }
             console.log($scope.listDanhSachThietBi);
-            //let closeBtn = document.getElementById("closeBTN");
-            //var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
-            //res.then(
-            //    function succ(response) {
-            //        Swal.fire({
-            //            position: 'center',
-            //            icon: 'success',
-            //            title: response.data,
-            //            showConfirmButton: false,
-            //            timer: 1500
-            //        })
-            //        closeBtn.click();
-            //        var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
-            //        var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
-            //        ress.then(
-            //            function succ(response) {
-            //                $scope.DanhSachThietBi = response.data;
-            //                $scope.totalItems = $scope.DanhSachThietBi.length;
-            //                $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
-            //            },
+            let closeBtn = document.getElementById("closeBTN");
+            var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
+            res.then(
+                function succ(response) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: response.data,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    closeBtn.click();
+                    var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
+                    var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
+                    ress.then(
+                        function succ(response) {
+                            $scope.DanhSachThietBi = response.data;
+                            $scope.totalItems = $scope.DanhSachThietBi.length;
+                            $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
+                        },
 
-            //            function errorCallback(response) {
-            //                swal(response.data.Message, "", "error");
-            //            }
-            //        )
+                        function errorCallback(response) {
+                            swal(response.data.Message, "", "error");
+                        }
+                    )
+                },
 
-            //    },
-
-            //    function errorCallback(response) {
-            //        console.log(response.data.Message);
-            //    }
-            //)
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
         }
 
         // Xem chi tiết thiết bị
@@ -349,6 +367,7 @@
             res.then(
                 function succ(response) {
                     $scope.ThongTinThietBi = response.data;
+                    console.log($scope.ThongTinThietBi);
                 },
 
                 function errorCallback(response) {

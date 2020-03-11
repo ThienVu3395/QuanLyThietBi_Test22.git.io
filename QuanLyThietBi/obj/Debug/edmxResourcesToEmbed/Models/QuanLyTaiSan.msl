@@ -109,26 +109,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ThietBis">
-      <EntityTypeMapping TypeName="QuanLyThietBiModel.ThietBi">
-        <MappingFragment StoreEntitySet="ThietBi">
-          <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
-          <ScalarProperty Name="Ten" ColumnName="Ten" />
-          <ScalarProperty Name="Gia" ColumnName="Gia" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-          <ScalarProperty Name="NgayNhapKho" ColumnName="NgayNhapKho" />
-          <ScalarProperty Name="NgayXuatKho" ColumnName="NgayXuatKho" />
-          <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
-          <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
-          <ScalarProperty Name="Serial" ColumnName="Serial" />
-          <ScalarProperty Name="GiaKhauHao" ColumnName="GiaKhauHao" />
-          <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
-          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
-          <ScalarProperty Name="NgayBaoHanh" ColumnName="NgayBaoHanh" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="TinhTrangs">
       <EntityTypeMapping TypeName="QuanLyThietBiModel.TinhTrang">
         <MappingFragment StoreEntitySet="TinhTrang">
@@ -172,5 +152,26 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="QuanLyThietBiModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="QuanLyThietBiModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="ThietBis">
+      <EntityTypeMapping TypeName="QuanLyThietBiModel.ThietBi">
+        <MappingFragment StoreEntitySet="ThietBi">
+          <ScalarProperty Name="NgayBaoHanh" ColumnName="NgayBaoHanh" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
+          <ScalarProperty Name="GiaKhauHao" ColumnName="GiaKhauHao" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
+          <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
+          <ScalarProperty Name="NgayXuatKho" ColumnName="NgayXuatKho" />
+          <ScalarProperty Name="NgayNhapKho" ColumnName="NgayNhapKho" />
+          <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Gia" ColumnName="Gia" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="MaTaiSan" ColumnName="MaTaiSan" />
+          <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

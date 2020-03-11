@@ -38,9 +38,9 @@ namespace QuanLyThietBi.Models
         public virtual DbSet<NguoiSuDung> NguoiSuDungs { get; set; }
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; }
         public virtual DbSet<PhongBan> PhongBans { get; set; }
-        public virtual DbSet<ThietBi> ThietBis { get; set; }
         public virtual DbSet<TinhTrang> TinhTrangs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<ThietBi> ThietBis { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

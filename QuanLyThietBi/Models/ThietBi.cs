@@ -23,6 +23,7 @@ namespace QuanLyThietBi.Models
         }
     
         public int MaThietBi { get; set; }
+        public string MaTaiSan { get; set; }
         public string Ten { get; set; }
         public decimal Gia { get; set; }
         public string Model { get; set; }
