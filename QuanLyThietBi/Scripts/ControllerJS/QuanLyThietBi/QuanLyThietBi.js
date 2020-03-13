@@ -1,16 +1,20 @@
 ﻿angular.module("CommonApp")
     .controller("QltbCrl", function ($scope, CommonController) {
+        $scope.names = ["Emil", "Tobias", "Linus"];
+
         //Lấy danh sách danh mục
         $scope.LayDanhSachDanhMuc = function () {
             var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachDanhMuc, "");
             res.then(
                 function succ(response) {
                     $scope.DanhSachDanhMuc = response.data;
+                    $scope.MaCha = $scope.DanhSachDanhMuc[0];
                     var param = "?MaDanhMuc=" + $scope.DanhSachDanhMuc[0].MaDanhMuc;
                     var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNhomTheoDanhMuc, param);
                     res.then(
                         function succ(response) {
                             $scope.DanhSachNhom = response.data;
+                            $scope.MaCon = $scope.DanhSachNhom[0]
                             $scope.ThietBi.MaDanhMuc = $scope.DanhSachNhom[0].MaDanhMuc;
                         },
 
@@ -73,24 +77,6 @@
         $scope.SoLuongThietBi = 1;
         $scope.ThietBi = { Serial: "", DonViTinh: "Cm", GhiChu: "", SoHopDong: "", Gia: "", GiaTriHD: "", NgayKy: "", NgayNhapKho: "", ThoiGianBaoHanh: "", MaTaiSan: "", DanhSachLinhKien: [] };
 
-        $scope.LayDanhSachNhom = function (MaDanhMuc) {
-            var param = "?MaDanhMuc=" + MaDanhMuc;
-            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNhomTheoDanhMuc, param);
-            res.then(
-                function succ(response) {
-                    $scope.DanhSachNhom = response.data;
-                    if ($scope.DanhSachNhom.length !== 0) {
-                        $scope.ThietBi.MaDanhMuc = $scope.DanhSachNhom[0].MaDanhMuc;
-                    }
-                    else $scope.ThietBi.MaDanhMuc = MaDanhMuc;
-                },
-
-                function errorCallback(response) {
-                    console.log(response.data.Message);
-                }
-            )
-        }
-
         // Lấy Danh Sách Phòng Ban
         $scope.LayDanhSachPhongBan = function () {
             if (sessionStorage.length == 0) {
@@ -101,12 +87,14 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachPhongBan = response.data;
+                    $scope.DonVi = $scope.DanhSachPhongBan[0];
                     var param = "?MaPhongBan=" + $scope.DanhSachPhongBan[0].MaPhongBan;
                     var res2 = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNguoiDungTheoPhongBan, param);
                     res2.then(
                         function succ(response) {
                             $scope.DanhSachNguoiDung = response.data;
-                            $scope.ThietBi.MaNguoiDung = $scope.DanhSachNguoiDung[0].MaNguoiDung
+                            $scope.MaNguoiDung = $scope.DanhSachNguoiDung[0];
+                            $scope.ThietBi.MaNguoiDung = $scope.MaNguoiDung.MaNguoiDung;
                         },
 
                         function errorCallback(response) {
@@ -121,13 +109,16 @@
             )
         }
 
-        // Lấy Danh Sách Nhà Sản Xuất
-        $scope.LayDanhSachHangSanXuat = function () {
-            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachHangSanXuat, "");
+        // Lấy Danh Sách Người Dùng Theo Phòng Ban
+        $scope.LayNguoiDung = function () {
+            let maPhongBan = $scope.DonVi.MaPhongBan;
+            var param = "?MaPhongBan=" + maPhongBan;
+            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNguoiDungTheoPhongBan, param);
             res.then(
                 function succ(response) {
-                    $scope.DanhSachHSX = response.data;
-                    $scope.ThietBi.MaNhaCungCap = $scope.DanhSachHSX[0].MaNhaCungCap;
+                    $scope.DanhSachNguoiDung = response.data;
+                    $scope.MaNguoiDung = $scope.DanhSachNguoiDung[0];
+                    $scope.ThietBi.MaNguoiDung = $scope.MaNguoiDung.MaNguoiDung;
                 },
 
                 function errorCallback(response) {
@@ -136,14 +127,19 @@
             )
         }
 
-        // Lấy Danh Sách Người Dùng
-        $scope.LayDanhSachNguoiDung = function (MaPhongBan) {
-            var param = "?MaPhongBan=" + MaPhongBan;
-            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNguoiDungTheoPhongBan, param);
+        // Chọn Người Dùng
+        $scope.ChonNguoiDung = function () {
+            $scope.ThietBi.MaNguoiDung = $scope.MaNguoiDung.MaNguoiDung;
+        }
+
+
+        // Lấy Danh Sách Nhà Sản Xuất
+        $scope.LayDanhSachHangSanXuat = function () {
+            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachHangSanXuat, "");
             res.then(
                 function succ(response) {
-                    $scope.DanhSachNguoiDung = response.data;
-                    $scope.ThietBi.MaNguoiDung = $scope.DanhSachNguoiDung[0].MaNguoiDung
+                    $scope.DanhSachHSX = response.data;
+                    $scope.ThietBi.MaNhaCungCap = $scope.DanhSachHSX[0].MaNhaCungCap;
                 },
 
                 function errorCallback(response) {
@@ -197,20 +193,12 @@
         }
 
         // Các sự kiện lấy thông tin từ các list menu :
-        $scope.ChonNhom = function (MaDanhMuc) {
-            $scope.ThietBi.MaDanhMuc = MaDanhMuc;
-        }
-
         $scope.ChonHangSanXuat = function (MaNhaCungCap) {
             $scope.ThietBi.MaNhaCungCap = MaNhaCungCap;
         }
 
         $scope.ChonHopDong = function (MaHopDong) {
             $scope.ThietBi.MaHopDong = MaHopDong;
-        }
-
-        $scope.ChonNguoiDung = function (MaNguoiDung) {
-            $scope.ThietBi.MaNguoiDung = MaNguoiDung;
         }
 
         $scope.ChonDonViTinh = function (DonViTinh) {
@@ -358,6 +346,39 @@
                     console.log(response.data.Message);
                 }
             )
+        }
+
+        $scope.LayDsNhom = function () {
+            let maCha = $scope.MaCha.MaDanhMuc;
+            var param = "?MaDanhMuc=" + maCha;
+            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNhomTheoDanhMuc, param);
+            res.then(
+                function succ(response) {
+                    $scope.DanhSachNhom = response.data;
+                    if ($scope.DanhSachNhom.length == 0) {
+                        $scope.DanhSachNhom = [{
+                            MaDanhMuc: 0,
+                            Ten: "-- Không --",
+                            SoLuong: 50,
+                            ParentID: 0,
+                        }]
+                        $scope.ThietBi.MaDanhMuc = maCha;
+                        $scope.MaCon = $scope.DanhSachNhom[0];
+                    }
+                    else {
+                        $scope.MaCon = $scope.DanhSachNhom[0];
+                        $scope.ThietBi.MaDanhMuc = $scope.MaCon.MaDanhMuc;
+                    }         
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
+        }
+
+        $scope.ChonDanhMuc = function () {
+            $scope.ThietBi.MaDanhMuc = $scope.MaCon.MaDanhMuc;
         }
 
         // Xem chi tiết thiết bị

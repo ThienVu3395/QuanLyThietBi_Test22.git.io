@@ -154,30 +154,20 @@
                     <div class="row">
                         <div class="form-group col-lg-3">
                             <label for="sel1">
-                                Nhóm Thiết Bị <span class="bigger-110 red">
+                                Nhóm Thiết Bị<span class="bigger-110 red">
                                     *
                                 </span>
                             </label>
-                            <select class="form-control">
-                                <option ng-repeat="item in DanhSachDanhMuc"
-                                        ng-click="LayDanhSachNhom(item.MaDanhMuc)">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
+                            <select class="form-control" ng-model="MaCha" ng-options="item as item.Ten for item in DanhSachDanhMuc" ng-change="LayDsNhom()"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
                             <label for="sel1">
-                                Loại Thiết Bị <span class="bigger-110 red">
+                                Loại Thiết Bị<span class="bigger-110 red">
                                     *
                                 </span>
                             </label>
-                            <select class="form-control">
-                                <option ng-repeat="item in DanhSachNhom"
-                                        ng-click="ChonNhom(item.MaDanhMuc)">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
+                            <select class="form-control" ng-model="MaCon" ng-options="item as item.Ten for item in DanhSachNhom" ng-change="ChonDanhMuc()"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
@@ -289,28 +279,42 @@
                                                     <td><input type="text" id="Serial{{$index + 1}}" class="form-control"></td>
                                                     <td><input type="text" id="MaTaiSan{{$index + 1}}" class="form-control"></td>
                                                     <td>
-                                                        <select class="form-control" id="MaPhongBan{{$index + 1}}" name="{{$index + 1}}">
+                                                        @*<select class="form-control" id="MaPhongBan{{$index + 1}}" name="{{$index + 1}}">
                                                             <option ng-repeat="item in DanhSachPhongBan"
                                                                     value="{{item.MaPhongBan}}"
-                                                                    ng-click="renderNguoiDung($event)">
+                                                                     ng-model="haha[item.MaPhongBan]">
                                                                 {{item.Ten}}
                                                             </option>
+                                                        </select>*@
+                                                        <select class="form-control"
+                                                                id=MaPhongBan{{$index+1}}
+                                                                ng-model="DonVi[$index]"
+                                                                ng-options="item as item.Ten for item in DanhSachPhongBan"
+                                                                >
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select class="form-control" id="MaNguoiDung{{$index + 1}}">
+                                                        @*<select class="form-control" id="MaNguoiDung{{$index + 1}}">
                                                             <option ng-repeat="item in DanhSachNguoiDung"
                                                                     value={{item.MaNguoiDung}}>
                                                                 {{item.Ten}}
                                                             </option>
+                                                        </select>*@
+                                                        <select class="form-control"
+                                                                ng-model="MaNguoiDung"
+                                                                ng-options="item as item.Ten for item in DanhSachNguoiDung">
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        <select class="form-control" id="MaTinhTrang{{$index + 1}}">
+                                                        @*<select class="form-control" id="MaTinhTrang{{$index + 1}}">
                                                             <option ng-repeat="item in DanhSachTinhTrang"
                                                                     value="{{item.MaTinhTrang}}">
                                                                 {{item.Ten}}
                                                             </option>
+                                                        </select>*@
+                                                        <select class="form-control"
+                                                                ng-model="DonVi"
+                                                                ng-options="item as item.Ten for item in DanhSachTinhTrang">
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -385,25 +389,25 @@
                         <div class="form-group col-lg-3">
                             <label>
                                 Ngày Mua @*<span class="bigger-110 red">
-                                        *
-                                    </span>*@
+                        *
+                    </span>*@
                             </label>
                             <input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayNhapKho" class="form-control" style="line-height: 20px !important">
                             @*<input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayNhapKho" class="form-control" ng-required="true" style="line-height: 20px !important">
-                                <span class="error text-danger" ng-show="formTB.NgayNhapKho.$error.required">Bạn chưa nhập ngày mua</span>
-                                <span class="valid" ng-show="formTB.NgayNhapKho.$valid"></span>*@
+                <span class="error text-danger" ng-show="formTB.NgayNhapKho.$error.required">Bạn chưa nhập ngày mua</span>
+                <span class="valid" ng-show="formTB.NgayNhapKho.$valid"></span>*@
                         </div>
 
                         <div class="form-group col-lg-3">
                             <label for="form-field-mask-1">
                                 Thời Gian Bảo Hành @*<span class="bigger-110 red">
-                                        *
-                                    </span>*@
+                        *
+                    </span>*@
                             </label>
                             <input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control" style="line-height: 20px !important">
                             @*<input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control" ng-required="true" style="line-height: 20px !important">
-                                <span class="error text-danger" ng-show="formTB.ThoiGianBaoHanh.$error.required">Bạn chưa nhập ngày bảo hành</span>
-                                <span class="valid" ng-show="formTB.ThoiGianBaoHanh.$valid"></span>*@
+                <span class="error text-danger" ng-show="formTB.ThoiGianBaoHanh.$error.required">Bạn chưa nhập ngày bảo hành</span>
+                <span class="valid" ng-show="formTB.ThoiGianBaoHanh.$valid"></span>*@
                         </div>
                     </div>
 
@@ -420,22 +424,20 @@
 
                         <div class="form-group col-lg-3">
                             <label for="sel1">Đơn Vị Sử Dụng</label>
-                            <select class="form-control" ng-disabled="SoLuongThietBi > 1">
-                                <option ng-repeat="item in DanhSachPhongBan"
-                                        ng-click="LayDanhSachNguoiDung(item.MaPhongBan)">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
+                            <select class="form-control" 
+                                    ng-model="DonVi" 
+                                    ng-options="item as item.Ten for item in DanhSachPhongBan" 
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-change="LayNguoiDung()"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
                             <label for="sel1">Người Sử Dụng</label>
-                            <select class="form-control" ng-disabled="SoLuongThietBi > 1">
-                                <option ng-repeat="item in DanhSachNguoiDung"
-                                        ng-click="ChonNguoiDung(item.MaNguoiDung)">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
+                            <select class="form-control" 
+                                    ng-model="MaNguoiDung" 
+                                    ng-options="item as item.Ten for item in DanhSachNguoiDung" 
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-change="ChonNguoiDung()"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
@@ -518,8 +520,8 @@
                                         </option>
                                     </select>
                                     @*<input class="form-control"
-                                        type="text"
-                                        id="NhaCungCap" />*@
+                        type="text"
+                        id="NhaCungCap" />*@
                                 </td>
 
                                 <td>
@@ -1246,7 +1248,6 @@
     <script src="~/Content/assets/js/buttons.print.min.js"></script>
     <script src="~/Content/assets/js/buttons.colVis.min.js"></script>
     <script src="~/Content/assets/js/dataTables.select.min.js"></script>
-
     <script src="~/Content/assets/js/select2.min.js"></script>
     <script src="~/Content/assets/js/wizard.min.js"></script>
     <script src="~/Content/assets/js/jquery.validate.min.js"></script>
