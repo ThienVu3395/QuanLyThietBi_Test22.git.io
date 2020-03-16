@@ -1,7 +1,5 @@
 ﻿angular.module("CommonApp")
     .controller("QltbCrl", function ($scope, CommonController) {
-        $scope.names = ["Emil", "Tobias", "Linus"];
-
         //Lấy danh sách danh mục
         $scope.LayDanhSachDanhMuc = function () {
             var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachDanhMuc, "");
@@ -26,6 +24,25 @@
 
                 function errorCallback(response) {
                     console.log(response.data.message)
+                }
+            )
+        }
+
+        $scope.getUser = function (index) {
+            let mpb = document.getElementById("MaPhongBan" + index).value;
+            var param = "?MaPhongBan=" + mpb;
+            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNguoiDungTheoPhongBan, param);
+            res.then(
+                function succ(response) {
+                    let content = ``;
+                    for (var i = 0; i < response.data.length; i++) {
+                        content += "<option value='" + response.data[i].MaNguoiDung + "'>" + response.data[i].Ten + "</option>";
+                    }
+                    document.getElementById("MaNguoiDung" + index).innerHTML = content;
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
                 }
             )
         }
@@ -131,7 +148,6 @@
         $scope.ChonNguoiDung = function () {
             $scope.ThietBi.MaNguoiDung = $scope.MaNguoiDung.MaNguoiDung;
         }
-
 
         // Lấy Danh Sách Nhà Sản Xuất
         $scope.LayDanhSachHangSanXuat = function () {
@@ -368,7 +384,7 @@
                     else {
                         $scope.MaCon = $scope.DanhSachNhom[0];
                         $scope.ThietBi.MaDanhMuc = $scope.MaCon.MaDanhMuc;
-                    }         
+                    }
                 },
 
                 function errorCallback(response) {

@@ -279,42 +279,26 @@
                                                     <td><input type="text" id="Serial{{$index + 1}}" class="form-control"></td>
                                                     <td><input type="text" id="MaTaiSan{{$index + 1}}" class="form-control"></td>
                                                     <td>
-                                                        @*<select class="form-control" id="MaPhongBan{{$index + 1}}" name="{{$index + 1}}">
-                                                            <option ng-repeat="item in DanhSachPhongBan"
-                                                                    value="{{item.MaPhongBan}}"
-                                                                     ng-model="haha[item.MaPhongBan]">
-                                                                {{item.Ten}}
-                                                            </option>
-                                                        </select>*@
                                                         <select class="form-control"
                                                                 id=MaPhongBan{{$index+1}}
-                                                                ng-model="DonVi[$index]"
-                                                                ng-options="item as item.Ten for item in DanhSachPhongBan"
-                                                                >
-                                                        </select>
+                                                                ng-model="DonVi"
+                                                                ng-options="item as item.Ten for item in DanhSachPhongBan track by item.MaPhongBan"
+                                                                ng-change="getUser($index + 1)"></select>
                                                     </td>
                                                     <td>
-                                                        @*<select class="form-control" id="MaNguoiDung{{$index + 1}}">
+                                                        <select class="form-control" id="MaNguoiDung{{$index + 1}}">
                                                             <option ng-repeat="item in DanhSachNguoiDung"
                                                                     value={{item.MaNguoiDung}}>
                                                                 {{item.Ten}}
                                                             </option>
-                                                        </select>*@
-                                                        <select class="form-control"
-                                                                ng-model="MaNguoiDung"
-                                                                ng-options="item as item.Ten for item in DanhSachNguoiDung">
                                                         </select>
                                                     </td>
                                                     <td>
-                                                        @*<select class="form-control" id="MaTinhTrang{{$index + 1}}">
+                                                        <select class="form-control" id="MaTinhTrang{{$index + 1}}">
                                                             <option ng-repeat="item in DanhSachTinhTrang"
                                                                     value="{{item.MaTinhTrang}}">
                                                                 {{item.Ten}}
                                                             </option>
-                                                        </select>*@
-                                                        <select class="form-control"
-                                                                ng-model="DonVi"
-                                                                ng-options="item as item.Ten for item in DanhSachTinhTrang">
                                                         </select>
                                                     </td>
                                                 </tr>
