@@ -202,12 +202,9 @@
                                     *
                                 </span>
                             </label>
-                            <select class="form-control">
-                                <option ng-repeat="item in DanhSachHSX"
-                                        ng-click="ChonHangSanXuat(item.MaNhaCungCap)">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
+                            <select class="form-control"
+                                    ng-model="MaNhaCungCap"
+                                    ng-options="item.Ten for item in DanhSachHSX track by item.MaNhaCungCap"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
@@ -313,11 +310,11 @@
                     <div class="row">
                         <div class="form-group col-lg-3">
                             <label for="usr">Đơn Vị Tính</label>
-                            <select class="form-control">
-                                <option ng-model="ThietBi.DonViTinh" ng-click="ChonDonViTinh('Cm')">Cm</option>
-                                <option ng-model="ThietBi.DonViTinh" ng-click="ChonDonViTinh('Mm')">Mm</option>
-                                <option ng-model="ThietBi.DonViTinh" ng-click="ChonDonViTinh('Cái')">Cái</option>
-                                <option ng-model="ThietBi.DonViTinh" ng-click="ChonDonViTinh('Bộ')">Bộ</option>
+                            <select class="form-control" ng-model="ThietBi.DonViTinh">
+                                <option value="Cm">Cm</option>
+                                <option value="Mm">Mm</option>
+                                <option value="Cái">Cái</option>
+                                <option value="Bộ">Bộ</option>
                             </select>
                         </div>
 
@@ -335,14 +332,10 @@
 
                         <div class="form-group col-lg-3">
                             <label for="sel1">Dự Án & Hợp Đồng</label>
-                            <select class="form-control">
-                                <option ng-repeat="item in DanhSachHopDong"
-                                        ng-click="ChonHopDong(item.MaHopDong)">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
-                            <span class="error text-danger" ng-show="formTB.HopDong.$error.required">Bạn chưa chọn thông tin này</span>
-                            <span class="valid" ng-show="formTB.HopDong.$valid"></span>
+
+                            <select class="form-control"
+                                    ng-model="MaHopDong"
+                                    ng-options="item as item.Ten for item in DanhSachHopDong track by item.MaHopDong"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
@@ -373,53 +366,57 @@
                         <div class="form-group col-lg-3">
                             <label>
                                 Ngày Mua @*<span class="bigger-110 red">
-                        *
-                    </span>*@
+                                        *
+                                    </span>*@<span class="bigger-110 red">
+                                </span>
                             </label>
                             <input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayNhapKho" class="form-control" style="line-height: 20px !important">
                             @*<input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayNhapKho" class="form-control" ng-required="true" style="line-height: 20px !important">
-                <span class="error text-danger" ng-show="formTB.NgayNhapKho.$error.required">Bạn chưa nhập ngày mua</span>
-                <span class="valid" ng-show="formTB.NgayNhapKho.$valid"></span>*@
+                                <span class="error text-danger" ng-show="formTB.NgayNhapKho.$error.required">Bạn chưa nhập ngày mua</span>
+                                <span class="valid" ng-show="formTB.NgayNhapKho.$valid"></span>*@<input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayNhapKho" class="form-control" ng-required="true" style="line-height: 20px !important">
+                            <span class="error text-danger" ng-show="formTB.NgayNhapKho.$error.required"></span>
+                            <span class="valid" ng-show="formTB.NgayNhapKho.$valid"></span>
                         </div>
 
                         <div class="form-group col-lg-3">
                             <label for="form-field-mask-1">
                                 Thời Gian Bảo Hành @*<span class="bigger-110 red">
-                        *
-                    </span>*@
+                                        *
+                                    </span>*@<span class="bigger-110 red">
+                                </span>
                             </label>
                             <input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control" style="line-height: 20px !important">
                             @*<input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control" ng-required="true" style="line-height: 20px !important">
-                <span class="error text-danger" ng-show="formTB.ThoiGianBaoHanh.$error.required">Bạn chưa nhập ngày bảo hành</span>
-                <span class="valid" ng-show="formTB.ThoiGianBaoHanh.$valid"></span>*@
+                                <span class="error text-danger" ng-show="formTB.ThoiGianBaoHanh.$error.required">Bạn chưa nhập ngày bảo hành</span>
+                                <span class="valid" ng-show="formTB.ThoiGianBaoHanh.$valid"></span>*@<input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control" ng-required="true" style="line-height: 20px !important">
+                            <span class="error text-danger" ng-show="formTB.ThoiGianBaoHanh.$error.required"></span>
+                            <span class="valid" ng-show="formTB.ThoiGianBaoHanh.$valid"></span>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="form-group col-lg-3">
                             <label for="sel1">Tình Trạng Thiết Bị </label>
-                            <select class="form-control" ng-disabled="SoLuongThietBi > 1">
-                                <option ng-repeat="item in DanhSachTinhTrang"
-                                        ng-click="ChonTinhTrang(item.MaTinhTrang)">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
+                            <select class="form-control"
+                                    ng-model="MaTinhTrang"
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
                             <label for="sel1">Đơn Vị Sử Dụng</label>
-                            <select class="form-control" 
-                                    ng-model="DonVi" 
-                                    ng-options="item as item.Ten for item in DanhSachPhongBan" 
+                            <select class="form-control"
+                                    ng-model="DonVi"
+                                    ng-options="item as item.Ten for item in DanhSachPhongBan"
                                     ng-disabled="SoLuongThietBi > 1"
                                     ng-change="LayNguoiDung()"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
                             <label for="sel1">Người Sử Dụng</label>
-                            <select class="form-control" 
-                                    ng-model="MaNguoiDung" 
-                                    ng-options="item as item.Ten for item in DanhSachNguoiDung" 
+                            <select class="form-control"
+                                    ng-model="MaNguoiDung"
+                                    ng-options="item as item.Ten for item in DanhSachNguoiDung"
                                     ng-disabled="SoLuongThietBi > 1"
                                     ng-change="ChonNguoiDung()"></select>
                         </div>
@@ -504,8 +501,10 @@
                                         </option>
                                     </select>
                                     @*<input class="form-control"
-                        type="text"
-                        id="NhaCungCap" />*@
+                                        type="text"
+                                        id="NhaCungCap" />*@<input class="form-control"
+                                                                   type="text"
+                                                                   id="NhaCungCap" />
                                 </td>
 
                                 <td>
@@ -656,7 +655,7 @@
                         <li class="active">
                             <a data-toggle="tab" href="#home">
                                 <i class="green ace-icon fa fa-list bigger-120"></i>
-                                Danh Sách Linh Kiện <span class="badge badge-danger">{{ThongTinThietBi.DanhSachLinhKien.length}}</span>
+                                Thông Tin + Lịch Sử Linh Kiện <span class="badge badge-danger">{{ThongTinThietBi.DanhSachLinhKien.length}}</span>
                             </a>
                         </li>
 
@@ -700,41 +699,217 @@
                                         <td>{{item.GhiChu}}</td>
                                         <td><span class="label label-xlg label-success arrowed arrowed-right">Chờ Bàn Giao</span></td>
                                     </tr>
+
+                                    @*<tr class="detail-row open" ng-repeat-end>
+                                            <td colspan="6">
+                                                <div class="table-detail">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-2">
+                                                            <div class="text-center">
+                                                                <img height="150" class="thumbnail inline no-margin-bottom" alt="Domain Owner's Avatar" src="~/Content/assets/images/avatars/profile-pic.jpg" />
+                                                                <br />
+                                                                <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                                                                    <div class="inline position-relative">
+                                                                        <a class="user-title-label" href="#">
+                                                                            <i class="ace-icon fa fa-circle light-green"></i>
+                                                                            &nbsp;
+                                                                            <span class="white">Alex M. Doe</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xs-12 col-sm-7">
+                                                            <div class="space visible-xs"></div>
+
+                                                            <div class="profile-user-info profile-user-info-striped">
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Username </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>alexdoe</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Location </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <i class="fa fa-map-marker light-orange bigger-110"></i>
+                                                                        <span>Netherlands, Amsterdam</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Age </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>38</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Joined </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>2010/06/20</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> Last Online </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>3 hours ago</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name"> About Me </div>
+
+                                                                    <div class="profile-info-value">
+                                                                        <span>Bio</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xs-12 col-sm-3">
+                                                            <div class="space visible-xs"></div>
+                                                            <h4 class="header blue lighter less-margin">Send a message to Alex</h4>
+
+                                                            <div class="space-6"></div>
+
+                                                            <form>
+                                                                <fieldset>
+                                                                    <textarea class="width-100" resize="none" placeholder="Type something…"></textarea>
+                                                                </fieldset>
+
+                                                                <div class="hr hr-dotted"></div>
+
+                                                                <div class="clearfix">
+                                                                    <label class="pull-left">
+                                                                        <input type="checkbox" class="ace" />
+                                                                        <span class="lbl"> Email me a copy</span>
+                                                                    </label>
+
+                                                                    <button class="pull-right btn btn-sm btn-primary btn-white btn-round" type="button">
+                                                                        Submit
+                                                                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>*@
+                                    <tr class="detail-row open" ng-repeat-end>
+                                        <td colspan="6">
+                                            <div class="table-detail">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-2">
+                                                        <div class="text-center">
+                                                            <img height="150" class="thumbnail inline no-margin-bottom" alt="Domain Owner's Avatar" src="~/Content/assets/images/avatars/profile-pic.jpg" />
+                                                            <br />
+                                                            <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                                                                <div class="inline position-relative">
+                                                                    <a class="user-title-label" href="#">
+                                                                        <i class="ace-icon fa fa-circle light-green"></i>
+                                                                        <span class="white"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-7">
+                                                        <div class="space visible-xs"></div>
+
+                                                        <div class="profile-user-info profile-user-info-striped">
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"></div>
+
+                                                                <div class="profile-info-value">
+                                                                    <span></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"></div>
+
+                                                                <div class="profile-info-value">
+                                                                    <i class="fa fa-map-marker light-orange bigger-110"></i>
+                                                                    <span></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"></div>
+
+                                                                <div class="profile-info-value">
+                                                                    <span></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"></div>
+
+                                                                <div class="profile-info-value">
+                                                                    <span></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"></div>
+
+                                                                <div class="profile-info-value">
+                                                                    <span></span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"></div>
+
+                                                                <div class="profile-info-value">
+                                                                    <span></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-xs-12 col-sm-3">
+                                                        <div class="space visible-xs"></div>
+                                                        <h4 class="header blue lighter less-margin"></h4>
+
+                                                        <div class="space-6"></div>
+
+                                                        <form>
+                                                            <fieldset>
+                                                                <textarea class="width-100" resize="none" placeholder="Type something…"></textarea>
+                                                            </fieldset>
+
+                                                            <div class="hr hr-dotted"></div>
+
+                                                            <div class="clearfix">
+                                                                <label class="pull-left">
+                                                                    <input type="checkbox" class="ace" />
+                                                                    <span class="lbl"></span>
+                                                                </label>
+
+                                                                <button class="pull-right btn btn-sm btn-primary btn-white btn-round" type="button">
+                                                                    <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
-
-                            @*<h4 class="blue">
-                                    <span class="label label-purple arrowed-in-right">
-                                        <i class="ace-icon fa fa-info-circle smaller-80 align-middle"></i>
-                                        Lịch Sử Linh Kiện
-                                    </span>
-                                </h4>
-
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Tên</th>
-                                            <th>Serial</th>
-                                            <th>Model</th>
-                                            <th>NCC</th>
-                                            <th>Dung Lượng (GB)</th>
-                                            <th>Số Lượng (Cái)</th>
-                                            <th>Tình Trạng</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <tr ng-repeat="item in ThongTinThietBi.DanhSachLinhKien">
-                                            <td>{{item.LoaiLinhKien}}</td>
-                                            <td>{{item.Serial}}</td>
-                                            <td>{{item.Model}}</td>
-                                            <td>{{item.NhaCungCap}}</td>
-                                            <td>{{item.DungLuong}}</td>
-                                            <td>{{item.SoLuong}}</td>
-                                            <td><span class="label label-xlg label-success arrowed arrowed-right">Chờ Bàn Giao</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>*@
                         </div>
 
                         <div id="messages" class="tab-pane fade">
@@ -850,30 +1025,26 @@
                                 <div class="row">
                                     <div class="form-group col-lg-3">
                                         <label for="sel1">
-                                            Nhóm Thiết Bị <span class="bigger-110 red">
+                                            Nhóm Thiết Bị<span class="bigger-110 red">
                                                 *
                                             </span>
                                         </label>
-                                        <select class="form-control">
-                                            <option ng-repeat="item in DanhSachDanhMuc"
-                                                    ng-click="LayDanhSachNhom(item.MaDanhMuc)">
-                                                {{item.Ten}}
-                                            </option>
-                                        </select>
+                                        <select class="form-control"
+                                                ng-model="MaChaSua"
+                                                ng-options="item as item.Ten for item in DanhSachDanhMuc"
+                                                ng-change="LayDsNhom()"></select>
                                     </div>
 
                                     <div class="form-group col-lg-3">
                                         <label for="sel1">
-                                            Loại Thiết Bị <span class="bigger-110 red">
+                                            Loại Thiết Bị<span class="bigger-110 red">
                                                 *
                                             </span>
                                         </label>
-                                        <select class="form-control">
-                                            <option ng-repeat="item in DanhSachNhom"
-                                                    ng-click="ChonNhom(item.MaDanhMuc)">
-                                                {{item.Ten}}
-                                            </option>
-                                        </select>
+                                        <select class="form-control"
+                                                ng-model="MaConSua"
+                                                ng-options="item as item.Ten for item in MaChaSua.DanhSachNhom"
+                                                ng-change="ChonDanhMuc()"></select>
                                     </div>
 
                                     <div class="form-group col-lg-3">
@@ -903,10 +1074,10 @@
                                                 *
                                             </span>
                                         </label>
-                                        <select class="form-control">
+                                        <select class="form-control" id="suaHSX">
                                             <option ng-repeat="item in DanhSachHSX"
-                                                    ng-selected="item.MaNhaCungCap == ThongTinThietBi.MaNhaCungCap"
-                                                    ng-click="ChonHangSanXuat(item.MaNhaCungCap)">
+                                                    value="{{item.MaNhaCungCap}}"
+                                                    ng-selected="item.MaNhaCungCap == ThongTinThietBi.MaNhaCungCap">
                                                 {{item.Ten}}
                                             </option>
                                         </select>
@@ -937,29 +1108,17 @@
                                     </div>
 
                                     <div class="form-group col-lg-3">
-                                        <label for="usr">
-                                            Số Lượng <span class="bigger-110 red">
-                                                *
-                                            </span>
-                                        </label>
-                                        <input type="number" name="SoLuong" class="form-control" ng-model="ThongTinThietBi.SoLuong" ng-required=true>
-                                        <span class="error text-danger" ng-show="formSuaTB.SoLuong.$error.required">Bạn chưa nhập thông tin này</span>
-                                        <span class="error text-danger" ng-show="!formSuaTB.SoLuong.$error.required && formSuaTB.SoLuong.$invalid">Số lượng phải là số</span>
-                                        <span class="valid" ng-show="formSuaTB.SoLuong.$valid"></span>
+                                        <label for="usr">Đơn Vị Tính</label>
+                                        <select class="form-control" id="suaDVT">
+                                            <option value="Cm" ng-selected="ThongTinThietBi.DonViTinh == 'Cm'">Cm</option>
+                                            <option value="Mm" ng-selected="ThongTinThietBi.DonViTinh == 'Mm'">Mm</option>
+                                            <option value="Cái" ng-selected="ThongTinThietBi.DonViTinh == 'Cái'">Cái</option>
+                                            <option value="Bộ" ng-selected="ThongTinThietBi.DonViTinh == 'Bộ'">Bộ</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-lg-3">
-                                        <label for="usr">Đơn Vị Tính</label>
-                                        <select class="form-control">
-                                            <option ng-model="ThietBi.DonViTinh" ng-click="ChonDonViTinh('Cm')">Cm</option>
-                                            <option ng-model="ThietBi.DonViTinh" ng-click="ChonDonViTinh('Mm')">Mm</option>
-                                            <option ng-model="ThietBi.DonViTinh" ng-click="ChonDonViTinh('Cái')">Cái</option>
-                                            <option ng-model="ThietBi.DonViTinh" ng-click="ChonDonViTinh('Bộ')">Bộ</option>
-                                        </select>
-                                    </div>
-
                                     <div class="form-group col-lg-3">
                                         <label for="usr">
                                             Giá Trị (VNĐ) <span class="bigger-110 red">
@@ -978,9 +1137,7 @@
                                                 *
                                             </span>
                                         </label>
-                                        <input type="text" name="NgayNhapKho" ng-model="ThongTinThietBi.NgayNhapKho" class="form-control" ng-required="true">
-                                        <span class="error text-danger" ng-show="formSuaTB.NgayNhapKho.$error.required">Bạn chưa nhập ngày mua</span>
-                                        <span class="valid" ng-show="formSuaTB.NgayNhapKho.$valid"></span>
+                                        <input type="date" class="form-control" ng-model="suaNgayMua">
                                     </div>
 
                                     <div class="form-group col-lg-3">
@@ -989,41 +1146,7 @@
                                                 *
                                             </span>
                                         </label>
-                                        <input type="text" name="ThoiGianBaoHanh" ng-model="ThongTinThietBi.ThoiGianBaoHanh" class="form-control" ng-required="true">
-                                        <span class="error text-danger" ng-show="formSuaTB.ThoiGianBaoHanh.$error.required">Bạn chưa nhập ngày bảo hành</span>
-                                        <span class="valid" ng-show="formSuaTB.ThoiGianBaoHanh.$valid"></span>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-lg-3">
-                                        <label for="sel1">Tình Trạng Thiết Bị </label>
-                                        <select class="form-control">
-                                            <option ng-repeat="item in DanhSachTinhTrang"
-                                                    ng-click="ChonTinhTrang(item.MaTinhTrang)">
-                                                {{item.Ten}}
-                                            </option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-lg-3">
-                                        <label for="sel1">Đơn Vị Sử Dụng</label>
-                                        <select class="form-control">
-                                            <option ng-repeat="item in DanhSachPhongBan"
-                                                    ng-click="LayDanhSachNguoiDung(item.MaPhongBan)">
-                                                {{item.Ten}}
-                                            </option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-lg-3">
-                                        <label for="sel1">Người Sử Dụng</label>
-                                        <select class="form-control">
-                                            <option ng-repeat="item in DanhSachNguoiDung"
-                                                    ng-click="ChonNguoiDung(item.MaNguoiDung)">
-                                                {{item.Ten}}
-                                            </option>
-                                        </select>
+                                        <input type="date" class="form-control" ng-model="suaNgayBH">
                                     </div>
 
                                     <div class="form-group col-lg-3">
@@ -1033,6 +1156,8 @@
                                                ng-model="ThongTinThietBi.GhiChu" />
                                     </div>
                                 </div>
+
+
                                 <button type="submit" class="btn btn-success" ng-disabled="formSuaTB.$invalid">
                                     <i class="ace-icon fa fa-check"></i>Cập Nhật
                                 </button>
@@ -1101,8 +1226,7 @@
                                         <th>Serial</th>
                                         <th>Model</th>
                                         <th>NCC</th>
-                                        <th>Dung Lượng (GB)</th>
-                                        <th>Số Lượng (Cái)</th>
+                                        <th>Ghi Chú</th>
                                         <th>Tình Trạng</th>
                                         <th></th>
                                     </tr>
@@ -1114,8 +1238,7 @@
                                         <td>{{item.Serial}}</td>
                                         <td>{{item.Model}}</td>
                                         <td>{{item.NhaCungCap}}</td>
-                                        <td>{{item.DungLuong}}</td>
-                                        <td>{{item.SoLuong}}</td>
+                                        <td>{{item.GhiChu}}</td>
                                         <td><span class="label label-xlg label-success arrowed arrowed-right">Chờ Bàn Giao</span></td>
                                         <td>
                                             <div class="row" style="margin-right:0px !important">
@@ -1152,39 +1275,6 @@
                                 </tbody>
                             </table>
                             <button class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Cập Nhật</button>
-
-                            @*<h4 class="blue">
-                                    <span class="label label-purple arrowed-in-right">
-                                        <i class="ace-icon fa fa-info-circle smaller-80 align-middle"></i>
-                                        Lịch Sử Linh Kiện
-                                    </span>
-                                </h4>
-
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Tên</th>
-                                            <th>Serial</th>
-                                            <th>Model</th>
-                                            <th>NCC</th>
-                                            <th>Dung Lượng (GB)</th>
-                                            <th>Số Lượng (Cái)</th>
-                                            <th>Tình Trạng</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <tr ng-repeat="item in ThongTinThietBi.DanhSachLinhKien">
-                                            <td>{{item.LoaiLinhKien}}</td>
-                                            <td>{{item.Serial}}</td>
-                                            <td>{{item.Model}}</td>
-                                            <td>{{item.NhaCungCap}}</td>
-                                            <td>{{item.DungLuong}}</td>
-                                            <td>{{item.SoLuong}}</td>
-                                            <td><span class="label label-xlg label-success arrowed arrowed-right">Chờ Bàn Giao</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>*@
                         </div>
 
                         <div id="hd" class="tab-pane fade">

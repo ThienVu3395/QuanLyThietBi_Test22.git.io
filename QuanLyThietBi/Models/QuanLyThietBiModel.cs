@@ -60,11 +60,12 @@ namespace QuanLyThietBi.Models
         public int SoLuong { get; set; }
         public string GhiChu { get; set; }
         public string DanhMuc { get; set; }
-        public int MaNhaCungCap { get; set; }
+        public int? MaNhaCungCap { get; set; }
         public string MaTaiSan { get; set; }
         public string NhaCungCap { get; set; }
         public string DonViTinh { get; set; }
         public int MaDanhMuc { get; set; }
+        public int MaDanhMucCha { get; set; }
         public Nullable<System.DateTime> NgayNhapKho { get; set; }
         public Nullable<System.DateTime> NgayXuatKho { get; set; }
         public Nullable<System.DateTime> ThoiGianBaoHanh { get; set; }

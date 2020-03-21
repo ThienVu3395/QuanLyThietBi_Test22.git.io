@@ -155,7 +155,7 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachHSX = response.data;
-                    $scope.ThietBi.MaNhaCungCap = $scope.DanhSachHSX[0].MaNhaCungCap;
+                    $scope.MaNhaCungCap = $scope.DanhSachHSX[0];
                 },
 
                 function errorCallback(response) {
@@ -170,7 +170,7 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachTinhTrang = response.data;
-                    $scope.ThietBi.MaTinhTrang = $scope.DanhSachTinhTrang[0].MaTinhTrang;
+                    $scope.MaTinhTrang = $scope.DanhSachTinhTrang[0];
                 },
 
                 function errorCallback(response) {
@@ -185,7 +185,7 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachHopDong = response.data;
-                    $scope.ThietBi.MaHopDong = $scope.DanhSachHopDong[0].MaHopDong;
+                    $scope.MaHopDong = $scope.DanhSachHopDong[0];
                 },
 
                 function errorCallback(response) {
@@ -209,20 +209,8 @@
         }
 
         // Các sự kiện lấy thông tin từ các list menu :
-        $scope.ChonHangSanXuat = function (MaNhaCungCap) {
-            $scope.ThietBi.MaNhaCungCap = MaNhaCungCap;
-        }
-
-        $scope.ChonHopDong = function (MaHopDong) {
-            $scope.ThietBi.MaHopDong = MaHopDong;
-        }
-
         $scope.ChonDonViTinh = function (DonViTinh) {
             $scope.ThietBi.DonViTinh = DonViTinh;
-        }
-
-        $scope.ChonTinhTrang = function (MaTinhTrang) {
-            $scope.ThietBi.MaTinhTrang = MaTinhTrang;
         }
 
         // Thêm Linh Kiện
@@ -316,8 +304,11 @@
         // Thêm Thiết Bị
         $scope.ThemThietBi = function () {
             $scope.listDanhSachThietBi = [];
+            $scope.ThietBi.MaNhaCungCap = $scope.MaNhaCungCap.MaNhaCungCap;
+            $scope.ThietBi.MaHopDong = $scope.MaHopDong.MaHopDong;
             if ($scope.SoLuongThietBi == 1) {
                 $scope.ThietBi.Serial = document.getElementById("Seri").value;
+                $scope.ThietBi.MaTinhTrang = $scope.MaTinhTrang.MaTinhTrang;
                 $scope.listDanhSachThietBi.push($scope.ThietBi);
             }
             else {
@@ -404,6 +395,10 @@
             res.then(
                 function succ(response) {
                     $scope.ThongTinThietBi = response.data;
+                    $scope.indexCha = $scope.DanhSachDanhMuc.findIndex(x => x.MaDanhMuc == $scope.ThongTinThietBi.MaDanhMucCha);
+                    $scope.MaChaSua = $scope.DanhSachDanhMuc[$scope.indexCha];
+                    $scope.indexCon = $scope.MaChaSua.DanhSachNhom.findIndex(x => x.MaDanhMuc == $scope.ThongTinThietBi.MaDanhMuc);
+                    $scope.MaConSua = $scope.MaChaSua.DanhSachNhom[$scope.indexCon];
                     console.log($scope.ThongTinThietBi);
                 },
 

@@ -397,14 +397,14 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
         {
             var thietBi = dbContext.ThietBis.Where(x => x.MaThietBi == MaThietBi).FirstOrDefault();
             var danhMuc = dbContext.DanhMucs.Where(x => x.MaDanhMuc == thietBi.MaDanhMuc).FirstOrDefault();
-            var ncc = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == thietBi.MaNhaCungCap).FirstOrDefault();
+            //var ncc = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == thietBi.MaNhaCungCap).FirstOrDefault();
             // Lấy thông tin cơ bản
             ChiTietThietBiModel thietBiModel = new ChiTietThietBiModel();
             thietBiModel.MaThietBi = thietBi.MaThietBi;
             thietBiModel.Ten = thietBi.Ten;
             thietBiModel.Gia = thietBi.Gia;
             thietBiModel.Model = thietBi.Model;
-            thietBiModel.MaTaiSan = thietBi.MaTaiSan == null || thietBi.MaTaiSan == "" ? "Đang Cập Nhật..." : thietBi.MaTaiSan;
+            thietBiModel.MaTaiSan = thietBi.MaTaiSan;
             thietBiModel.DonViTinh = thietBi.DonViTinh;
             var danhMuc2 = dbContext.DanhMucs.Where(x => x.MaDanhMuc == danhMuc.ParentID).FirstOrDefault();
             if (danhMuc2 != null)
@@ -416,14 +416,15 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 thietBiModel.DanhMuc = danhMuc.Ten;
             }
             thietBiModel.MaDanhMuc = thietBi.MaDanhMuc;
-            thietBiModel.NhaCungCap = ncc.Ten;
-            thietBiModel.MaNhaCungCap = ncc.MaNhaCungCap;
+            thietBiModel.MaDanhMucCha = thietBi.DanhMuc.ParentID;
+            thietBiModel.NhaCungCap = thietBi.NhaCungCap.Ten;
+            thietBiModel.MaNhaCungCap = thietBi.MaNhaCungCap;
             thietBiModel.NgayNhapKho = thietBi.NgayNhapKho;
             thietBiModel.NgayXuatKho = thietBi.NgayXuatKho;
             thietBiModel.Serial = thietBi.Serial;
             thietBiModel.GiaKhauHao = thietBi.GiaKhauHao;
             thietBiModel.DonViTinh = thietBi.DonViTinh;
-            thietBiModel.GhiChu = thietBi.GhiChu != "" && thietBi.GhiChu != null ? thietBi.GhiChu : "Đang Cập Nhật...";
+            thietBiModel.GhiChu = thietBi.GhiChu;
             thietBiModel.ThoiGianBaoHanh = thietBi.NgayBaoHanh;
             var linhKienThietBi = dbContext.LinhKienThietBis.Where(x => x.MaThietBi == MaThietBi).ToList();
             // Danh sách linh kiện theo thiết bị
@@ -435,14 +436,14 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     var linhKien = dbContext.LinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).FirstOrDefault();
                     LinhKienModel linhKienModel = new LinhKienModel();
                     linhKienModel.MaLinhKien = linhKien.MaLinhKien;
-                    var tenLinhKien = dbContext.LoaiLinhKiens.Where(x => x.MaLoaiLinhKien == linhKien.MaLoaiLinhKien).FirstOrDefault();
-                    linhKienModel.TenLoaiLinhKien = tenLinhKien.TenLinhKien;
+                    //var tenLinhKien = dbContext.LoaiLinhKiens.Where(x => x.MaLoaiLinhKien == linhKien.MaLoaiLinhKien).FirstOrDefault();
+                    linhKienModel.TenLoaiLinhKien = linhKien.LoaiLinhKien.TenLinhKien;
                     linhKienModel.Serial = linhKien.Serial;
                     linhKienModel.Model = linhKien.Model;
                     linhKienModel.MaNhaCungCap = linhKien.MaNhaCungCap;
                     linhKienModel.GhiChu = linhKien.GhiChu;
-                    var nhaCungCap = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == linhKien.MaNhaCungCap).FirstOrDefault();
-                    linhKienModel.NhaCungCap = nhaCungCap.Ten;
+                    //var nhaCungCap = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == linhKien.MaNhaCungCap).FirstOrDefault();
+                    linhKienModel.NhaCungCap = linhKien.NhaCungCap.Ten;
                     DanhSachLinhKien.Add(linhKienModel);
                 }
             }
@@ -483,7 +484,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     hopDongModel.Ten = hopdong.Ten;
                     hopDongModel.GiaTriHD = item.GiaTriHD;
                     hopDongModel.NgayKy = item.NgayKy;
-                    hopDongModel.SoHopDong = item.SoHopDong == null || item.SoHopDong == "" ? "Đang Cập Nhật..." : item.SoHopDong;
+                    hopDongModel.SoHopDong = item.SoHopDong;
                     hopDongModel.Ngay = item.Ngay;
                     danhSachHopDong.Add(hopDongModel);
                 }
