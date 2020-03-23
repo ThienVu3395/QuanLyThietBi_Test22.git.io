@@ -72,6 +72,7 @@ namespace QuanLyThietBi.Models
         public List<LichSuThietBiModel> LichSuThietBi { get; set; }
         public List<LinhKienModel> DanhSachLinhKien { get; set; }
         public List<HopDongModel> DanhSachHopDong { get; set; }
+        public string TrangThai { get; set; }
     }
 
     public class PhongBanModel
@@ -133,6 +134,7 @@ namespace QuanLyThietBi.Models
         public int MaNguoiDung { get; set; }
         public string NguoiDung { get; set; }
         public string DonVi { get; set; }
+        public int MaDonVi { get; set; }
         public Nullable<System.DateTime> Ngay { get; set; }
         public decimal? ChiPhi { get; set; }
     }

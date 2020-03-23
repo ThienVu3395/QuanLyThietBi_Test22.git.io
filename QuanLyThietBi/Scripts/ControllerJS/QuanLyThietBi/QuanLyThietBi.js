@@ -28,8 +28,14 @@
             )
         }
 
-        $scope.getUser = function (index) {
-            let mpb = document.getElementById("MaPhongBan" + index).value;
+        $scope.getUser = function (index, tt) {
+            let mpb = 1;
+            if (tt == "sua") {
+                mpb = document.getElementById("Mpb" + index).value;
+            }
+            else if (tt == "none") {
+                mpb = document.getElementById("MaPhongBan" + index).value;
+            }
             var param = "?MaPhongBan=" + mpb;
             var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNguoiDungTheoPhongBan, param);
             res.then(
@@ -38,7 +44,12 @@
                     for (var i = 0; i < response.data.length; i++) {
                         content += "<option value='" + response.data[i].MaNguoiDung + "'>" + response.data[i].Ten + "</option>";
                     }
-                    document.getElementById("MaNguoiDung" + index).innerHTML = content;
+                    if (tt == "sua") {
+                        document.getElementById("listUser" + index).innerHTML = content;
+                    }
+                    else if (tt == "none") {
+                        document.getElementById("MaNguoiDung" + index).innerHTML = content;
+                    }                
                 },
 
                 function errorCallback(response) {
@@ -355,26 +366,49 @@
             )
         }
 
-        $scope.LayDsNhom = function () {
+        $scope.LayDsNhom = function (tt) {
             let maCha = $scope.MaCha.MaDanhMuc;
+            if (tt == 'sua') {
+                maCha = $scope.MaChaSua.MaDanhMuc;
+            }
             var param = "?MaDanhMuc=" + maCha;
             var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNhomTheoDanhMuc, param);
             res.then(
                 function succ(response) {
-                    $scope.DanhSachNhom = response.data;
-                    if ($scope.DanhSachNhom.length == 0) {
-                        $scope.DanhSachNhom = [{
-                            MaDanhMuc: 0,
-                            Ten: "-- Không --",
-                            SoLuong: 50,
-                            ParentID: 0,
-                        }]
-                        $scope.ThietBi.MaDanhMuc = maCha;
-                        $scope.MaCon = $scope.DanhSachNhom[0];
+                    if (tt == 'sua') {
+                        $scope.DanhSachNhomSua = response.data;
+                        if ($scope.DanhSachNhomSua.length == 0) {
+                            $scope.DanhSachNhomSua = [{
+                                MaDanhMuc: 0,
+                                Ten: "-- Không --",
+                                SoLuong: 50,
+                                ParentID: 0,
+                            }]
+                            $scope.MaConSua = $scope.DanhSachNhomSua[0];
+                            $scope.ThongTinThietBi.MaDanhMuc = maCha;
+                        }
+                        else {
+                            $scope.MaConSua = $scope.DanhSachNhomSua[0];
+                            $scope.ThongTinThietBi.MaDanhMuc = $scope.MaConSua.MaDanhMuc;
+                        }
                     }
+
                     else {
-                        $scope.MaCon = $scope.DanhSachNhom[0];
-                        $scope.ThietBi.MaDanhMuc = $scope.MaCon.MaDanhMuc;
+                        $scope.DanhSachNhom = response.data;
+                        if ($scope.DanhSachNhom.length == 0) {
+                            $scope.DanhSachNhom = [{
+                                MaDanhMuc: 0,
+                                Ten: "-- Không --",
+                                SoLuong: 50,
+                                ParentID: 0,
+                            }]
+                            $scope.ThietBi.MaDanhMuc = maCha;
+                            $scope.MaCon = $scope.DanhSachNhom[0];
+                        }
+                        else {
+                            $scope.MaCon = $scope.DanhSachNhom[0];
+                            $scope.ThietBi.MaDanhMuc = $scope.MaCon.MaDanhMuc;
+                        }
                     }
                 },
 
@@ -395,11 +429,56 @@
             res.then(
                 function succ(response) {
                     $scope.ThongTinThietBi = response.data;
+                    console.log($scope.ThongTinThietBi);
+                    //for (let index = 0; index < $scope.ThongTinThietBi.LichSuThietBi.length; index++) {
+                    //    let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi);
+                    //    $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi = $scope.DanhSachPhongBan[i];
+                    //    var param = "?MaPhongBan=" + $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi.MaPhongBan;
+                    //    var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNguoiDungTheoPhongBan, param);
+                    //    res.then(
+                    //        function succ(response) {
+                    //            let content = ``;
+                    //            for (var i = 0; i < response.data.length; i++) {
+                    //                content += "<option value='" + response.data[i].MaNguoiDung + "'>" + response.data[i].Ten + "</option>";
+                    //            }
+                    //            document.getElementById("listUser" + index).innerHTML = content;
+                    //            document.getElementById("listUser" + index).value = $scope.ThongTinThietBi.LichSuThietBi[index].MaNguoiDung;
+                    //            document.getElementById("tinhTrang" + index).value = $scope.ThongTinThietBi.LichSuThietBi[index].MaTinhTrang;
+                    //        },
+
+                    //        function errorCallback(response) {
+                    //            console.log(response.data.Message);
+                    //        }
+                    //    )
+                    //}
+                    let index = $scope.DanhSachHSX.findIndex(x => x.MaNhaCungCap == $scope.ThongTinThietBi.MaNhaCungCap);
+                    $scope.MaNCC = $scope.DanhSachHSX[index];
                     $scope.indexCha = $scope.DanhSachDanhMuc.findIndex(x => x.MaDanhMuc == $scope.ThongTinThietBi.MaDanhMucCha);
                     $scope.MaChaSua = $scope.DanhSachDanhMuc[$scope.indexCha];
-                    $scope.indexCon = $scope.MaChaSua.DanhSachNhom.findIndex(x => x.MaDanhMuc == $scope.ThongTinThietBi.MaDanhMuc);
-                    $scope.MaConSua = $scope.MaChaSua.DanhSachNhom[$scope.indexCon];
-                    console.log($scope.ThongTinThietBi);
+                    var param = "?MaDanhMuc=" + $scope.ThongTinThietBi.MaDanhMucCha;
+                    var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNhomTheoDanhMuc, param);
+                    res.then(
+                        function succ(response) {
+                            $scope.DanhSachNhomSua = response.data;
+                            if ($scope.DanhSachNhomSua.length == 0) {
+                                $scope.DanhSachNhomSua = [{
+                                    MaDanhMuc: 0,
+                                    Ten: "-- Không --",
+                                    SoLuong: 50,
+                                    ParentID: 0,
+                                }]
+                                $scope.MaConSua = $scope.DanhSachNhomSua[0];
+                            }
+                            else {
+                                $scope.indexCon = $scope.DanhSachNhomSua.findIndex(x => x.MaDanhMuc == $scope.ThongTinThietBi.MaDanhMuc);
+                                $scope.MaConSua = $scope.DanhSachNhomSua[$scope.indexCon];
+                            }
+                        },
+
+                        function errorCallback(response) {
+                            console.log(response.data.Message);
+                        }
+                    )
                 },
 
                 function errorCallback(response) {
@@ -446,13 +525,61 @@
             })
         }
 
+        // Thêm Thông Tin Update
+        $scope.ThemThongTin = function (tt) {
+            if (tt == "lstb") {
+                $scope.lichSu = {
+                    MaThietBi: $scope.ThongTinThietBi.MaThietBi,
+                    MaTinhTrang: document.getElementById("tts").value,
+                    MaNguoiDung: document.getElementById("nds").value,
+                    MaDonVi: document.getElementById("pb").value,
+                    ChiPhi: document.getElementById("cp").value,
+                }
+                $scope.ThongTinThietBi.LichSuThietBi.push($scope.lichSu);
+            }
+        }
+
         // Sửa thiết bị
-        $scope.SuaThietBi = function (MaThietBi) {
-            alert(MaThietBi);
+        $scope.CapNhatTB = function (trangThai) {
+            $scope.ThongTinThietBi.TrangThai = trangThai;
+            let API = CommonController.urlAPI.API_CapNhatThietBi;
+
+            if (trangThai == 'chung') {
+                $scope.ThongTinThietBi.MaNhaCungCap = $scope.MaNCC.MaNhaCungCap;
+                if ($scope.MaConSua.MaDanhMuc != 0) {
+                    $scope.ThongTinThietBi.MaDanhMuc = $scope.MaConSua.MaDanhMuc;
+                }
+                console.log($scope.ThongTinThietBi);
+            }
+
+            else if (trangThai == 'lstb') {
+                console.log($scope.ThongTinThietBi.LichSuThietBi);
+                return;
+            }
+
+            var res = CommonController.postData(API, $scope.ThongTinThietBi);
+            res.then(
+                function succ(response) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: response.data,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    $scope.LayDanhSachThietBi($scope.MaDanhMuc);
+                },
+
+                function errorCallback(response) {
+                    Swal.fire(response.data.Message, 'Xin vui lòng thử lại', 'error');
+                }
+            )
+
         }
 
         // Lọc thiết bị
         $scope.objLoc = { MaPhongBan: 0, MaTinhTrang: 0 }
+
         $scope.ChonDonVi = function (MaPhongBan) {
             $scope.objLoc.MaPhongBan = MaPhongBan;
         }
