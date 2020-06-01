@@ -998,6 +998,7 @@ C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\roslyn\vbc.rsp
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\roslyn\VBCSCompiler.exe
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Antlr3.Runtime.dll
+C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Dapper.dll
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\EntityFramework.dll
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\EntityFramework.SqlServer.dll
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Microsoft.AspNet.Identity.Core.dll
@@ -1030,6 +1031,7 @@ C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Web.Web
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Web.WebPages.dll
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Web.WebPages.Razor.dll
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\WebGrease.dll
+C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Dapper.xml
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Newtonsoft.Json.xml
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Net.Http.Formatting.xml
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Web.Helpers.xml

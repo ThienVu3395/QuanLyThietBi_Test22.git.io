@@ -6,6 +6,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using QuanLyThietBi.Models;
+using Dapper;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
 {
@@ -13,10 +16,48 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
     public class QuanLyThietBiController : ApiController
     {
         QuanLyThietBiEntities dbContext = new QuanLyThietBiEntities();
+        private readonly string _cnn;
+        public QuanLyThietBiController()
+        {
+            _cnn = System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTaiSanConnection"].ConnectionString;
+        }
         [HttpGet]
         [Route("LayDanhSachDanhMuc")]
         public IHttpActionResult LayDanhSachDanhMuc()
         {
+            //using (IDbConnection db = new SqlConnection(_cnn))
+            //{
+            //    var parameters = new DynamicParameters();
+            //    parameters.Add("@OrganId", par.OrganId);
+            //    parameters.Add("@FileCatalog", par.FileCatalog);
+            //    parameters.Add("@FileNotation", par.FileNotation);
+            //    parameters.Add("@DocOrdinal", par.DocOrdinal);
+            //    parameters.Add("@TypeName", par.TypeName);
+            //    parameters.Add("@CodeNumber", par.CodeNumber);
+            //    parameters.Add("@CodeNotation", par.CodeNotation);
+            //    parameters.Add("@IssuedDate", par.IssuedDate);
+            //    parameters.Add("@OrganName", par.OrganName);
+            //    parameters.Add("@Subject", par.Subject);
+            //    parameters.Add("@Language", par.Language);
+            //    parameters.Add("@PageAmount", 1);
+            //    parameters.Add("@Description", par.Description);
+            //    parameters.Add("@Position", par.Position);
+            //    parameters.Add("@Fullname", par.Fullname);
+            //    parameters.Add("@Priority", par.Priority);
+            //    parameters.Add("@IssuedAmount", par.IssuedAmount);
+            //    parameters.Add("@DueDate", par.DueDate);
+            //    parameters.Add("@SoVanBanID", par.SoVanBanID);
+            //    parameters.Add("@MOREINFO1", par.MOREINFO1);
+            //    parameters.Add("@MOREINFO2", par.MOREINFO2);
+            //    parameters.Add("@MOREINFO3", par.MOREINFO3);
+            //    parameters.Add("@MOREINFO4", par.MOREINFO4);
+            //    parameters.Add("@MOREINFO5", par.MOREINFO5);
+
+            //    if (db.State == System.Data.ConnectionState.Closed)
+            //    {
+            //        db.Open();
+            //    }
+            //}
             var dsDanhMuc = dbContext.DanhMucs.Where(x => x.ParentID == 0).ToList();
             if (dsDanhMuc.Count > 0)
             {
@@ -45,7 +86,6 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             }
             return BadRequest();
         }
-
 
         [HttpGet]
         [Route("LayDanhSachNhomTheoDanhMuc")]
@@ -501,7 +541,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 var hopDongThietBi = dbContext.HopDongThietBis.Where(x => x.MaThietBi == MaThietBi).ToList();
                 if (hopDongThietBi.Count > 0)
                 {
-                    foreach (var item in hopDongThietBi)    
+                    foreach (var item in hopDongThietBi)
                     {
                         dbContext.HopDongThietBis.Remove(item);
                         dbContext.SaveChanges();
@@ -567,7 +607,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             try
             {
                 var tb = dbContext.ThietBis.Where(x => x.MaThietBi == tbModel.MaThietBi).FirstOrDefault();
-                if(tbModel.TrangThai == "chung")
+                if (tbModel.TrangThai == "chung")
                 {
                     tb.MaTaiSan = tbModel.MaTaiSan;
                     tb.Ten = tbModel.Ten;

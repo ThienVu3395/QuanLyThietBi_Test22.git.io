@@ -1,0 +1,24 @@
+INSERT INTO ThietBi(MaTaiSan, Ten, Model,MaDanhMuc,Serial,ChiTietTaiSan,HangSanXuat,NguoiSuDung,MaPhongBan,IP,SoHopDong,NhaCungCap,NgayMua,NamBaoHanh,ChiTietPhongBan)
+SELECT
+		[MSTS], 
+		[Tên TS],
+		[Model],
+		9,
+		[S/N],
+		[Chi tiết TS],
+		[Hãng SX],
+		[Người SD],
+		16,
+		[IP],
+		[Số Hợp Đồng],
+		[Nhà CC],
+		[Ngày mua],
+		[Năm BH],
+		[PBĐ-XNN]
+FROM dbo.XNN
+
+DELETE FROM ThietBi
+
+UPDATE dbo.ThietBi
+SET MaDanhMuc = 10
+WHERE MaThietBi = 186
