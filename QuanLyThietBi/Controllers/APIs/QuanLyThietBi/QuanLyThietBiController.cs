@@ -16,11 +16,11 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
     public class QuanLyThietBiController : ApiController
     {
         QuanLyThietBiEntities dbContext = new QuanLyThietBiEntities();
-        private readonly string _cnn;
-        public QuanLyThietBiController()
-        {
-            _cnn = System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTaiSanConnection"].ConnectionString;
-        }
+        //private readonly string _cnn;
+        //public QuanLyThietBiController()
+        //{
+        //    _cnn = System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTaiSanConnection"].ConnectionString;
+        //}
         [HttpGet]
         [Route("LayDanhSachDanhMuc")]
         public IHttpActionResult LayDanhSachDanhMuc()
@@ -143,9 +143,11 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     thietBi.Ten = item.Ten;
                     thietBi.Gia = item.Gia;
                     thietBi.Model = item.Model;
-                    thietBi.NgayNhapKho = item.NgayNhapKho;
-                    thietBi.NgayXuatKho = item.NgayXuatKho;
+                    thietBi.Loai = item.DanhMuc.Ten;
+                    thietBi.NguoiSuDung = item.NguoiSuDung;
+                    thietBi.ViTri = item.ViTri;
                     thietBi.MaDanhMuc = item.MaDanhMuc;
+                    thietBi.Serial = item.Serial == null ? "Chưa Cập Nhật..." : item.Serial;
                     _dsThietBi.Add(thietBi);
                 }
                 return Ok(_dsThietBi);
@@ -200,16 +202,17 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     thietBi.Ten = item.Ten;
                     thietBi.Gia = item.Gia;
                     thietBi.Model = item.Model;
-                    thietBi.NgayNhapKho = item.NgayNhapKho;
-                    thietBi.NgayXuatKho = item.NgayXuatKho;
+                    thietBi.Loai = item.DanhMuc.Ten;
+                    thietBi.NguoiSuDung = item.NguoiSuDung;
+                    thietBi.ViTri = item.ViTri;
                     thietBi.MaDanhMuc = item.MaDanhMuc;
+                    thietBi.Serial = item.Serial == null ? "Chưa Cập Nhật..." : item.Serial;
                     _dsThietBi.Add(thietBi);
                 }
                 return Ok(_dsThietBi.Skip(offset).Take(limit));
             }
             return BadRequest("K tồn tại");
         }
-
 
         [HttpGet]
         [Route("LayDanhSachPhongBan")]
@@ -345,19 +348,28 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 foreach (var tb in dsthietBiModel)
                 {
                     ThietBi thietBi = new ThietBi();
+                    thietBi.MaTaiSan = tb.MaTaiSan;
                     thietBi.Ten = tb.Ten;
                     thietBi.Gia = tb.Gia;
                     thietBi.Model = tb.Model;
-                    thietBi.NgayNhapKho = tb.NgayNhapKho;
+                    thietBi.NgayNhapKho = null;
                     thietBi.NgayXuatKho = null;
-                    thietBi.MaTaiSan = tb.MaTaiSan;
                     thietBi.MaDanhMuc = tb.MaDanhMuc;
-                    thietBi.MaNhaCungCap = tb.MaNhaCungCap;
+                    thietBi.MaHangSanXuat = tb.MaNhaCungCap;
                     thietBi.Serial = tb.Serial;
                     thietBi.GiaKhauHao = null;
-                    thietBi.DonViTinh = tb.DonViTinh;
+                    thietBi.DonViTinh = null;
                     thietBi.GhiChu = tb.GhiChu;
-                    thietBi.NgayBaoHanh = tb.ThoiGianBaoHanh;
+                    thietBi.NgayBaoHanh = null;
+                    thietBi.HangSanXuat = tb.HangSanXuat;
+                    thietBi.NguoiSuDung = tb.NguoiSuDung;
+                    thietBi.MaPhongBan = tb.MaPhongBan;
+                    thietBi.IP = tb.IP;
+                    thietBi.SoHopDong = tb.SoHopDong;
+                    thietBi.NhaCungCap = tb.NhaCungCap;
+                    thietBi.NgayMua = tb.NgayMua;
+                    thietBi.NamBaoHanh = tb.NamBaoHanh;
+                    thietBi.ViTri = tb.ViTri;
                     dbContext.ThietBis.Add(thietBi);
                     dbContext.SaveChanges();
 
@@ -365,7 +377,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     lichSuThietBi.MaThietBi = thietBi.MaThietBi;
                     lichSuThietBi.MaTinhTrang = tb.MaTinhTrang;
                     lichSuThietBi.MaNguoiDung = tb.MaNguoiDung;
-                    lichSuThietBi.Ngay = null;
+                    lichSuThietBi.Ngay = DateTime.Now;
                     lichSuThietBi.ChiPhi = null;
                     dbContext.LichSuThietBis.Add(lichSuThietBi);
                     dbContext.SaveChanges();
@@ -376,7 +388,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     hopDongThietBi.GiaTriHD = tb.GiaTriHD;
                     hopDongThietBi.NgayKy = tb.NgayKy;
                     hopDongThietBi.SoHopDong = tb.SoHopDong;
-                    hopDongThietBi.Ngay = null;
+                    hopDongThietBi.Ngay = DateTime.Now;
                     dbContext.HopDongThietBis.Add(hopDongThietBi);
                     dbContext.SaveChanges();
 
@@ -396,14 +408,14 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                             LinhKienThietBi linhKienThietBi = new LinhKienThietBi();
                             linhKienThietBi.MaLinhKien = linhKien.MaLinhKien;
                             linhKienThietBi.MaThietBi = thietBi.MaThietBi;
-                            linhKienThietBi.Ngay = null;
+                            linhKienThietBi.Ngay = DateTime.Now;
                             dbContext.LinhKienThietBis.Add(linhKienThietBi);
                             dbContext.SaveChanges();
 
                             LichSuLinhKien lichSuLinhKien = new LichSuLinhKien();
                             lichSuLinhKien.MaLinhKien = linhKien.MaLinhKien;
                             lichSuLinhKien.MaTinhTrang = 1;
-                            lichSuLinhKien.Ngay = null;
+                            lichSuLinhKien.Ngay = DateTime.Now;
                             lichSuLinhKien.ChiPhi = null;
                             dbContext.LichSuLinhKiens.Add(lichSuLinhKien);
                             dbContext.SaveChanges();
@@ -456,15 +468,26 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             }
             thietBiModel.MaDanhMuc = thietBi.MaDanhMuc;
             thietBiModel.MaDanhMucCha = thietBi.DanhMuc.ParentID;
-            thietBiModel.NhaCungCap = thietBi.NhaCungCap.Ten;
+            //thietBiModel.NhaCungCap = thietBi.NhaCungCap.Ten;
+            thietBiModel.NhaCungCap = thietBi.NhaCungCap;
             thietBiModel.MaNhaCungCap = thietBi.MaNhaCungCap;
-            thietBiModel.NgayNhapKho = thietBi.NgayNhapKho;
+            thietBiModel.NgayNhapKho = thietBi.NgayMua;
             thietBiModel.NgayXuatKho = thietBi.NgayXuatKho;
             thietBiModel.Serial = thietBi.Serial;
             thietBiModel.GiaKhauHao = thietBi.GiaKhauHao;
             thietBiModel.DonViTinh = thietBi.DonViTinh;
             thietBiModel.GhiChu = thietBi.GhiChu;
             thietBiModel.ThoiGianBaoHanh = thietBi.NgayBaoHanh;
+
+            // Lấy thêm các trường thông tin cho cttb
+            thietBiModel.NhaCungCap = thietBi.NhaCungCap;
+            thietBiModel.HangSanXuat = thietBi.HangSanXuat;
+            thietBiModel.MaHangSanXuat = thietBi.MaHangSanXuat;
+            thietBiModel.ViTri = thietBi.ViTri;
+            thietBiModel.ChiTietTaiSan = thietBi.ChiTietTaiSan;
+            thietBiModel.NamBaoHanh = thietBi.NamBaoHanh;
+            thietBiModel.SoHopDong = thietBi.SoHopDong;
+            thietBiModel.IP = thietBi.IP;
             var linhKienThietBi = dbContext.LinhKienThietBis.Where(x => x.MaThietBi == MaThietBi).ToList();
             // Danh sách linh kiện theo thiết bị
             List<LinhKienModel> DanhSachLinhKien = new List<LinhKienModel>();
@@ -668,6 +691,9 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                             tbModel.NgayNhapKho = thietBi.NgayNhapKho;
                             tbModel.NgayXuatKho = thietBi.NgayXuatKho;
                             tbModel.MaDanhMuc = thietBi.MaDanhMuc;
+                            tbModel.NguoiSuDung = thietBi.NguoiSuDung;
+                            tbModel.ViTri = thietBi.ViTri;
+                            tbModel.Serial = thietBi.Serial == null ? "Chưa Cập Nhật..." : thietBi.Serial;
                             dsThietBi.Add(tbModel);
                         }
                     }
@@ -699,6 +725,9 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                         tbModel.NgayNhapKho = thietBi.NgayNhapKho;
                         tbModel.NgayXuatKho = thietBi.NgayXuatKho;
                         tbModel.MaDanhMuc = thietBi.MaDanhMuc;
+                        tbModel.NguoiSuDung = thietBi.NguoiSuDung;
+                        tbModel.ViTri = thietBi.ViTri;
+                        tbModel.Serial = thietBi.Serial == null ? "Chưa Cập Nhật..." : thietBi.Serial;
                         dsThietBi.Add(tbModel);
                     }
                 }
@@ -727,6 +756,9 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     tbModel.NgayNhapKho = thietBi.NgayNhapKho;
                     tbModel.NgayXuatKho = thietBi.NgayXuatKho;
                     tbModel.MaDanhMuc = thietBi.MaDanhMuc;
+                    tbModel.NguoiSuDung = thietBi.NguoiSuDung;
+                    tbModel.ViTri = thietBi.ViTri;
+                    tbModel.Serial = thietBi.Serial == null ? "Chưa Cập Nhật..." : thietBi.Serial;
                     ds.Add(tbModel);
                 }
                 return Ok(ds);
@@ -761,6 +793,9 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                                 tbModel.NgayNhapKho = thietBi.NgayNhapKho;
                                 tbModel.NgayXuatKho = thietBi.NgayXuatKho;
                                 tbModel.MaDanhMuc = thietBi.MaDanhMuc;
+                                tbModel.NguoiSuDung = thietBi.NguoiSuDung;
+                                tbModel.ViTri = thietBi.ViTri;
+                                tbModel.Serial = thietBi.Serial == null ? "Chưa Cập Nhật..." : thietBi.Serial;
                                 dsThietBi.Add(tbModel);
                             }
                         }

@@ -22,3 +22,25 @@ DELETE FROM ThietBi
 UPDATE dbo.ThietBi
 SET MaDanhMuc = 10
 WHERE MaThietBi = 186
+
+
+INSERT INTO ThietBi(MaTaiSan, Ten, Model,MaDanhMuc,MaHangSanXuat,Serial,ChiTietTaiSan,HangSanXuat,NguoiSuDung,MaPhongBan,IP,SoHopDong,NhaCungCap,NgayMua,NamBaoHanh,ViTri,GhiChu)
+SELECT
+		MaTaiSan, 
+		Ten,
+		Model,
+		MaDanhMuc,
+		MaHangSanXuat,
+		Serial,
+		ChiTietTaiSan,
+		HangSanXuat,
+		NguoiSuDung,
+		MaPhongBan,
+		IP,
+		SoHopDong,
+		NhaCungCap,
+		NgayMua,
+		NamBaoHanh,
+		ViTri,
+		GhiChu
+FROM dbo.ThietBis

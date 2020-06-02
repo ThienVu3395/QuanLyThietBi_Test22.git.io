@@ -103,26 +103,6 @@
     <Property Name="Ten" Type="nvarchar" MaxLength="150" Nullable="false" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6013: The table/view 'QuanLyThietBi.dbo.Sheet1$' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Sheet1$">
-          <Property Name="UserName" Type="nvarchar" MaxLength="255" />
-          <Property Name="Chức Vụ" Type="nvarchar" MaxLength="255" />
-          <Property Name="F3" Type="nvarchar" MaxLength="255" />
-          <Property Name="F4" Type="nvarchar" MaxLength="255" />
-          <Property Name="F5" Type="nvarchar" MaxLength="255" />
-          <Property Name="F6" Type="nvarchar" MaxLength="255" />
-          <Property Name="F7" Type="nvarchar" MaxLength="255" />
-          <Property Name="F8" Type="nvarchar" MaxLength="255" />
-          <Property Name="F9" Type="nvarchar" MaxLength="255" />
-          <Property Name="F10" Type="nvarchar" MaxLength="255" />
-          <Property Name="F11" Type="nvarchar" MaxLength="255" />
-          <Property Name="F12" Type="nvarchar" MaxLength="255" />
-          <Property Name="F13" Type="nvarchar" MaxLength="255" />
-          <Property Name="F14" Type="nvarchar" MaxLength="255" />
-          <Property Name="F15" Type="nvarchar" MaxLength="255" />
-          <Property Name="F16" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
-  <!--Errors Found During Generation:
 warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="sysdiagrams">
     <Key>
@@ -143,18 +123,29 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
     <Property Name="MaThietBi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MaTaiSan" Type="nvarchar" MaxLength="200" />
     <Property Name="Ten" Type="nvarchar" MaxLength="200" />
-    <Property Name="Gia" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+    <Property Name="Gia" Type="decimal" Precision="18" Scale="3" />
     <Property Name="Model" Type="nvarchar" MaxLength="150" />
     <Property Name="SoLuong" Type="int" />
     <Property Name="NgayNhapKho" Type="date" />
     <Property Name="NgayXuatKho" Type="date" />
     <Property Name="MaDanhMuc" Type="int" Nullable="false" />
     <Property Name="MaNhaCungCap" Type="int" />
+    <Property Name="MaHangSanXuat" Type="int" />
     <Property Name="Serial" Type="nvarchar" MaxLength="50" />
     <Property Name="GiaKhauHao" Type="decimal" Precision="18" Scale="3" />
     <Property Name="DonViTinh" Type="nvarchar" MaxLength="50" />
     <Property Name="GhiChu" Type="nvarchar(max)" />
     <Property Name="NgayBaoHanh" Type="date" />
+    <Property Name="ChiTietTaiSan" Type="nvarchar(max)" />
+    <Property Name="HangSanXuat" Type="nvarchar" MaxLength="50" />
+    <Property Name="NguoiSuDung" Type="nvarchar" MaxLength="250" />
+    <Property Name="MaPhongBan" Type="int" />
+    <Property Name="IP" Type="nvarchar" MaxLength="20" />
+    <Property Name="SoHopDong" Type="nvarchar" MaxLength="100" />
+    <Property Name="NhaCungCap" Type="nvarchar" MaxLength="100" />
+    <Property Name="NgayMua" Type="date" />
+    <Property Name="NamBaoHanh" Type="nvarchar" MaxLength="255" />
+    <Property Name="ViTri" Type="nvarchar" MaxLength="255" />
   </EntityType>
   <EntityType Name="TinhTrang">
     <Key>

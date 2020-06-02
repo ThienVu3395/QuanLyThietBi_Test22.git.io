@@ -155,11 +155,22 @@
     <EntitySetMapping Name="ThietBis">
       <EntityTypeMapping TypeName="QuanLyThietBiModel.ThietBi">
         <MappingFragment StoreEntitySet="ThietBi">
+          <ScalarProperty Name="ViTri" ColumnName="ViTri" />
+          <ScalarProperty Name="NamBaoHanh" ColumnName="NamBaoHanh" />
+          <ScalarProperty Name="NgayMua" ColumnName="NgayMua" />
+          <ScalarProperty Name="NhaCungCap" ColumnName="NhaCungCap" />
+          <ScalarProperty Name="SoHopDong" ColumnName="SoHopDong" />
+          <ScalarProperty Name="IP" ColumnName="IP" />
+          <ScalarProperty Name="MaPhongBan" ColumnName="MaPhongBan" />
+          <ScalarProperty Name="NguoiSuDung" ColumnName="NguoiSuDung" />
+          <ScalarProperty Name="HangSanXuat" ColumnName="HangSanXuat" />
+          <ScalarProperty Name="ChiTietTaiSan" ColumnName="ChiTietTaiSan" />
           <ScalarProperty Name="NgayBaoHanh" ColumnName="NgayBaoHanh" />
           <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
           <ScalarProperty Name="DonViTinh" ColumnName="DonViTinh" />
           <ScalarProperty Name="GiaKhauHao" ColumnName="GiaKhauHao" />
           <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="MaHangSanXuat" ColumnName="MaHangSanXuat" />
           <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
           <ScalarProperty Name="MaDanhMuc" ColumnName="MaDanhMuc" />
           <ScalarProperty Name="NgayXuatKho" ColumnName="NgayXuatKho" />

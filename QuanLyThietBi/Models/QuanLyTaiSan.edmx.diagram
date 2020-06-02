@@ -26,13 +26,13 @@
         <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_NguoiSuDung_PhongBan" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="QuanLyThietBiModel.ThietBi" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.ThietBi" Width="1.5" PointX="12" PointY="0.75" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_ThietBi_DanhMuc" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_HopDongThietBi_ThietBi" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKienThietBi_ThietBi" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

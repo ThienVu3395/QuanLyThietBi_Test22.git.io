@@ -445,14 +445,14 @@
                             <b class="arrow"></b>
 
                             <ul class="submenu">
-                                <li class="">
+                                @*<li class="">
                                     <a href="@Url.Action("Index","Pages")?MaDanhMuc=-1">
                                         <i class="menu-icon fa fa-eye purple"></i>
                                         Xem Tất Cả
                                     </a>
 
                                     <b class="arrow"></b>
-                                </li>
+                                </li>*@
 
                                 <li class="" ng-repeat="item in DanhSachDanhMuc" ng-show="item.DanhSachNhom.length > 0">
                                     <a href="#" class="dropdown-toggle">
@@ -464,14 +464,14 @@
                                     <b class="arrow"></b>
 
                                     <ul class="submenu" ng-show="item.DanhSachNhom.length > 0">
-                                        <li class="">
+                                        @*<li class="">
                                             <a href="@Url.Action("Index","Pages")?MaDanhMuc={{item.MaDanhMuc}}">
                                                 <i class="menu-icon fa fa-eye orange"></i>
                                                 <span class="menu-text"> Xem Tất Cả </span>
                                             </a>
 
                                             <b class="arrow"></b>
-                                        </li>
+                                        </li>*@
 
                                         <li class="" ng-repeat="i in item.DanhSachNhom">
                                             <a href="@Url.Action("Index","Pages")?MaDanhMuc={{i.MaDanhMuc}}">

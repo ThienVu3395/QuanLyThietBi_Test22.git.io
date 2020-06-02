@@ -354,23 +354,34 @@
     <Property Name="MaThietBi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MaTaiSan" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="Ten" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Gia" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+    <Property Name="Gia" Type="Decimal" Precision="18" Scale="3" />
     <Property Name="Model" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="SoLuong" Type="Int32" />
     <Property Name="NgayNhapKho" Type="DateTime" Precision="0" />
     <Property Name="NgayXuatKho" Type="DateTime" Precision="0" />
     <Property Name="MaDanhMuc" Type="Int32" Nullable="false" />
     <Property Name="MaNhaCungCap" Type="Int32" />
+    <Property Name="MaHangSanXuat" Type="Int32" />
     <Property Name="Serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GiaKhauHao" Type="Decimal" Precision="18" Scale="3" />
     <Property Name="DonViTinh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="NgayBaoHanh" Type="DateTime" Precision="0" />
+    <Property Name="ChiTietTaiSan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HangSanXuat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NguoiSuDung" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="MaPhongBan" Type="Int32" />
+    <Property Name="IP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="SoHopDong" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NhaCungCap" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NgayMua" Type="DateTime" Precision="0" />
+    <Property Name="NamBaoHanh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ViTri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="DanhMuc" Relationship="QuanLyThietBiModel.FK_ThietBi_DanhMuc" FromRole="ThietBi" ToRole="DanhMuc" />
     <NavigationProperty Name="HopDongThietBis" Relationship="QuanLyThietBiModel.FK_HopDongThietBi_ThietBi" FromRole="ThietBi" ToRole="HopDongThietBi" />
     <NavigationProperty Name="LichSuThietBis" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" FromRole="ThietBi" ToRole="LichSuThietBi" />
     <NavigationProperty Name="LinhKienThietBis" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_ThietBi" FromRole="ThietBi" ToRole="LinhKienThietBi" />
-    <NavigationProperty Name="NhaCungCap" Relationship="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" FromRole="ThietBi" ToRole="NhaCungCap" />
+    <NavigationProperty Name="NhaCungCap1" Relationship="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" FromRole="ThietBi" ToRole="NhaCungCap" />
   </EntityType>
   <Association Name="FK_ThietBi_DanhMuc">
     <End Type="QuanLyThietBiModel.DanhMuc" Role="DanhMuc" Multiplicity="1" />

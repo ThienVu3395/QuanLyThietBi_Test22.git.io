@@ -49,7 +49,7 @@
                     }
                     else if (tt == "none") {
                         document.getElementById("MaNguoiDung" + index).innerHTML = content;
-                    }                
+                    }
                 },
 
                 function errorCallback(response) {
@@ -248,6 +248,7 @@
         // Lấy Thông Tin Linh Kiện
         $scope.suaLinhKien = false;
         $scope.viTriLinhKien = 0;
+
         $scope.LayThongTinLinhKien = function (index) {
             $scope.suaLinhKien = true;
             $scope.viTriLinhKien = index;
@@ -320,7 +321,11 @@
             if ($scope.SoLuongThietBi == 1) {
                 $scope.ThietBi.Serial = document.getElementById("Seri").value;
                 $scope.ThietBi.MaTinhTrang = $scope.MaTinhTrang.MaTinhTrang;
+                $scope.ThietBi.HangSanXuat = $scope.MaNhaCungCap.Ten;
+                $scope.ThietBi.MaPhongBan = $scope.DonVi.MaPhongBan;
+                $scope.ThietBi.NguoiSuDung = $scope.MaNguoiDung.Ten;
                 $scope.listDanhSachThietBi.push($scope.ThietBi);
+                console.log($scope.listDanhSachThietBi);
             }
             else {
                 for (let i = 0; i < $scope.SoLuongThietBi; i++) {
@@ -329,41 +334,45 @@
                     $scope.ThietBiMoi.MaTaiSan = document.getElementById("MaTaiSan" + (i + 1)).value;
                     $scope.ThietBiMoi.MaTinhTrang = document.getElementById("MaTinhTrang" + (i + 1)).value;
                     $scope.ThietBiMoi.MaNguoiDung = document.getElementById("MaNguoiDung" + (i + 1)).value;
+                    $scope.ThietBiMoi.NguoiSuDung = document.getElementById("MaNguoiDung" + (i + 1)).innerHTML;
+                    console.log(document.getElementById("MaNguoiDung" + (i + 1)));
+                    $scope.ThietBiMoi.MaPhongBan = document.getElementById("MaPhongBan" + (i + 1)).value;
+                    $scope.ThietBiMoi.HangSanXuat = $scope.MaNhaCungCap.Ten;
                     $scope.listDanhSachThietBi.push($scope.ThietBiMoi);
                 }
             }
             console.log($scope.listDanhSachThietBi);
-            let closeBtn = document.getElementById("closeBTN");
-            var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
-            res.then(
-                function succ(response) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: response.data,
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    closeBtn.click();
-                    var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
-                    var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
-                    ress.then(
-                        function succ(response) {
-                            $scope.DanhSachThietBi = response.data;
-                            $scope.totalItems = $scope.DanhSachThietBi.length;
-                            $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
-                        },
+            //let closeBtn = document.getElementById("closeBTN");
+            //var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
+            //res.then(
+            //    function succ(response) {
+            //        Swal.fire({
+            //            position: 'center',
+            //            icon: 'success',
+            //            title: response.data,
+            //            showConfirmButton: false,
+            //            timer: 1500
+            //        })
+            //        closeBtn.click();
+            //        var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
+            //        var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
+            //        ress.then(
+            //            function succ(response) {
+            //                $scope.DanhSachThietBi = response.data;
+            //                $scope.totalItems = $scope.DanhSachThietBi.length;
+            //                $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
+            //            },
 
-                        function errorCallback(response) {
-                            swal(response.data.Message, "", "error");
-                        }
-                    )
-                },
+            //            function errorCallback(response) {
+            //                swal(response.data.Message, "", "error");
+            //            }
+            //        )
+            //    },
 
-                function errorCallback(response) {
-                    console.log(response.data.Message);
-                }
-            )
+            //    function errorCallback(response) {
+            //        console.log(response.data.Message);
+            //    }
+            //)
         }
 
         $scope.LayDsNhom = function (tt) {
@@ -429,7 +438,6 @@
             res.then(
                 function succ(response) {
                     $scope.ThongTinThietBi = response.data;
-                    console.log($scope.ThongTinThietBi);
                     //for (let index = 0; index < $scope.ThongTinThietBi.LichSuThietBi.length; index++) {
                     //    let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi);
                     //    $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi = $scope.DanhSachPhongBan[i];
@@ -451,7 +459,7 @@
                     //        }
                     //    )
                     //}
-                    let index = $scope.DanhSachHSX.findIndex(x => x.MaNhaCungCap == $scope.ThongTinThietBi.MaNhaCungCap);
+                    let index = $scope.DanhSachHSX.findIndex(x => x.MaNhaCungCap == $scope.ThongTinThietBi.MaHangSanXuat);
                     $scope.MaNCC = $scope.DanhSachHSX[index];
                     $scope.indexCha = $scope.DanhSachDanhMuc.findIndex(x => x.MaDanhMuc == $scope.ThongTinThietBi.MaDanhMucCha);
                     $scope.MaChaSua = $scope.DanhSachDanhMuc[$scope.indexCha];
@@ -510,6 +518,7 @@
                                 'success'
                             )
                             $scope.totalItems = $scope.DanhSachThietBi.length;
+                            window.location.href = "";
                         },
 
                         function errorCallback(response) {

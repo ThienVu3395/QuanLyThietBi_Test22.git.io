@@ -1062,8 +1062,8 @@ C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Web.Htt
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csprojAssemblyReference.cache
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csproj.CoreCompileInputs.cache
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csproj.CopyComplete
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.dll
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.pdb
+C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csprojAssemblyReference.cache
