@@ -284,7 +284,6 @@
         $scope.showSerial = function () {
             if ($scope.SoLuongThietBi > 1) {
                 $scope.ThietBi.Serial = "Nhập các số serial bên dưới...";
-
             }
             else $scope.ThietBi.Serial = "";
         }
@@ -315,6 +314,9 @@
 
         // Thêm Thiết Bị
         $scope.ThemThietBi = function () {
+            if (!window.confirm("Bạn chắc thêm thiết bị với các thông tin vừa nhập chứ ?")) {
+                return;
+            }
             $scope.listDanhSachThietBi = [];
             $scope.ThietBi.MaNhaCungCap = $scope.MaNhaCungCap.MaNhaCungCap;
             $scope.ThietBi.MaHopDong = $scope.MaHopDong.MaHopDong;
@@ -334,45 +336,47 @@
                     $scope.ThietBiMoi.MaTaiSan = document.getElementById("MaTaiSan" + (i + 1)).value;
                     $scope.ThietBiMoi.MaTinhTrang = document.getElementById("MaTinhTrang" + (i + 1)).value;
                     $scope.ThietBiMoi.MaNguoiDung = document.getElementById("MaNguoiDung" + (i + 1)).value;
-                    $scope.ThietBiMoi.NguoiSuDung = document.getElementById("MaNguoiDung" + (i + 1)).innerHTML;
-                    console.log(document.getElementById("MaNguoiDung" + (i + 1)));
+                    let index = document.getElementById("MaNguoiDung" + (i + 1)).options.selectedIndex;
+                    let nsd = document.getElementById("MaNguoiDung" + (i + 1)).options[index].innerHTML.trim();
+                    $scope.ThietBiMoi.NguoiSuDung = nsd;
                     $scope.ThietBiMoi.MaPhongBan = document.getElementById("MaPhongBan" + (i + 1)).value;
                     $scope.ThietBiMoi.HangSanXuat = $scope.MaNhaCungCap.Ten;
                     $scope.listDanhSachThietBi.push($scope.ThietBiMoi);
                 }
             }
             console.log($scope.listDanhSachThietBi);
-            //let closeBtn = document.getElementById("closeBTN");
-            //var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
-            //res.then(
-            //    function succ(response) {
-            //        Swal.fire({
-            //            position: 'center',
-            //            icon: 'success',
-            //            title: response.data,
-            //            showConfirmButton: false,
-            //            timer: 1500
-            //        })
-            //        closeBtn.click();
-            //        var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
-            //        var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
-            //        ress.then(
-            //            function succ(response) {
-            //                $scope.DanhSachThietBi = response.data;
-            //                $scope.totalItems = $scope.DanhSachThietBi.length;
-            //                $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
-            //            },
+            let closeBtn = document.getElementById("closeBTN");
+            var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
+            res.then(
+                function succ(response) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: response.data,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    closeBtn.click();
+                    window.location.href = "";
+                    //var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
+                    //var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
+                    //ress.then(
+                    //    function succ(response) {
+                    //        $scope.DanhSachThietBi = response.data;
+                    //        $scope.totalItems = $scope.DanhSachThietBi.length;
+                    //        $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
+                    //    },
 
-            //            function errorCallback(response) {
-            //                swal(response.data.Message, "", "error");
-            //            }
-            //        )
-            //    },
+                    //    function errorCallback(response) {
+                    //        swal(response.data.Message, "", "error");
+                    //    }
+                    //)
+                },
 
-            //    function errorCallback(response) {
-            //        console.log(response.data.Message);
-            //    }
-            //)
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
         }
 
         $scope.LayDsNhom = function (tt) {
@@ -667,5 +671,15 @@
                     Swal.fire(response.data.Message, 'Xin vui lòng thử lại', 'error');
                 }
             )
+        }
+
+        // Sửa linh kiện database
+        $scope.SuaLinhKienDB = function (MaLinhKien) {
+            alert(MaLinhKien);
+        }
+
+        // Xóa linh kiện database
+        $scope.XoaLinhKienDB = function (MaLinhKien) {
+            alert(MaLinhKien);
         }
     })

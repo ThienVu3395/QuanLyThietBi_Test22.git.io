@@ -141,6 +141,7 @@ namespace QuanLyThietBi.Models
         public string GhiChu { get; set; }
         public string Model { get; set; }
         public string ThongSoKyThuat { get; set; }
+        public int MaTinhTrang { get; set; }
         public Nullable<int> MaNhaCungCap { get; set; }
         public string TenNhaCungCap { get; set; }
         public string NhaCungCap { get; set; }

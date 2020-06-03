@@ -500,9 +500,11 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     linhKienModel.MaLinhKien = linhKien.MaLinhKien;
                     //var tenLinhKien = dbContext.LoaiLinhKiens.Where(x => x.MaLoaiLinhKien == linhKien.MaLoaiLinhKien).FirstOrDefault();
                     linhKienModel.TenLoaiLinhKien = linhKien.LoaiLinhKien.TenLinhKien;
+                    linhKienModel.MaLoaiLinhKien = linhKien.LoaiLinhKien.MaLoaiLinhKien;
                     linhKienModel.Serial = linhKien.Serial;
                     linhKienModel.Model = linhKien.Model;
                     linhKienModel.MaNhaCungCap = linhKien.MaNhaCungCap;
+                    linhKienModel.MaTinhTrang = linhKien.LichSuLinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).FirstOrDefault().MaTinhTrang;
                     linhKienModel.GhiChu = linhKien.GhiChu;
                     //var nhaCungCap = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == linhKien.MaNhaCungCap).FirstOrDefault();
                     linhKienModel.NhaCungCap = linhKien.NhaCungCap.Ten;
