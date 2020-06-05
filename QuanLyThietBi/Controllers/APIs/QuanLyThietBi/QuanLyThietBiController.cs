@@ -143,6 +143,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     thietBi.Ten = item.Ten;
                     thietBi.Gia = item.Gia;
                     thietBi.Model = item.Model;
+                    thietBi.MaTaiSan = item.MaTaiSan;
                     thietBi.Loai = item.DanhMuc.Ten;
                     thietBi.NguoiSuDung = item.NguoiSuDung;
                     thietBi.ViTri = item.ViTri;
@@ -203,6 +204,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     thietBi.Gia = item.Gia;
                     thietBi.Model = item.Model;
                     thietBi.Loai = item.DanhMuc.Ten;
+                    thietBi.MaTaiSan = item.MaTaiSan;
                     thietBi.NguoiSuDung = item.NguoiSuDung;
                     thietBi.ViTri = item.ViTri;
                     thietBi.MaDanhMuc = item.MaDanhMuc;
@@ -484,6 +486,9 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             thietBiModel.HangSanXuat = thietBi.HangSanXuat;
             thietBiModel.MaHangSanXuat = thietBi.MaHangSanXuat;
             thietBiModel.ViTri = thietBi.ViTri;
+            thietBiModel.NguoiSuDung = thietBi.NguoiSuDung;
+            thietBiModel.MaPhongBan = thietBi.MaPhongBan;
+            thietBiModel.TenPhongBan = thietBi.PhongBan.Ten;
             thietBiModel.ChiTietTaiSan = thietBi.ChiTietTaiSan;
             thietBiModel.NamBaoHanh = thietBi.NamBaoHanh;
             thietBiModel.SoHopDong = thietBi.SoHopDong;
@@ -502,11 +507,13 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     linhKienModel.TenLoaiLinhKien = linhKien.LoaiLinhKien.TenLinhKien;
                     linhKienModel.MaLoaiLinhKien = linhKien.LoaiLinhKien.MaLoaiLinhKien;
                     linhKienModel.Serial = linhKien.Serial;
+                    linhKienModel.MaThietBi = item.ThietBi.MaThietBi;
                     linhKienModel.Model = linhKien.Model;
                     linhKienModel.MaNhaCungCap = linhKien.MaNhaCungCap;
-                    linhKienModel.MaTinhTrang = linhKien.LichSuLinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).FirstOrDefault().MaTinhTrang;
+                    linhKienModel.TenNhaCungCap = linhKien.NhaCungCap.Ten;
+                    linhKienModel.MaTinhTrang = linhKien.LichSuLinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).OrderByDescending(x => x.ID).Take(1).FirstOrDefault().MaTinhTrang;
+                    linhKienModel.TenTinhTrang = linhKien.LichSuLinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).OrderByDescending(x => x.ID).Take(1).FirstOrDefault().TinhTrang.Ten;
                     linhKienModel.GhiChu = linhKien.GhiChu;
-                    //var nhaCungCap = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == linhKien.MaNhaCungCap).FirstOrDefault();
                     linhKienModel.NhaCungCap = linhKien.NhaCungCap.Ten;
                     DanhSachLinhKien.Add(linhKienModel);
                 }
@@ -626,27 +633,29 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
         }
 
         [HttpPost]
-        [Route("CapNhatThietBi")]
-        public IHttpActionResult CapNhatThietBi(ChiTietThietBiModel tbModel)
+        [Route("CapNhatThongTinThietBi")]
+        public IHttpActionResult CapNhatThongTinThietBi(ChiTietThietBiModel tbModel)
         {
             try
             {
                 var tb = dbContext.ThietBis.Where(x => x.MaThietBi == tbModel.MaThietBi).FirstOrDefault();
-                if (tbModel.TrangThai == "chung")
-                {
-                    tb.MaTaiSan = tbModel.MaTaiSan;
-                    tb.Ten = tbModel.Ten;
-                    tb.Gia = tbModel.Gia;
-                    tb.Model = tbModel.Model;
-                    tb.NgayNhapKho = tbModel.NgayNhapKho;
-                    tb.MaDanhMuc = tbModel.MaDanhMuc;
-                    tb.MaNhaCungCap = tbModel.MaNhaCungCap;
-                    tb.Serial = tbModel.Serial;
-                    tb.DonViTinh = tbModel.DonViTinh;
-                    tb.GhiChu = tbModel.GhiChu;
-                    tb.NgayBaoHanh = tbModel.ThoiGianBaoHanh;
-                    dbContext.SaveChanges();
-                }
+                tb.MaTaiSan = tbModel.MaTaiSan;
+                tb.Ten = tbModel.Ten;
+                tb.Gia = tbModel.Gia;
+                tb.Model = tbModel.Model;
+                tb.MaDanhMuc = tbModel.MaDanhMuc;
+                tb.MaHangSanXuat = tbModel.MaNhaCungCap;
+                var name = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == tbModel.MaNhaCungCap).FirstOrDefault();
+                tb.HangSanXuat = name.Ten;
+                tb.NhaCungCap = tbModel.NhaCungCap;
+                tb.Serial = tbModel.Serial;
+                tb.NamBaoHanh = tbModel.NamBaoHanh;
+                tb.GhiChu = tbModel.GhiChu;
+                tb.NgayMua = tbModel.NgayNhapKho;
+                tb.IP = tbModel.IP;
+                tb.SoHopDong = tbModel.SoHopDong;
+                tb.ViTri = tbModel.ViTri;
+                dbContext.SaveChanges();
                 return Ok("Cập Nhật Thành Công");
             }
             catch (DbEntityValidationException ex)
@@ -845,6 +854,148 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 userInfo.ChucVu = _User.ChucVu;
             }
             return Ok(userInfo);
+        }
+
+        [HttpPost]
+        [Route("ThemLinhKienThietBi")]
+        public IHttpActionResult ThemLinhKienThietBi(LinhKienModel tbModel)
+        {
+            try
+            {
+                LinhKien linhKien = new LinhKien();
+                linhKien.MaLoaiLinhKien = tbModel.MaLoaiLinhKien;
+                linhKien.Serial = tbModel.Serial;
+                linhKien.Model = tbModel.Model;
+                linhKien.MaNhaCungCap = tbModel.MaNhaCungCap;
+                linhKien.GhiChu = tbModel.GhiChu;
+                dbContext.LinhKiens.Add(linhKien);
+                dbContext.SaveChanges();
+
+                LichSuLinhKien lslk = new LichSuLinhKien();
+                lslk.MaLinhKien = linhKien.MaLinhKien;
+                lslk.MaTinhTrang = tbModel.MaTinhTrang;
+                lslk.Ngay = DateTime.Now;
+                lslk.ChiPhi = null;
+                dbContext.LichSuLinhKiens.Add(lslk);
+                dbContext.SaveChanges();
+
+                LinhKienThietBi lktb = new LinhKienThietBi();
+                lktb.MaLinhKien = linhKien.MaLinhKien;
+                lktb.MaThietBi = tbModel.MaThietBi;
+                lktb.Ngay = DateTime.Now;
+                dbContext.LinhKienThietBis.Add(lktb);
+                dbContext.SaveChanges();
+
+                return Ok(linhKien.MaLinhKien);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                //throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                return BadRequest("Nội dung lỗi 01 : " + exceptionMessage + "Nội dung lỗi 02 :" + ex.EntityValidationErrors);
+            }
+        }
+
+        [HttpDelete]
+        [Route("XoaLinhKienThietBi")]
+        public IHttpActionResult XoaLinhKienThietBi(int MaLinhKien)
+        {
+            try
+            {
+                var lslk = dbContext.LichSuLinhKiens.Where(x => x.MaLinhKien == MaLinhKien).ToList();
+                if (lslk.Count > 0)
+                {
+                    foreach (var item in lslk)
+                    {
+                        dbContext.LichSuLinhKiens.Remove(item);
+                        dbContext.SaveChanges();
+                    }
+                }
+                var lktb = dbContext.LinhKienThietBis.Where(x => x.MaLinhKien == MaLinhKien).FirstOrDefault();
+                dbContext.LinhKienThietBis.Remove(lktb);
+                dbContext.SaveChanges();
+
+                var lk = dbContext.LinhKiens.Where(x => x.MaLinhKien == MaLinhKien).FirstOrDefault();
+                dbContext.LinhKiens.Remove(lk);
+                dbContext.SaveChanges();
+                return Ok("Linh Kiện Đã Được Xóa");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                //throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                return BadRequest("Nội dung lỗi 01 : " + exceptionMessage + "Nội dung lỗi 02 :" + ex.EntityValidationErrors);
+            }
+        }
+
+        [HttpPost]
+        [Route("CapNhatThongTinLinhKien")]
+        public IHttpActionResult CapNhatThongTinLinhKien(LinhKienModel tbModel)
+        {
+            try
+            {
+                var lk = dbContext.LinhKiens.Where(x => x.MaLinhKien == tbModel.MaLinhKien).FirstOrDefault();
+                if (lk != null)
+                {
+                    lk.MaLoaiLinhKien = tbModel.MaLoaiLinhKien;
+                    lk.Serial = tbModel.Serial;
+                    lk.Model = tbModel.Model;
+                    lk.MaNhaCungCap = tbModel.MaNhaCungCap;
+                    lk.GhiChu = tbModel.GhiChu;
+                    dbContext.SaveChanges();
+
+                    if(tbModel.MaTinhTrang != tbModel.MaTinhTrangCu)
+                    {
+                        LichSuLinhKien ls = new LichSuLinhKien();
+                        ls.MaLinhKien = tbModel.MaLinhKien;
+                        ls.MaTinhTrang = tbModel.MaTinhTrang;
+                        ls.Ngay = DateTime.Now;
+                        dbContext.LichSuLinhKiens.Add(ls);
+                        dbContext.SaveChanges();
+                    }
+                    return Ok("Cập Nhật Thông Tin Linh Kiện Thành Công");
+                }
+                return BadRequest("Có lỗi,xin vui lòng thử lại");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                //throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                return BadRequest("Nội dung lỗi 01 : " + exceptionMessage + "Nội dung lỗi 02 :" + ex.EntityValidationErrors);
+            }
         }
     }
 }

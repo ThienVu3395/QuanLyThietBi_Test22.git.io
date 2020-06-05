@@ -57,5 +57,6 @@ namespace QuanLyThietBi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LinhKienThietBi> LinhKienThietBis { get; set; }
         public virtual NhaCungCap NhaCungCap1 { get; set; }
+        public virtual PhongBan PhongBan { get; set; }
     }
 }

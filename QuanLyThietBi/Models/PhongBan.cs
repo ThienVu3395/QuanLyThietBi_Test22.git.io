@@ -18,6 +18,7 @@ namespace QuanLyThietBi.Models
         public PhongBan()
         {
             this.NguoiSuDungs = new HashSet<NguoiSuDung>();
+            this.ThietBis = new HashSet<ThietBi>();
         }
     
         public int MaPhongBan { get; set; }
@@ -25,5 +26,7 @@ namespace QuanLyThietBi.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NguoiSuDung> NguoiSuDungs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThietBi> ThietBis { get; set; }
     }
 }

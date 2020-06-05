@@ -14,6 +14,7 @@ namespace QuanLyThietBi.Models
     
     public partial class LichSuThietBi
     {
+        public int ID { get; set; }
         public int MaThietBi { get; set; }
         public int MaTinhTrang { get; set; }
         public int MaNguoiDung { get; set; }

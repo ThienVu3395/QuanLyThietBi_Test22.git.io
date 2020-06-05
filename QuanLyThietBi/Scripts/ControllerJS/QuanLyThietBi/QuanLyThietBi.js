@@ -166,7 +166,13 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachHSX = response.data;
+                    let objKhac = {
+                        MaNhaCungCap: 0,
+                        Ten : "--- Khác ---"
+                    }
+                    $scope.DanhSachHSX.push(objKhac);
                     $scope.MaNhaCungCap = $scope.DanhSachHSX[0];
+                    $scope.HangSXThem = $scope.DanhSachHSX[0];
                 },
 
                 function errorCallback(response) {
@@ -182,6 +188,7 @@
                 function succ(response) {
                     $scope.DanhSachTinhTrang = response.data;
                     $scope.MaTinhTrang = $scope.DanhSachTinhTrang[0];
+                    $scope.MaTinhTrangThem = $scope.DanhSachTinhTrang[0];
                 },
 
                 function errorCallback(response) {
@@ -211,6 +218,7 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachLoaiLinhKien = response.data;
+                    $scope.MaLoaiLinhKienThem = $scope.DanhSachLoaiLinhKien[0]
                 },
 
                 function errorCallback(response) {
@@ -442,6 +450,7 @@
             res.then(
                 function succ(response) {
                     $scope.ThongTinThietBi = response.data;
+                    $scope.ngayMua = $scope.ThongTinThietBi.NgayNhapKho;
                     //for (let index = 0; index < $scope.ThongTinThietBi.LichSuThietBi.length; index++) {
                     //    let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi);
                     //    $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi = $scope.DanhSachPhongBan[i];
@@ -522,7 +531,7 @@
                                 'success'
                             )
                             $scope.totalItems = $scope.DanhSachThietBi.length;
-                            window.location.href = "";
+                            setTimeout(function () { window.location.href = "" }, 700);
                         },
 
                         function errorCallback(response) {
@@ -553,41 +562,33 @@
         }
 
         // Sửa thiết bị
-        $scope.CapNhatTB = function (trangThai) {
-            $scope.ThongTinThietBi.TrangThai = trangThai;
-            let API = CommonController.urlAPI.API_CapNhatThietBi;
+        $scope.CapNhatThongTinTB = function () {
+            let API = CommonController.urlAPI.API_CapNhatThongTinThietBi;
 
-            if (trangThai == 'chung') {
-                $scope.ThongTinThietBi.MaNhaCungCap = $scope.MaNCC.MaNhaCungCap;
-                if ($scope.MaConSua.MaDanhMuc != 0) {
-                    $scope.ThongTinThietBi.MaDanhMuc = $scope.MaConSua.MaDanhMuc;
-                }
-                console.log($scope.ThongTinThietBi);
+            $scope.ThongTinThietBi.MaNhaCungCap = $scope.MaNCC.MaNhaCungCap;
+            if ($scope.MaConSua.MaDanhMuc != 0) {
+                $scope.ThongTinThietBi.MaDanhMuc = $scope.MaConSua.MaDanhMuc;
             }
-
-            else if (trangThai == 'lstb') {
-                console.log($scope.ThongTinThietBi.LichSuThietBi);
-                return;
-            }
-
+            console.log($scope.ThongTinThietBi);
             var res = CommonController.postData(API, $scope.ThongTinThietBi);
             res.then(
                 function succ(response) {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: response.data,
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    $scope.LayDanhSachThietBi($scope.MaDanhMuc);
+                    alert(response.data);
+                    $scope.ngayMua = $scope.ThongTinThietBi.NgayNhapKho;
+                    //Swal.fire({
+                    //    position: 'center',
+                    //    icon: 'success',
+                    //    title: response.data,
+                    //    showConfirmButton: false,
+                    //    timer: 1500
+                    //})
+                    //$scope.LayDanhSachThietBi($scope.MaDanhMuc);
                 },
 
                 function errorCallback(response) {
                     Swal.fire(response.data.Message, 'Xin vui lòng thử lại', 'error');
                 }
             )
-
         }
 
         // Lọc thiết bị
@@ -674,12 +675,84 @@
         }
 
         // Sửa linh kiện database
-        $scope.SuaLinhKienDB = function (MaLinhKien) {
-            alert(MaLinhKien);
+        $scope.SuaLinhKienDB = function (LinhKien) {
+            $scope.objSua = LinhKien;
+            $scope.SerialThem = $scope.objSua.Serial;
+            $scope.ModelThem = $scope.objSua.Model;
+            $scope.GhiChuThem = $scope.objSua.GhiChu;
+            let index = $scope.DanhSachLoaiLinhKien.findIndex(x => x.MaLoaiLinhKien == $scope.objSua.MaLoaiLinhKien);
+            let index2 = $scope.DanhSachTinhTrang.findIndex(x => x.MaTinhTrang == $scope.objSua.MaTinhTrang);
+            let index3 = $scope.DanhSachHSX.findIndex(x => x.MaNhaCungCap == $scope.objSua.MaNhaCungCap);
+            $scope.MaLoaiLinhKienThem = $scope.DanhSachLoaiLinhKien[index];
+            $scope.MaTinhTrangThem = $scope.DanhSachTinhTrang[index2];
+            $scope.HangSXThem = $scope.DanhSachHSX[index3];
+        }
+
+        // Cập nhật thông tin linh kiện trong db
+        $scope.CapNhatLinhKienDB = function () {
+            let linhKienSua = {
+                MaLinhKien: $scope.objSua.MaLinhKien,
+                MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
+                Serial: $scope.SerialThem,
+                Model: $scope.ModelThem,
+                MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
+                GhiChu: $scope.GhiChuThem,
+                MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
+                MaTinhTrangCu: $scope.objSua.MaTinhTrang,
+                MaThietBi: $scope.objSua.MaThietBi,
+            }
+            var res = CommonController.postData(CommonController.urlAPI.API_CapNhatThongTinLinhKien, linhKienSua);
+            res.then(
+                function succ(response) {
+                    alert(response.data);
+                    $scope.LayThongTinChiTiet(linhKienSua.MaThietBi);
+                    $scope.objSua.MaTinhTrang = linhKienSua.MaTinhTrang;
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
         }
 
         // Xóa linh kiện database
-        $scope.XoaLinhKienDB = function (MaLinhKien) {
-            alert(MaLinhKien);
+        $scope.XoaLinhKienDB = function (MaLinhKien, index) {
+            var param = "?MaLinhKien=" + MaLinhKien;
+            var res = CommonController.deleteData(CommonController.urlAPI.API_XoaLinhKienThietBi, param);
+            res.then(
+                function succ(response) {
+                    $scope.ThongTinThietBi.DanhSachLinhKien.splice(index, 1);
+                    alert(response.data);
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
+        }
+
+        // Thêm linh kiện database
+        $scope.ThemLinhKienDB = function (MaThietBi) {
+            let linhKienThem = {
+                MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
+                Serial: $scope.SerialThem,
+                Model: $scope.ModelThem,
+                MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
+                GhiChu: $scope.GhiChuThem,
+                MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
+                MaThietBi: MaThietBi,
+            }
+            var res = CommonController.postData(CommonController.urlAPI.API_ThemLinhKienThietBi, linhKienThem);
+            res.then(
+                function succ(response) {
+                    alert("Thêm Linh Kiện Thành Công");
+                    linhKienThem.MaLinhKien = response.data;
+                    $scope.ThongTinThietBi.DanhSachLinhKien.push(linhKienThem);
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
         }
     })

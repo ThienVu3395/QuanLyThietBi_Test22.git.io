@@ -22,6 +22,7 @@ namespace QuanLyThietBi.Models
     
         public int MaLoaiLinhKien { get; set; }
         public string TenLinhKien { get; set; }
+        public Nullable<int> DisplayOrder { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LinhKien> LinhKiens { get; set; }

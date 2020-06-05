@@ -32,32 +32,6 @@
     <NavigationProperty Name="HopDong" Relationship="Self.FK_HopDongThietBi_HopDong" FromRole="HopDongThietBi" ToRole="HopDong" />
     <NavigationProperty Name="ThietBi" Relationship="QuanLyThietBiModel.FK_HopDongThietBi_ThietBi" FromRole="HopDongThietBi" ToRole="ThietBi" />
   </EntityType>
-  <EntityType Name="LichSuLinhKien">
-    <Key>
-      <PropertyRef Name="MaLinhKien" />
-      <PropertyRef Name="MaTinhTrang" />
-    </Key>
-    <Property Name="MaLinhKien" Type="Int32" Nullable="false" />
-    <Property Name="MaTinhTrang" Type="Int32" Nullable="false" />
-    <Property Name="Ngay" Type="DateTime" Precision="0" />
-    <Property Name="ChiPhi" Type="Decimal" Precision="18" Scale="3" />
-    <NavigationProperty Name="LinhKien" Relationship="Self.FK_LichSuLinhKien_LinhKien" FromRole="LichSuLinhKien" ToRole="LinhKien" />
-    <NavigationProperty Name="TinhTrang" Relationship="Self.FK_LichSuLinhKien_TinhTrang" FromRole="LichSuLinhKien" ToRole="TinhTrang" />
-  </EntityType>
-  <EntityType Name="LichSuThietBi">
-    <Key>
-      <PropertyRef Name="MaThietBi" />
-      <PropertyRef Name="MaTinhTrang" />
-      <PropertyRef Name="MaNguoiDung" />
-    </Key>
-    <Property Name="MaThietBi" Type="Int32" Nullable="false" />
-    <Property Name="MaTinhTrang" Type="Int32" Nullable="false" />
-    <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
-    <Property Name="Ngay" Type="DateTime" Precision="0" />
-    <Property Name="ChiPhi" Type="Decimal" Precision="18" Scale="3" />
-    <NavigationProperty Name="NguoiSuDung" Relationship="Self.FK_LichSuThietBi_NguoiSuDung" FromRole="LichSuThietBi" ToRole="NguoiSuDung" />
-    <NavigationProperty Name="ThietBi" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" FromRole="LichSuThietBi" ToRole="ThietBi" />
-  </EntityType>
   <EntityType Name="LinhKien">
     <Key>
       <PropertyRef Name="MaLinhKien" />
@@ -68,10 +42,10 @@
     <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="MaNhaCungCap" Type="Int32" />
     <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="LichSuLinhKiens" Relationship="Self.FK_LichSuLinhKien_LinhKien" FromRole="LinhKien" ToRole="LichSuLinhKien" />
-    <NavigationProperty Name="LoaiLinhKien" Relationship="Self.FK_LinhKien_LoaiLinhKien" FromRole="LinhKien" ToRole="LoaiLinhKien" />
     <NavigationProperty Name="NhaCungCap" Relationship="Self.FK_LinhKien_NhaCungCap" FromRole="LinhKien" ToRole="NhaCungCap" />
     <NavigationProperty Name="LinhKienThietBis" Relationship="Self.FK_LinhKienThietBi_LinhKien" FromRole="LinhKien" ToRole="LinhKienThietBi" />
+    <NavigationProperty Name="LichSuLinhKiens" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien" FromRole="LinhKien" ToRole="LichSuLinhKien" />
+    <NavigationProperty Name="LoaiLinhKien" Relationship="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien" FromRole="LinhKien" ToRole="LoaiLinhKien" />
   </EntityType>
   <EntityType Name="LinhKienThietBi">
     <Key>
@@ -84,14 +58,6 @@
     <NavigationProperty Name="LinhKien" Relationship="Self.FK_LinhKienThietBi_LinhKien" FromRole="LinhKienThietBi" ToRole="LinhKien" />
     <NavigationProperty Name="ThietBi" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_ThietBi" FromRole="LinhKienThietBi" ToRole="ThietBi" />
   </EntityType>
-  <EntityType Name="LoaiLinhKien">
-    <Key>
-      <PropertyRef Name="MaLoaiLinhKien" />
-    </Key>
-    <Property Name="MaLoaiLinhKien" Type="Int32" Nullable="false" />
-    <Property Name="TenLinhKien" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="LinhKiens" Relationship="Self.FK_LinhKien_LoaiLinhKien" FromRole="LoaiLinhKien" ToRole="LinhKien" />
-  </EntityType>
   <EntityType Name="NguoiSuDung">
     <Key>
       <PropertyRef Name="MaNguoiDung" />
@@ -102,8 +68,8 @@
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ChucVu" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="LichSuThietBis" Relationship="Self.FK_LichSuThietBi_NguoiSuDung" FromRole="NguoiSuDung" ToRole="LichSuThietBi" />
     <NavigationProperty Name="PhongBan" Relationship="Self.FK_NguoiSuDung_PhongBan" FromRole="NguoiSuDung" ToRole="PhongBan" />
+    <NavigationProperty Name="LichSuThietBis" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_NguoiSuDung" FromRole="NguoiSuDung" ToRole="LichSuThietBi" />
   </EntityType>
   <EntityType Name="NhaCungCap">
     <Key>
@@ -121,6 +87,7 @@
     <Property Name="MaPhongBan" Type="Int32" Nullable="false" />
     <Property Name="Ten" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="NguoiSuDungs" Relationship="Self.FK_NguoiSuDung_PhongBan" FromRole="PhongBan" ToRole="NguoiSuDung" />
+    <NavigationProperty Name="ThietBis" Relationship="QuanLyThietBiModel.FK_ThietBi_PhongBan" FromRole="PhongBan" ToRole="ThietBi" />
   </EntityType>
   <EntityType Name="TinhTrang">
     <Key>
@@ -128,7 +95,7 @@
     </Key>
     <Property Name="MaTinhTrang" Type="Int32" Nullable="false" />
     <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="LichSuLinhKiens" Relationship="Self.FK_LichSuLinhKien_TinhTrang" FromRole="TinhTrang" ToRole="LichSuLinhKien" />
+    <NavigationProperty Name="LichSuLinhKiens" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang" FromRole="TinhTrang" ToRole="LichSuLinhKien" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -151,54 +118,6 @@
       </Principal>
       <Dependent Role="HopDongThietBi">
         <PropertyRef Name="MaHopDong" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_LichSuLinhKien_LinhKien">
-    <End Role="LinhKien" Type="Self.LinhKien" Multiplicity="1" />
-    <End Role="LichSuLinhKien" Type="Self.LichSuLinhKien" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="LinhKien">
-        <PropertyRef Name="MaLinhKien" />
-      </Principal>
-      <Dependent Role="LichSuLinhKien">
-        <PropertyRef Name="MaLinhKien" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_LichSuLinhKien_TinhTrang">
-    <End Role="TinhTrang" Type="Self.TinhTrang" Multiplicity="1" />
-    <End Role="LichSuLinhKien" Type="Self.LichSuLinhKien" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TinhTrang">
-        <PropertyRef Name="MaTinhTrang" />
-      </Principal>
-      <Dependent Role="LichSuLinhKien">
-        <PropertyRef Name="MaTinhTrang" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_LichSuThietBi_NguoiSuDung">
-    <End Role="NguoiSuDung" Type="Self.NguoiSuDung" Multiplicity="1" />
-    <End Role="LichSuThietBi" Type="Self.LichSuThietBi" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NguoiSuDung">
-        <PropertyRef Name="MaNguoiDung" />
-      </Principal>
-      <Dependent Role="LichSuThietBi">
-        <PropertyRef Name="MaNguoiDung" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_LinhKien_LoaiLinhKien">
-    <End Role="LoaiLinhKien" Type="Self.LoaiLinhKien" Multiplicity="1" />
-    <End Role="LinhKien" Type="Self.LinhKien" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="LoaiLinhKien">
-        <PropertyRef Name="MaLoaiLinhKien" />
-      </Principal>
-      <Dependent Role="LinhKien">
-        <PropertyRef Name="MaLoaiLinhKien" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -242,11 +161,8 @@
     <EntitySet Name="DanhMucs" EntityType="Self.DanhMuc" />
     <EntitySet Name="HopDongs" EntityType="Self.HopDong" />
     <EntitySet Name="HopDongThietBis" EntityType="Self.HopDongThietBi" />
-    <EntitySet Name="LichSuLinhKiens" EntityType="Self.LichSuLinhKien" />
-    <EntitySet Name="LichSuThietBis" EntityType="Self.LichSuThietBi" />
     <EntitySet Name="LinhKiens" EntityType="Self.LinhKien" />
     <EntitySet Name="LinhKienThietBis" EntityType="Self.LinhKienThietBi" />
-    <EntitySet Name="LoaiLinhKiens" EntityType="Self.LoaiLinhKien" />
     <EntitySet Name="NguoiSuDungs" EntityType="Self.NguoiSuDung" />
     <EntitySet Name="NhaCungCaps" EntityType="Self.NhaCungCap" />
     <EntitySet Name="PhongBans" EntityType="Self.PhongBan" />
@@ -255,22 +171,6 @@
     <AssociationSet Name="FK_HopDongThietBi_HopDong" Association="Self.FK_HopDongThietBi_HopDong">
       <End Role="HopDong" EntitySet="HopDongs" />
       <End Role="HopDongThietBi" EntitySet="HopDongThietBis" />
-    </AssociationSet>
-    <AssociationSet Name="FK_LichSuLinhKien_LinhKien" Association="Self.FK_LichSuLinhKien_LinhKien">
-      <End Role="LinhKien" EntitySet="LinhKiens" />
-      <End Role="LichSuLinhKien" EntitySet="LichSuLinhKiens" />
-    </AssociationSet>
-    <AssociationSet Name="FK_LichSuLinhKien_TinhTrang" Association="Self.FK_LichSuLinhKien_TinhTrang">
-      <End Role="TinhTrang" EntitySet="TinhTrangs" />
-      <End Role="LichSuLinhKien" EntitySet="LichSuLinhKiens" />
-    </AssociationSet>
-    <AssociationSet Name="FK_LichSuThietBi_NguoiSuDung" Association="Self.FK_LichSuThietBi_NguoiSuDung">
-      <End Role="NguoiSuDung" EntitySet="NguoiSuDungs" />
-      <End Role="LichSuThietBi" EntitySet="LichSuThietBis" />
-    </AssociationSet>
-    <AssociationSet Name="FK_LinhKien_LoaiLinhKien" Association="Self.FK_LinhKien_LoaiLinhKien">
-      <End Role="LoaiLinhKien" EntitySet="LoaiLinhKiens" />
-      <End Role="LinhKien" EntitySet="LinhKiens" />
     </AssociationSet>
     <AssociationSet Name="FK_LinhKien_NhaCungCap" Association="Self.FK_LinhKien_NhaCungCap">
       <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
@@ -314,6 +214,20 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="LichSuLinhKiens" EntityType="QuanLyThietBiModel.LichSuLinhKien" />
+    <AssociationSet Name="FK_LichSuLinhKien_LinhKien" Association="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien">
+      <End Role="LinhKien" EntitySet="LinhKiens" />
+      <End Role="LichSuLinhKien" EntitySet="LichSuLinhKiens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LichSuLinhKien_TinhTrang" Association="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang">
+      <End Role="TinhTrang" EntitySet="TinhTrangs" />
+      <End Role="LichSuLinhKien" EntitySet="LichSuLinhKiens" />
+    </AssociationSet>
+    <EntitySet Name="LichSuThietBis" EntityType="QuanLyThietBiModel.LichSuThietBi" />
+    <AssociationSet Name="FK_LichSuThietBi_NguoiSuDung" Association="QuanLyThietBiModel.FK_LichSuThietBi_NguoiSuDung">
+      <End Role="NguoiSuDung" EntitySet="NguoiSuDungs" />
+      <End Role="LichSuThietBi" EntitySet="LichSuThietBis" />
+    </AssociationSet>
     <EntitySet Name="ThietBis" EntityType="QuanLyThietBiModel.ThietBi" />
     <AssociationSet Name="FK_ThietBi_DanhMuc" Association="QuanLyThietBiModel.FK_ThietBi_DanhMuc">
       <End Role="DanhMuc" EntitySet="DanhMucs" />
@@ -335,6 +249,15 @@
       <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
       <End Role="ThietBi" EntitySet="ThietBis" />
     </AssociationSet>
+    <AssociationSet Name="FK_ThietBi_PhongBan" Association="QuanLyThietBiModel.FK_ThietBi_PhongBan">
+      <End Role="PhongBan" EntitySet="PhongBans" />
+      <End Role="ThietBi" EntitySet="ThietBis" />
+    </AssociationSet>
+    <EntitySet Name="LoaiLinhKiens" EntityType="QuanLyThietBiModel.LoaiLinhKien" />
+    <AssociationSet Name="FK_LinhKien_LoaiLinhKien" Association="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien">
+      <End Role="LoaiLinhKien" EntitySet="LoaiLinhKiens" />
+      <End Role="LinhKien" EntitySet="LinhKiens" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -347,6 +270,72 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="LichSuLinhKien">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="MaLinhKien" />
+      <PropertyRef Name="MaTinhTrang" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaLinhKien" Type="Int32" Nullable="false" />
+    <Property Name="MaTinhTrang" Type="Int32" Nullable="false" />
+    <Property Name="Ngay" Type="DateTime" Precision="3" />
+    <Property Name="ChiPhi" Type="Decimal" Precision="18" Scale="3" />
+    <NavigationProperty Name="LinhKien" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien" FromRole="LichSuLinhKien" ToRole="LinhKien" />
+    <NavigationProperty Name="TinhTrang" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang" FromRole="LichSuLinhKien" ToRole="TinhTrang" />
+  </EntityType>
+  <Association Name="FK_LichSuLinhKien_LinhKien">
+    <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="1" />
+    <End Type="QuanLyThietBiModel.LichSuLinhKien" Role="LichSuLinhKien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LinhKien">
+        <PropertyRef Name="MaLinhKien" />
+      </Principal>
+      <Dependent Role="LichSuLinhKien">
+        <PropertyRef Name="MaLinhKien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LichSuLinhKien_TinhTrang">
+    <End Type="QuanLyThietBiModel.TinhTrang" Role="TinhTrang" Multiplicity="1" />
+    <End Type="QuanLyThietBiModel.LichSuLinhKien" Role="LichSuLinhKien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TinhTrang">
+        <PropertyRef Name="MaTinhTrang" />
+      </Principal>
+      <Dependent Role="LichSuLinhKien">
+        <PropertyRef Name="MaTinhTrang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LichSuThietBi">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="MaThietBi" />
+      <PropertyRef Name="MaTinhTrang" />
+      <PropertyRef Name="MaNguoiDung" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaThietBi" Type="Int32" Nullable="false" />
+    <Property Name="MaTinhTrang" Type="Int32" Nullable="false" />
+    <Property Name="MaNguoiDung" Type="Int32" Nullable="false" />
+    <Property Name="Ngay" Type="DateTime" Precision="0" />
+    <Property Name="ChiPhi" Type="Decimal" Precision="18" Scale="3" />
+    <NavigationProperty Name="NguoiSuDung" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_NguoiSuDung" FromRole="LichSuThietBi" ToRole="NguoiSuDung" />
+    <NavigationProperty Name="ThietBi" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" FromRole="LichSuThietBi" ToRole="ThietBi" />
+  </EntityType>
+  <Association Name="FK_LichSuThietBi_NguoiSuDung">
+    <End Type="QuanLyThietBiModel.NguoiSuDung" Role="NguoiSuDung" Multiplicity="1" />
+    <End Type="QuanLyThietBiModel.LichSuThietBi" Role="LichSuThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NguoiSuDung">
+        <PropertyRef Name="MaNguoiDung" />
+      </Principal>
+      <Dependent Role="LichSuThietBi">
+        <PropertyRef Name="MaNguoiDung" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityType Name="ThietBi">
     <Key>
       <PropertyRef Name="MaThietBi" />
@@ -382,6 +371,7 @@
     <NavigationProperty Name="LichSuThietBis" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" FromRole="ThietBi" ToRole="LichSuThietBi" />
     <NavigationProperty Name="LinhKienThietBis" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_ThietBi" FromRole="ThietBi" ToRole="LinhKienThietBi" />
     <NavigationProperty Name="NhaCungCap1" Relationship="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" FromRole="ThietBi" ToRole="NhaCungCap" />
+    <NavigationProperty Name="PhongBan" Relationship="QuanLyThietBiModel.FK_ThietBi_PhongBan" FromRole="ThietBi" ToRole="PhongBan" />
   </EntityType>
   <Association Name="FK_ThietBi_DanhMuc">
     <End Type="QuanLyThietBiModel.DanhMuc" Role="DanhMuc" Multiplicity="1" />
@@ -440,6 +430,39 @@
       </Principal>
       <Dependent Role="ThietBi">
         <PropertyRef Name="MaNhaCungCap" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ThietBi_PhongBan">
+    <End Type="QuanLyThietBiModel.PhongBan" Role="PhongBan" Multiplicity="0..1" />
+    <End Type="QuanLyThietBiModel.ThietBi" Role="ThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhongBan">
+        <PropertyRef Name="MaPhongBan" />
+      </Principal>
+      <Dependent Role="ThietBi">
+        <PropertyRef Name="MaPhongBan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="LoaiLinhKien">
+    <Key>
+      <PropertyRef Name="MaLoaiLinhKien" />
+    </Key>
+    <Property Name="MaLoaiLinhKien" Type="Int32" Nullable="false" />
+    <Property Name="TenLinhKien" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="DisplayOrder" Type="Int32" />
+    <NavigationProperty Name="LinhKiens" Relationship="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien" FromRole="LoaiLinhKien" ToRole="LinhKien" />
+  </EntityType>
+  <Association Name="FK_LinhKien_LoaiLinhKien">
+    <End Type="QuanLyThietBiModel.LoaiLinhKien" Role="LoaiLinhKien" Multiplicity="1" />
+    <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiLinhKien">
+        <PropertyRef Name="MaLoaiLinhKien" />
+      </Principal>
+      <Dependent Role="LinhKien">
+        <PropertyRef Name="MaLoaiLinhKien" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

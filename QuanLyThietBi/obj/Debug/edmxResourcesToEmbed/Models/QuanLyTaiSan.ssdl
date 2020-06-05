@@ -30,20 +30,24 @@
   </EntityType>
   <EntityType Name="LichSuLinhKien">
     <Key>
+      <PropertyRef Name="ID" />
       <PropertyRef Name="MaLinhKien" />
       <PropertyRef Name="MaTinhTrang" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MaLinhKien" Type="int" Nullable="false" />
     <Property Name="MaTinhTrang" Type="int" Nullable="false" />
-    <Property Name="Ngay" Type="date" />
+    <Property Name="Ngay" Type="datetime" />
     <Property Name="ChiPhi" Type="decimal" Precision="18" Scale="3" />
   </EntityType>
   <EntityType Name="LichSuThietBi">
     <Key>
+      <PropertyRef Name="ID" />
       <PropertyRef Name="MaThietBi" />
       <PropertyRef Name="MaTinhTrang" />
       <PropertyRef Name="MaNguoiDung" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="MaThietBi" Type="int" Nullable="false" />
     <Property Name="MaTinhTrang" Type="int" Nullable="false" />
     <Property Name="MaNguoiDung" Type="int" Nullable="false" />
@@ -76,6 +80,7 @@
     </Key>
     <Property Name="MaLoaiLinhKien" Type="int" Nullable="false" />
     <Property Name="TenLinhKien" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="DisplayOrder" Type="int" />
   </EntityType>
   <EntityType Name="NguoiSuDung">
     <Key>
@@ -310,6 +315,18 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ThietBi_PhongBan">
+    <End Role="PhongBan" Type="Self.PhongBan" Multiplicity="0..1" />
+    <End Role="ThietBi" Type="Self.ThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PhongBan">
+        <PropertyRef Name="MaPhongBan" />
+      </Principal>
+      <Dependent Role="ThietBi">
+        <PropertyRef Name="MaPhongBan" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -414,6 +431,10 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
     </AssociationSet>
     <AssociationSet Name="FK_ThietBi_NhaCungCap" Association="Self.FK_ThietBi_NhaCungCap">
       <End Role="NhaCungCap" EntitySet="NhaCungCap" />
+      <End Role="ThietBi" EntitySet="ThietBi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ThietBi_PhongBan" Association="Self.FK_ThietBi_PhongBan">
+      <End Role="PhongBan" EntitySet="PhongBan" />
       <End Role="ThietBi" EntitySet="ThietBi" />
     </AssociationSet>
   </EntityContainer>

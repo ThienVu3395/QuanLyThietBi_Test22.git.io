@@ -31,27 +31,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="LichSuLinhKiens">
-      <EntityTypeMapping TypeName="QuanLyThietBiModel.LichSuLinhKien">
-        <MappingFragment StoreEntitySet="LichSuLinhKien">
-          <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
-          <ScalarProperty Name="MaTinhTrang" ColumnName="MaTinhTrang" />
-          <ScalarProperty Name="Ngay" ColumnName="Ngay" />
-          <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="LichSuThietBis">
-      <EntityTypeMapping TypeName="QuanLyThietBiModel.LichSuThietBi">
-        <MappingFragment StoreEntitySet="LichSuThietBi">
-          <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
-          <ScalarProperty Name="MaTinhTrang" ColumnName="MaTinhTrang" />
-          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
-          <ScalarProperty Name="Ngay" ColumnName="Ngay" />
-          <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="LinhKiens">
       <EntityTypeMapping TypeName="QuanLyThietBiModel.LinhKien">
         <MappingFragment StoreEntitySet="LinhKien">
@@ -70,14 +49,6 @@
           <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
           <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
           <ScalarProperty Name="Ngay" ColumnName="Ngay" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="LoaiLinhKiens">
-      <EntityTypeMapping TypeName="QuanLyThietBiModel.LoaiLinhKien">
-        <MappingFragment StoreEntitySet="LoaiLinhKien">
-          <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
-          <ScalarProperty Name="TenLinhKien" ColumnName="TenLinhKien" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -152,6 +123,29 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="QuanLyThietBiModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="QuanLyThietBiModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="LichSuLinhKiens">
+      <EntityTypeMapping TypeName="QuanLyThietBiModel.LichSuLinhKien">
+        <MappingFragment StoreEntitySet="LichSuLinhKien">
+          <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+          <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+          <ScalarProperty Name="MaTinhTrang" ColumnName="MaTinhTrang" />
+          <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LichSuThietBis">
+      <EntityTypeMapping TypeName="QuanLyThietBiModel.LichSuThietBi">
+        <MappingFragment StoreEntitySet="LichSuThietBi">
+          <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+          <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+          <ScalarProperty Name="MaNguoiDung" ColumnName="MaNguoiDung" />
+          <ScalarProperty Name="MaTinhTrang" ColumnName="MaTinhTrang" />
+          <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ThietBis">
       <EntityTypeMapping TypeName="QuanLyThietBiModel.ThietBi">
         <MappingFragment StoreEntitySet="ThietBi">
@@ -181,6 +175,15 @@
           <ScalarProperty Name="Ten" ColumnName="Ten" />
           <ScalarProperty Name="MaTaiSan" ColumnName="MaTaiSan" />
           <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoaiLinhKiens">
+      <EntityTypeMapping TypeName="QuanLyThietBiModel.LoaiLinhKien">
+        <MappingFragment StoreEntitySet="LoaiLinhKien">
+          <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+          <ScalarProperty Name="TenLinhKien" ColumnName="TenLinhKien" />
+          <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

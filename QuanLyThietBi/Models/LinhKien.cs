@@ -17,8 +17,8 @@ namespace QuanLyThietBi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LinhKien()
         {
-            this.LichSuLinhKiens = new HashSet<LichSuLinhKien>();
             this.LinhKienThietBis = new HashSet<LinhKienThietBi>();
+            this.LichSuLinhKiens = new HashSet<LichSuLinhKien>();
         }
     
         public int MaLinhKien { get; set; }
@@ -28,11 +28,11 @@ namespace QuanLyThietBi.Models
         public Nullable<int> MaNhaCungCap { get; set; }
         public string GhiChu { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LichSuLinhKien> LichSuLinhKiens { get; set; }
-        public virtual LoaiLinhKien LoaiLinhKien { get; set; }
         public virtual NhaCungCap NhaCungCap { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LinhKienThietBi> LinhKienThietBis { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LichSuLinhKien> LichSuLinhKiens { get; set; }
+        public virtual LoaiLinhKien LoaiLinhKien { get; set; }
     }
 }

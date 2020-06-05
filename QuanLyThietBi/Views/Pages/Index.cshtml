@@ -12,6 +12,7 @@
     <a href="#modal-table" role="button" class="green" data-toggle="modal"> Thêm Thiết Bị </a>
 </h4>
 
+
 <div class="widget-box" ng-init="
      LayDanhSachPhongBan();
      LayDanhSachHangSanXuat();
@@ -28,7 +29,7 @@
         </span>
     </div>
 
-    <div class="widget-body"  style="display:none">
+    <div class="widget-body" style="display:none">
         <div class="widget-main">
             <div class="row">
                 <div class="col-lg-2">
@@ -67,7 +68,9 @@
         <table id="simple-table" class="table table-bordered table-hover" style="margin-bottom:0px!important">
             <thead>
                 <tr>
+                    <th>STT</th>
                     <th>Loại</th>
+                    <th>MSTS</th>
                     <th>Model</th>
                     <th>Serial</th>
                     <th>Tên</th>
@@ -79,8 +82,10 @@
             </thead>
 
             <tbody>
-                <tr ng-show="DanhSachThietBi.length > 0" ng-repeat="item in DanhSachThietBi">
+                <tr ng-show="DanhSachThietBi.length > 0" ng-repeat="item in DanhSachThietBi track by $index">
+                    <td>{{$index + 1}}</td>
                     <td>{{item.Loai}}</td>
+                    <td>{{item.MaTaiSan}}</td>
                     <td>{{item.Model}}</td>
                     <td>{{item.Serial}}</td>
                     <td>{{item.Ten}}</td>
@@ -126,8 +131,7 @@
             rotate="false"
             max-size="5"
             @*class="pagination-sm"*@
-            ng-change="pageChanged()">
-        </ul>
+            ng-change="pageChanged()"></ul>
     </div>
 </div>
 
@@ -312,12 +316,24 @@
                     <div class="row">
                         <div class="form-group col-lg-3">
                             @*<label for="usr">Đơn Vị Tính</label>
+                                <select class="form-control" ng-model="ThietBi.DonViTinh">
+                                    <option value="Cm">Cm</option>
+                                    <option value="Mm">Mm</option>
+                                    <option value="Cái">Cái</option>
+                                    <option value="Bộ">Bộ</option>
+                                </select>*@<label for="usr"></label>
                             <select class="form-control" ng-model="ThietBi.DonViTinh">
-                                <option value="Cm">Cm</option>
-                                <option value="Mm">Mm</option>
-                                <option value="Cái">Cái</option>
-                                <option value="Bộ">Bộ</option>
-                            </select>*@
+                                <option value="Cm"></option>
+                                <option value="Mm"></option>
+                                <option value="Cái"></option>
+                                <option value="Bộ"></option>
+                            </select><label for="usr"></label>
+                            <select class="form-control" ng-model="ThietBi.DonViTinh">
+                                <option value="Cm"></option>
+                                <option value="Mm"></option>
+                                <option value="Cái"></option>
+                                <option value="Bộ"></option>
+                            </select>
                             <label>
                                 Nhà Cung Cấp
                             </label>
@@ -376,6 +392,8 @@
                                     </span>*@<span class="bigger-110 red">
                                 </span><span class="bigger-110 red">
                                 </span><span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
                                 </span>
                             </label>
                             <input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayMua" class="form-control" style="line-height: 20px !important">
@@ -383,13 +401,23 @@
 
                         <div class="form-group col-lg-3">
                             @*<label for="form-field-mask-1">
-                                Thời Gian Bảo Hành<span class="bigger-110 red">
+                                    Thời Gian Bảo Hành<span class="bigger-110 red">
+                                    </span><span class="bigger-110 red">
+                                    </span><span class="bigger-110 red">
+                                    </span>
+                                </label>*@<label for="form-field-mask-1">
+                                <span class="bigger-110 red">
                                 </span><span class="bigger-110 red">
                                 </span><span class="bigger-110 red">
                                 </span>
-                            </label>*@
-                            @*<input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control">*@
-                             <label for="form-field-mask-1">
+                            </label><label for="form-field-mask-1">
+                                <span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
+                                </span>
+                            </label>
+                            @*<input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control">*@<input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control"><input type="date" name="ThoiGianBaoHanh" ng-model="ThietBi.ThoiGianBaoHanh" class="form-control">
+                            <label for="form-field-mask-1">
                                 Năm Bảo Hành
                             </label>
                             <input name="NamBaoHanh" ng-model="ThietBi.NamBaoHanh" class="form-control">
@@ -402,8 +430,7 @@
                             <select class="form-control"
                                     ng-model="MaTinhTrang"
                                     ng-disabled="SoLuongThietBi > 1"
-                                    ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang">
-                            </select>
+                                    ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
@@ -663,35 +690,52 @@
                         <label for="sel1">Ghi Chú</label>
                         <div class="form-control">{{ThongTinThietBi.GhiChu}}</div>
                     </div>
+                </div>
 
-                    <div class="form-group col-lg-12">
-                        <label for="sel1">Thông Tin Cấu Hình</label>
-                        <textarea class="form-control" cols="13" rows="13">{{ThongTinThietBi.ChiTietTaiSan}}</textarea>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="form-field-select-1">Hiện Trạng</label>
+                        <div class="form-control">Đang Sử Dụng</div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label for="form-field-select-1">Đơn Vị Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.TenPhongBan}}</div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label for="form-field-select-1">Người Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.NguoiSuDung}}</div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label for="form-field-select-1">Vị Trí Phòng Ban Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.ViTri}}</div>
                     </div>
                 </div>
 
-                <div class="tabbable">
+                <div class="tabbable" style="margin-top:12px">
                     <ul class="nav nav-tabs" id="myTab">
                         <li class="active">
                             <a data-toggle="tab" href="#home">
                                 <i class="green ace-icon fa fa-list bigger-120"></i>
-                                Thông Tin + Lịch Sử Linh Kiện
+                                Danh Sách Linh Kiện
                             </a>
                         </li>
 
                         @*<li>
-                            <a data-toggle="tab" href="#messages">
-                                <i class="green ace-icon fa fa-cogs bigger-120"></i>
-                                Lịch Sử Thiết Bị
-                            </a>
-                        </li>
+                    <a data-toggle="tab" href="#messages">
+                        <i class="green ace-icon fa fa-cogs bigger-120"></i>
+                        Lịch Sử Thiết Bị
+                    </a>
+                </li>
 
-                        <li>
-                            <a data-toggle="tab" href="#contracts">
-                                <i class="green ace-icon fa fa-book bigger-120"></i>
-                                Danh Sách Hợp Đồng
-                            </a>
-                        </li>*@
+                <li>
+                    <a data-toggle="tab" href="#contracts">
+                        <i class="green ace-icon fa fa-book bigger-120"></i>
+                        Danh Sách Hợp Đồng
+                    </a>
+                </li>*@
                     </ul>
 
                     <div class="tab-content">
@@ -703,8 +747,8 @@
                                         <th>Serial</th>
                                         <th>Model</th>
                                         <th>Nhà Cung Cấp</th>
-                                        <th>Ghi Chú</th>
-                                        <th>Tình Trạng</th>
+                                        <th>Mô Tả</th>
+                                        <th>Hiện Trạng</th>
                                     </tr>
                                 </thead>
 
@@ -715,7 +759,11 @@
                                         <td>{{item.Model}}</td>
                                         <td>{{item.NhaCungCap}}</td>
                                         <td>{{item.GhiChu}}</td>
-                                        <td><span class="label label-xlg label-success arrowed arrowed-right">Chờ Bàn Giao</span></td>
+                                        <td ng-show="item.MaTinhTrang == 1"><span class="label label-sm label-info">Chờ Bàn Giao</span></td>
+                                        <td ng-show="item.MaTinhTrang == 2"><span class="label label-sm label-warning">Đang Sửa Chữa</span></td>
+                                        <td ng-show="item.MaTinhTrang == 3"><span class="label label-sm label-primary">Đang Bảo Hành</span></td>
+                                        <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Đã Hỏng</span></td>
+                                        <td ng-show="item.MaTinhTrang == 5"><span class="label label-sm label-success">Đang Sử Dụng</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -810,20 +858,6 @@
                                 Linh Kiện
                             </a>
                         </li>
-
-                        @*<li>
-                            <a data-toggle="tab" href="#lstb">
-                                <i class="green ace-icon fa fa-cogs bigger-120"></i>
-                                Tình Trạng
-                            </a>
-                        </li>
-
-                        <li>
-                            <a data-toggle="tab" href="#hd">
-                                <i class="green ace-icon fa fa-book bigger-120"></i>
-                                Hợp Đồng
-                            </a>
-                        </li>*@
                     </ul>
 
                     <div class="tab-content">
@@ -906,9 +940,11 @@
 
                                     <div class="form-group col-lg-3">
                                         <label>
-                                            Ngày Mua
+                                            Ngày Mua : <span class="bigger-110 red">
+                                                {{ngayMua | date : 'dd/MM/yyyy'}}
+                                            </span>
                                         </label>
-                                        <input class="form-control" ng-model="ThongTinThietBi.NgayNhapKho | date : 'dd/MM/yyyy'">
+                                        <input type="date" class="form-control" ng-model="ThongTinThietBi.NgayNhapKho">
                                     </div>
                                 </div>
 
@@ -933,6 +969,42 @@
                                     </div>
 
                                     <div class="form-group col-lg-3">
+                                        <label for="form-field-mask-1">
+                                            Số Hợp Đồng
+                                        </label>
+                                        <input class="form-control" ng-model="ThongTinThietBi.SoHopDong">
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <label for="form-field-select-1">Đơn Vị Sử Dụng Hiện Tại</label>
+                                        <select class="form-control" id="form-field-select-1">
+                                            <option ng-click="ChonDonVi(0)">-- Tất Cả --</option>
+                                            <option ng-click="ChonDonVi(item.MaPhongBan)"
+                                                    ng-repeat="item in DanhSachPhongBan">
+                                                {{item.Ten}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <label for="form-field-select-1">Người Sử Dụng Hiện Tại</label>
+                                        <select class="form-control" id="form-field-select-1">
+                                            <option ng-click="ChonTinhTrang(0)">-- Tất Cả --</option>
+                                            <option ng-click="ChonTinhTrang(item.MaTinhTrang)"
+                                                    ng-repeat="item in DanhSachTinhTrang">
+                                                {{item.Ten}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-lg-3">
+                                        <label for="form-field-mask-1">
+                                            Vị Trí Phòng Ban
+                                        </label>
+                                        <input class="form-control" ng-model="ThongTinThietBi.ViTri">
+                                    </div>
+
+                                    <div class="form-group col-lg-3">
                                         <label for="comment">Ghi Chú</label>
                                         <input class="form-control"
                                                type="text"
@@ -940,7 +1012,7 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-success" ng-disabled="formSuaTB.$invalid" ng-click="CapNhatTB('chung')">
+                                <button type="submit" class="btn btn-success" ng-disabled="formSuaTB.$invalid" ng-click="CapNhatThongTinTB()">
                                     <i class="ace-icon fa fa-check"></i>Cập Nhật
                                 </button>
                             </form>
@@ -948,18 +1020,19 @@
 
                         <div id="lk" class="tab-pane fade">
                             <div class="form-group col-lg-12">
-                                <label for="sel1">Thông Tin Cấu Hình</label>
-                                <textarea class="form-control" cols="13" rows="13">{{ThongTinThietBi.ChiTietTaiSan}}</textarea>
+                                <label for="sel1"></label>
+                                <textarea class="form-control" cols="13" rows="13" readonly>{{ThongTinThietBi.ChiTietTaiSan}}</textarea>
                             </div>
+
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Loại</th>
                                         <th>Serial</th>
                                         <th>Model</th>
-                                        <th>NCC</th>
-                                        <th>Ghi Chú</th>
-                                        <th>Tình Trạng</th>
+                                        <th>Hãng SX</th>
+                                        <th>Mô Tả</th>
+                                        <th>Hiện Trạng</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -967,166 +1040,112 @@
                                 <tbody>
                                     <tr ng-repeat="item in ThongTinThietBi.DanhSachLinhKien track by $index">
                                         <td>
-                                            <select class="form-control" id="MaLoaiLinhKien">
-                                                <option ng-repeat="i in DanhSachLoaiLinhKien"
-                                                        value="{{i.MaLoaiLinhKien}}"
-                                                        ng-selected="item.MaLoaiLinhKien == i.MaLoaiLinhKien">
-                                                    {{i.TenLinhKien}}
-                                                </option>
-                                            </select>
+                                            <span>{{item.TenLoaiLinhKien}}</span>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" value="{{item.Serial}}"/>
+                                            <span>{{item.Serial}}</span>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" value="{{item.Model}}" />
+                                            <span>{{item.Model}}</span>
                                         </td>
                                         <td>
-                                            <select class="form-control" id="MaNhaCungCap">
-                                                <option ng-repeat="i in DanhSachHSX"
-                                                        value="{{i.MaNhaCungCap}}"
-                                                        ng-selected="item.MaNhaCungCap == i.MaNhaCungCap">
-                                                    {{i.Ten}}
-                                                </option>
-                                            </select>
+                                            <span>{{item.TenNhaCungCap}}</span>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" value="{{item.GhiChu}}" />
+                                            <span>{{item.GhiChu}}</span>
                                         </td>
-                                        <td>
-                                            @*<span class="label label-xlg label-success arrowed arrowed-right">Chờ Bàn Giao</span>*@<span class="label label-xlg label-success arrowed arrowed-right"></span>
-                                            <select class="form-control" id="MaTinhTrang">
-                                                <option ng-repeat="i in DanhSachTinhTrang"
-                                                        value="{{i.MaTinhTrang}}"
-                                                        ng-selected="item.MaTinhTrang == i.MaTinhTrang">
-                                                    {{i.Ten}}
-                                                </option>
-                                            </select>
-                                        </td>
+
+                                        <td ng-show="item.MaTinhTrang == 1"><span class="label label-sm label-info">Chờ Bàn Giao</span></td>
+                                        <td ng-show="item.MaTinhTrang == 2"><span class="label label-sm label-warning">Đang Sửa Chữa</span></td>
+                                        <td ng-show="item.MaTinhTrang == 3"><span class="label label-sm label-primary">Đang Bảo Hành</span></td>
+                                        <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Đã Hỏng</span></td>
+                                        <td ng-show="item.MaTinhTrang == 5"><span class="label label-sm label-success">Đang Sử Dụng</span></td>
+                                        @*<td>
+                                            <span class="label label-sm label-success">{{item.TenTinhTrang}}</span>
+                                        </td>*@
                                         <td>
                                             <div class="row" style="margin-right:0px !important">
                                                 <div class="col-lg-6">
-                                                    <button type="button" class="btn btn-xs btn-info" ng-click="SuaLinhKienDB(item.MaLinhKien)">
-                                                        <i class="ace-icon fa fa-check bigger-120"></i>
+                                                    <button type="button" class="btn btn-xs btn-info" ng-click="SuaLinhKienDB(item)">
+                                                        <i class="ace-icon fa fa-edit bigger-120"></i>
                                                     </button>
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <button type="button" class="btn btn-xs btn-danger" ng-click="XoaLinhKienDB(item.MaLinhKien)">
+                                                    <button type="button" class="btn btn-xs btn-danger" ng-click="XoaLinhKienDB(item.MaLinhKien,$index)">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                     </button>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+                                </tbody>
+                            </table>
 
+                            <h4 class="pink">
+                                <i class="ace-icon fa fa-plus icon-animated-hand-pointer green text-info"></i> Thêm & Cập Nhật Thông Tin Thiết Bị
+                            </h4>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Loại</th>
+                                        <th>Serial</th>
+                                        <th>Model</th>
+                                        <th>Hãng SX</th>
+                                        <th>Mô Tả</th>
+                                        <th>Hiện Trạng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
                                     <tr>
                                         <td>
-                                            <select class="form-control" id="LoaiLinhKien">
-                                                <option ng-repeat="item in DanhSachLoaiLinhKien"
-                                                        value="{{item.MaLoaiLinhKien}}">
-                                                    {{item.TenLinhKien}}
-                                                </option>
-                                            </select>
+                                            <select class="form-control"
+                                                    id="LoaiLinhKien"
+                                                    ng-options="item as item.TenLinhKien for item in DanhSachLoaiLinhKien track by item.MaLoaiLinhKien"
+                                                    ng-model="MaLoaiLinhKienThem"></select>
                                         </td>
-                                        <td><input type="text" class="form-control" /></td>
-                                        <td><input type="text" class="form-control" /></td>
+
+                                        <td><input type="text" class="form-control" ng-model="SerialThem" /></td>
+
+                                        <td><input type="text" class="form-control" ng-model="ModelThem" /></td>
+
                                         <td>
-                                            <select class="form-control" id="MaNhaCungCap">
-                                                <option ng-repeat="item in DanhSachHSX"
-                                                        value="{{item.MaNhaCungCap}}">
-                                                    {{item.Ten}}
-                                                </option>
-                                            </select>
+                                            <select class="form-control"
+                                                    id="LoaiLinhKien"
+                                                    ng-options="item as item.Ten for item in DanhSachHSX track by item.MaNhaCungCap"
+                                                    ng-model="HangSXThem"></select>
                                         </td>
-                                        <td><input type="text" class="form-control" /></td>
+
+                                        <td><input type="text" class="form-control" ng-model="GhiChuThem" /></td>
+
                                         <td>
-                                            <select class="form-control" id="sel1">
-                                                <option ng-repeat="item in DanhSachTinhTrang">{{item.Ten}}</option>
-                                            </select>
+                                            <select class="form-control"
+                                                    id="LoaiLinhKien"
+                                                    ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang"
+                                                    ng-model="MaTinhTrangThem"></select>
                                         </td>
-                                        <td>
-                                            <button class="form-control btn btn-primary"><i class="ace-icon fa fa-plus bigger-120"></i></button>
+
+                                        <td>                                                                                   
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <button class="form-control btn btn-info" ng-click="CapNhatLinhKienDB()">
+                                                        <i class="ace-icon fa fa-floppy-o bigger-120"></i>
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-lg-6">
+                                                    <button class="form-control btn btn-primary" ng-click="ThemLinhKienDB(ThongTinThietBi.MaThietBi)">
+                                                        <i class="ace-icon fa fa-plus bigger-120"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            @*<button class="btn btn-success"><i class="ace-icon fa fa-check bigger-120"></i>Cập Nhật</button>*@
                         </div>
-
-                        @*<table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Tên</th>
-                                    <th>Serial</th>
-                                    <th>Model</th>
-                                    <th>Nhà Cung Cấp</th>
-                                    <th>Ghi Chú</th>
-                                    <th ng-show="ThietBi.DanhSachLinhKien.length > 0"></th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr ng-repeat="item in ThietBi.DanhSachLinhKien">
-                                    <td>{{item.TenLoaiLinhKien}}</td>
-                                    <td>{{item.Serial}}</td>
-                                    <td>{{item.Model}}</td>
-                                    <td>{{item.TenNhaCungCap}}</td>
-                                    <td>{{item.GhiChu}}</td>
-                                    <td>
-                                        <div class="row" style="margin-right:0px !important">
-                                            <div class="col-lg-6">
-                                                <button type="button" class="btn btn-xs btn-danger" ng-click="XoaLinhKien($index)" ng-show="!suaLinhKien">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <button type="button" class="btn btn-xs btn-info" ng-click="LayThongTinLinhKien($index)">
-                                                    <i class="ace-icon fa fa-eye bigger-120"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <select class="form-control" id="LoaiLinhKien">
-                                            <option ng-repeat="item in DanhSachLoaiLinhKien"
-                                                    value="{{item.MaLoaiLinhKien}}">
-                                                {{item.TenLinhKien}}
-                                            </option>
-                                        </select>
-                                    </td>
-
-                                    <td>
-                                        <input class="form-control"
-                                               type="text"
-                                               id="Serial" />
-                                    </td>
-
-                                    <td>
-                                        <input class="form-control"
-                                               type="text"
-                                               id="Model" />
-                                    </td>
-
-                                    <td>
-                                        <select class="form-control" id="MaNhaCungCap">
-                                            <option ng-repeat="item in DanhSachHSX"
-                                                    value="{{item.MaNhaCungCap}}">
-                                                {{item.Ten}}
-                                            </option>
-                                        </select>
-                                    </td>
-
-                                    <td>
-                                        <input class="form-control"
-                                               type="text"
-                                               id="GhiChu" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>*@
 
                         <div id="lstb" class="tab-pane fade">
                             <table class="table table-bordered">
@@ -1143,32 +1162,32 @@
 
                                 <tbody>
                                     @*<tr ng-repeat="item in ThongTinThietBi.LichSuThietBi">
-                        <td>12/02/2020</td>
-                        <td>
-                            <select class="form-control"
-                                    id="Mpb{{$index}}"
-                                    ng-model="item.MaDonVi"
-                                    ng-options="item as item.Ten for item in DanhSachPhongBan track by item.MaPhongBan"
-                                    ng-change="getUser($index,'sua')"></select>
-                        </td>
+                                            <td>12/02/2020</td>
+                                            <td>
+                                                <select class="form-control"
+                                                        id="Mpb{{$index}}"
+                                                        ng-model="item.MaDonVi"
+                                                        ng-options="item as item.Ten for item in DanhSachPhongBan track by item.MaPhongBan"
+                                                        ng-change="getUser($index,'sua')"></select>
+                                            </td>
 
-                        <td>
-                            <select class="form-control" id="listUser{{$index}}" ng-model="item.MaNguoiDung"></select>
-                        </td>
+                                            <td>
+                                                <select class="form-control" id="listUser{{$index}}" ng-model="item.MaNguoiDung"></select>
+                                            </td>
 
-                        <td>
-                            <select class="form-control" id="tinhTrang{{$index}}">
-                                <option ng-repeat="item in DanhSachTinhTrang"
-                                        value="{{item.MaTinhTrang}}">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
-                        </td>
+                                            <td>
+                                                <select class="form-control" id="tinhTrang{{$index}}">
+                                                    <option ng-repeat="item in DanhSachTinhTrang"
+                                                            value="{{item.MaTinhTrang}}">
+                                                        {{item.Ten}}
+                                                    </option>
+                                                </select>
+                                            </td>
 
-                        <td>
-                            <input type="text" class="form-control" id="Cp{{$index}}" />
-                        </td>
-                    </tr>*@
+                                            <td>
+                                                <input type="text" class="form-control" id="Cp{{$index}}" />
+                                            </td>
+                                        </tr>*@
                                     <tr ng-repeat="item in ThongTinThietBi.LichSuThietBi">
                                         <td></td>
                                         <td>
@@ -1188,6 +1207,56 @@
                                                 <option ng-repeat="item in DanhSachTinhTrang"
                                                         value="{{item.MaTinhTrang}}">
                                                 </option>
+                                            </select>
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" id="Cp{{$index}}" />
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="item in ThongTinThietBi.LichSuThietBi">
+                                        <td></td>
+                                        <td>
+                                            <select class="form-control"
+                                                    id="Mpb{{$index}}"
+                                                    ng-model="item.MaDonVi"
+                                                    ng-options="item as item.Ten for item in DanhSachPhongBan track by item.MaPhongBan"
+                                                    ng-change="getUser($index,'sua')"></select>
+                                        </td>
+
+                                        <td>
+                                            <select class="form-control" id="listUser{{$index}}" ng-model="item.MaNguoiDung"></select>
+                                        </td>
+
+                                        <td>
+                                            <select class="form-control" id="tinhTrang{{$index}}">
+                                                <option ng-repeat="item in DanhSachTinhTrang"
+                                                        value="{{item.MaTinhTrang}}"></option>
+                                            </select>
+                                        </td>
+
+                                        <td>
+                                            <input type="text" class="form-control" id="Cp{{$index}}" />
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat="item in ThongTinThietBi.LichSuThietBi">
+                                        <td></td>
+                                        <td>
+                                            <select class="form-control"
+                                                    id="Mpb{{$index}}"
+                                                    ng-model="item.MaDonVi"
+                                                    ng-options="item as item.Ten for item in DanhSachPhongBan track by item.MaPhongBan"
+                                                    ng-change="getUser($index,'sua')"></select>
+                                        </td>
+
+                                        <td>
+                                            <select class="form-control" id="listUser{{$index}}" ng-model="item.MaNguoiDung"></select>
+                                        </td>
+
+                                        <td>
+                                            <select class="form-control" id="tinhTrang{{$index}}">
+                                                <option ng-repeat="item in DanhSachTinhTrang"
+                                                        value="{{item.MaTinhTrang}}"></option>
                                             </select>
                                         </td>
 
@@ -1248,36 +1317,36 @@
                                     </tr>
 
                                     @*<tr>
-                        <td>
-                            <button class="form-control btn btn-info" ng-click="ThemThongTin('lstb')">
-                                <i class="ace-icon fa fa-plus"></i>
-                            </button>
-                        </td>
-                        <td>
-                            <select class="form-control" id="pb">
-                                <option ng-repeat="item in DanhSachPhongBan"
-                                        value="{{item.MaPhongBan}}">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control" id="nds">
-                                <option ng-repeat="item in DanhSachNguoiDung"
-                                        value="{{item.MaNguoiDung}}">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
-                        </td>
-                        <td>
-                            <select class="form-control" id="tts">
-                                <option ng-repeat="item in DanhSachTinhTrang">
-                                    {{item.Ten}}
-                                </option>
-                            </select>
-                        </td>
-                        <td><input type="text" class="form-control" id="cp" /></td>
-                    </tr>*@
+                                            <td>
+                                                <button class="form-control btn btn-info" ng-click="ThemThongTin('lstb')">
+                                                    <i class="ace-icon fa fa-plus"></i>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <select class="form-control" id="pb">
+                                                    <option ng-repeat="item in DanhSachPhongBan"
+                                                            value="{{item.MaPhongBan}}">
+                                                        {{item.Ten}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="form-control" id="nds">
+                                                    <option ng-repeat="item in DanhSachNguoiDung"
+                                                            value="{{item.MaNguoiDung}}">
+                                                        {{item.Ten}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select class="form-control" id="tts">
+                                                    <option ng-repeat="item in DanhSachTinhTrang">
+                                                        {{item.Ten}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td><input type="text" class="form-control" id="cp" /></td>
+                                        </tr>*@
                                     <tr>
                                         <td>
                                             <button class="form-control btn btn-info" ng-click="ThemThongTin('lstb')">
@@ -1302,6 +1371,56 @@
                                             <select class="form-control" id="tts">
                                                 <option ng-repeat="item in DanhSachTinhTrang">
                                                 </option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" id="cp" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button class="form-control btn btn-info" ng-click="ThemThongTin('lstb')">
+                                                <i class="ace-icon fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" id="pb">
+                                                <option ng-repeat="item in DanhSachPhongBan"
+                                                        value="{{item.MaPhongBan}}"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" id="nds">
+                                                <option ng-repeat="item in DanhSachNguoiDung"
+                                                        value="{{item.MaNguoiDung}}"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" id="tts">
+                                                <option ng-repeat="item in DanhSachTinhTrang"></option>
+                                            </select>
+                                        </td>
+                                        <td><input type="text" class="form-control" id="cp" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <button class="form-control btn btn-info" ng-click="ThemThongTin('lstb')">
+                                                <i class="ace-icon fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" id="pb">
+                                                <option ng-repeat="item in DanhSachPhongBan"
+                                                        value="{{item.MaPhongBan}}"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" id="nds">
+                                                <option ng-repeat="item in DanhSachNguoiDung"
+                                                        value="{{item.MaNguoiDung}}"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" id="tts">
+                                                <option ng-repeat="item in DanhSachTinhTrang"></option>
                                             </select>
                                         </td>
                                         <td><input type="text" class="form-control" id="cp" /></td>

@@ -29,7 +29,10 @@ angular.module("CommonApp", ['ui.bootstrap'])
                 API_ThemThietBi: "API/QuanLyTaiSan/ThemThietBi",
                 API_LayChiTietThietBi: "API/QuanLyTaiSan/LayChiTietThietBi",
                 API_XoaThietBi: "API/QuanLyTaiSan/XoaThietBi",
-                API_CapNhatThietBi : "API/QuanLyTaiSan/CapNhatThietBi",
+                API_CapNhatThongTinThietBi: "API/QuanLyTaiSan/CapNhatThongTinThietBi",
+                API_ThemLinhKienThietBi: "API/QuanLyTaiSan/ThemLinhKienThietBi",
+                API_XoaLinhKienThietBi: "API/QuanLyTaiSan/XoaLinhKienThietBi",
+                API_CapNhatThongTinLinhKien: "API/QuanLyTaiSan/CapNhatThongTinLinhKien",
                 // API lọc thiết bị theo các điều kiện
                 API_LocThietBi: "API/QuanLyTaiSan/LocThietBi",
                 API_LocThietBi_All: "API/QuanLyTaiSan/LocThietBi_All",

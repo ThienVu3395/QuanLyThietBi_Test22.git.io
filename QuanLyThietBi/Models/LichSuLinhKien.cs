@@ -14,6 +14,7 @@ namespace QuanLyThietBi.Models
     
     public partial class LichSuLinhKien
     {
+        public int ID { get; set; }
         public int MaLinhKien { get; set; }
         public int MaTinhTrang { get; set; }
         public Nullable<System.DateTime> Ngay { get; set; }

@@ -90,6 +90,9 @@ namespace QuanLyThietBi.Models
         public List<HopDongModel> DanhSachHopDong { get; set; }
         public string TrangThai { get; set; }
         public string ChiTietTaiSan { get; set; }
+        public string NguoiSuDung { get; set; }
+        public int? MaPhongBan { get; set; }
+        public string TenPhongBan { get; set; }
         public string IP { get; set; }
         public string SoHopDong { get; set; }
         public string HangSanXuat { get; set; }
@@ -135,6 +138,7 @@ namespace QuanLyThietBi.Models
     public class LinhKienModel
     {
         public int MaLinhKien { get; set; }
+        public int MaThietBi { get; set; }
         public int MaLoaiLinhKien { get; set; }
         public string TenLoaiLinhKien { get; set; }
         public string Serial { get; set; }
@@ -142,6 +146,8 @@ namespace QuanLyThietBi.Models
         public string Model { get; set; }
         public string ThongSoKyThuat { get; set; }
         public int MaTinhTrang { get; set; }
+        public int MaTinhTrangCu { get; set; }
+        public string TenTinhTrang { get; set; }
         public Nullable<int> MaNhaCungCap { get; set; }
         public string TenNhaCungCap { get; set; }
         public string NhaCungCap { get; set; }

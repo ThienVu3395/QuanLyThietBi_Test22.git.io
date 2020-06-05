@@ -27,8 +27,8 @@ namespace QuanLyThietBi.Models
         public string Password { get; set; }
         public string ChucVu { get; set; }
     
+        public virtual PhongBan PhongBan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichSuThietBi> LichSuThietBis { get; set; }
-        public virtual PhongBan PhongBan { get; set; }
     }
 }
