@@ -1,0 +1,240 @@
+﻿<div id="modalchitiet" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <div class="table-header">
+                    <button type="button" class="close" id="closeBTN" data-dismiss="modal" aria-hidden="true">
+                        <span class="white">&times;</span>
+                    </button>
+                    Thông Tin Thiết Bị
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <h4 class="blue">
+                    <span class="label label-purple arrowed-in-right">
+                        <i class="ace-icon fa fa-info-circle smaller-80 align-middle"></i>
+                        Thông Tin Chung
+                    </span>
+                </h4>
+
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <label for="sel1">
+                            Nhóm - Loại Thiết Bị
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.DanhMuc}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="usr">Mã Tài Sản</label>
+                        <div class="form-control">{{ThongTinThietBi.MaTaiSan}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label for="usr">
+                            Tên Thiết Bị
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.Ten}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-2">
+                        <label for="usr">
+                            Hãng Sản Xuất
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.HangSanXuat}}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <label for="usr">
+                            Dòng Máy
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.Model}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="usr">
+                            Mã Số Thiết Bị
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.Serial}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="usr">Nhà Cung Cấp</label>
+                        <div class="form-control">{{ThongTinThietBi.NhaCungCap}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="usr">
+                            IP
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.IP}}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <label>
+                            Ngày Mua
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.NgayNhapKho | date : 'dd/MM/yyyy'}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="form-field-mask-1">
+                            Ngày Bảo Hành
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.NamBaoHanh}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="form-field-mask-1">
+                            Số Hợp Đồng
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.SoHopDong}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="sel1">Ghi Chú</label>
+                        <div class="form-control">{{ThongTinThietBi.GhiChu}}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <label for="form-field-select-1">Hiện Trạng</label>
+                        <div class="form-control">Đang Sử Dụng</div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label for="form-field-select-1">Đơn Vị Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.TenPhongBan}}</div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label for="form-field-select-1">Người Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.NguoiSuDung}}</div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <label for="form-field-select-1">Vị Trí Phòng Ban Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.ViTri}}</div>
+                    </div>
+                </div>
+
+                <div class="tabbable" style="margin-top:12px">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active">
+                            <a data-toggle="tab" href="#home">
+                                <i class="green ace-icon fa fa-list bigger-120"></i>
+                                Danh Sách Linh Kiện
+                            </a>
+                        </li>
+
+                        @*<li>
+                            <a data-toggle="tab" href="#messages">
+                                <i class="green ace-icon fa fa-cogs bigger-120"></i>
+                                Lịch Sử Thiết Bị
+                            </a>
+                        </li>*@
+                        @*
+                            <li>
+                                <a data-toggle="tab" href="#contracts">
+                                    <i class="green ace-icon fa fa-book bigger-120"></i>
+                                    Danh Sách Hợp Đồng
+                                </a>
+                            </li>
+                        *@
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Loại Linh Kiện</th>
+                                        <th>Serial</th>
+                                        <th>Model</th>
+                                        <th>Nhà Cung Cấp</th>
+                                        <th>Mô Tả</th>
+                                        <th>Hiện Trạng</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="item in ThongTinThietBi.DanhSachLinhKien">
+                                        <td>{{item.TenLoaiLinhKien}}</td>
+                                        <td>{{item.Serial}}</td>
+                                        <td>{{item.Model}}</td>
+                                        <td>{{item.NhaCungCap}}</td>
+                                        <td>{{item.GhiChu}}</td>
+                                        <td ng-show="item.MaTinhTrang == 1"><span class="label label-sm label-info">Chờ Bàn Giao</span></td>
+                                        <td ng-show="item.MaTinhTrang == 2"><span class="label label-sm label-warning">Đang Sửa Chữa</span></td>
+                                        <td ng-show="item.MaTinhTrang == 3"><span class="label label-sm label-primary">Đang Bảo Hành</span></td>
+                                        <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Đã Hỏng</span></td>
+                                        <td ng-show="item.MaTinhTrang == 5"><span class="label label-sm label-success">Đang Sử Dụng</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="messages" class="tab-pane fade">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Ngày</th>
+                                        <th>Người Sử Dụng</th>
+                                        <th>Đơn Vị</th>
+                                        <th>Hình Thức</th>
+                                        <th>Chi Phí</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="item in ThongTinThietBi.LichSuThietBi">
+                                        <td>12/02/2020</td>
+                                        <td>{{item.NguoiDung}}</td>
+                                        <td>{{item.DonVi}}</td>
+                                        <td>{{item.TinhTrang}}</td>
+                                        <td>Đang Cập Nhật</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="contracts" class="tab-pane fade">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Số Hợp Đồng</th>
+                                        <th>Tên Hợp Đồng</th>
+                                        <th>Giá Trị Hợp Đồng</th>
+                                        <th>Ngày Ký</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="item in ThongTinThietBi.DanhSachHopDong">
+                                        <td>{{item.SoHopDong}}</td>
+                                        <td>{{item.Ten}}</td>
+                                        <td>{{item.GiaTriHD}}</td>
+                                        <td>{{item.NgayKy | date}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer no-margin-top">
+                <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
+                    <i class="ace-icon fa fa-times"></i>
+                    Đóng
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>

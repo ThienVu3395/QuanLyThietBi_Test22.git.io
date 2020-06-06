@@ -450,7 +450,10 @@
             res.then(
                 function succ(response) {
                     $scope.ThongTinThietBi = response.data;
+                    console.log($scope.ThongTinThietBi);
                     $scope.ngayMua = $scope.ThongTinThietBi.NgayNhapKho;
+                    let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.MaPhongBan);
+                    $scope.MaPhongBanSua = $scope.DanhSachPhongBan[i];
                     //for (let index = 0; index < $scope.ThongTinThietBi.LichSuThietBi.length; index++) {
                     //    let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi);
                     //    $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi = $scope.DanhSachPhongBan[i];
@@ -674,7 +677,7 @@
             )
         }
 
-        // Sửa linh kiện database
+        // Lấy thông tin linh kiện cần sửa
         $scope.SuaLinhKienDB = function (LinhKien) {
             $scope.objSua = LinhKien;
             $scope.SerialThem = $scope.objSua.Serial;
@@ -690,69 +693,75 @@
 
         // Cập nhật thông tin linh kiện trong db
         $scope.CapNhatLinhKienDB = function () {
-            let linhKienSua = {
-                MaLinhKien: $scope.objSua.MaLinhKien,
-                MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
-                Serial: $scope.SerialThem,
-                Model: $scope.ModelThem,
-                MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
-                GhiChu: $scope.GhiChuThem,
-                MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
-                MaTinhTrangCu: $scope.objSua.MaTinhTrang,
-                MaThietBi: $scope.objSua.MaThietBi,
-            }
-            var res = CommonController.postData(CommonController.urlAPI.API_CapNhatThongTinLinhKien, linhKienSua);
-            res.then(
-                function succ(response) {
-                    alert(response.data);
-                    $scope.LayThongTinChiTiet(linhKienSua.MaThietBi);
-                    $scope.objSua.MaTinhTrang = linhKienSua.MaTinhTrang;
-                },
-
-                function errorCallback(response) {
-                    console.log(response.data.Message);
+            if (window.confirm("Bạn chắc chắn cập nhật thông tin linh kiện này với những thông tin vừa nhập chứ ? ")) {
+                let linhKienSua = {
+                    MaLinhKien: $scope.objSua.MaLinhKien,
+                    MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
+                    Serial: $scope.SerialThem,
+                    Model: $scope.ModelThem,
+                    MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
+                    GhiChu: $scope.GhiChuThem,
+                    MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
+                    MaTinhTrangCu: $scope.objSua.MaTinhTrang,
+                    MaThietBi: $scope.objSua.MaThietBi,
                 }
-            )
+                var res = CommonController.postData(CommonController.urlAPI.API_CapNhatThongTinLinhKien, linhKienSua);
+                res.then(
+                    function succ(response) {
+                        alert(response.data);
+                        $scope.LayThongTinChiTiet(linhKienSua.MaThietBi);
+                        $scope.objSua.MaTinhTrang = linhKienSua.MaTinhTrang;
+                    },
+
+                    function errorCallback(response) {
+                        console.log(response.data.Message);
+                    }
+                )
+            }
         }
 
         // Xóa linh kiện database
         $scope.XoaLinhKienDB = function (MaLinhKien, index) {
-            var param = "?MaLinhKien=" + MaLinhKien;
-            var res = CommonController.deleteData(CommonController.urlAPI.API_XoaLinhKienThietBi, param);
-            res.then(
-                function succ(response) {
-                    $scope.ThongTinThietBi.DanhSachLinhKien.splice(index, 1);
-                    alert(response.data);
-                },
+            if (window.confirm("Bạn chắc chắn xóa linh kiện này chứ ? ")) {
+                var param = "?MaLinhKien=" + MaLinhKien;
+                var res = CommonController.deleteData(CommonController.urlAPI.API_XoaLinhKienThietBi, param);
+                res.then(
+                    function succ(response) {
+                        $scope.ThongTinThietBi.DanhSachLinhKien.splice(index, 1);
+                        alert(response.data);
+                    },
 
-                function errorCallback(response) {
-                    console.log(response.data.Message);
-                }
-            )
+                    function errorCallback(response) {
+                        console.log(response.data.Message);
+                    }
+                )
+            }
         }
 
         // Thêm linh kiện database
         $scope.ThemLinhKienDB = function (MaThietBi) {
-            let linhKienThem = {
-                MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
-                Serial: $scope.SerialThem,
-                Model: $scope.ModelThem,
-                MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
-                GhiChu: $scope.GhiChuThem,
-                MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
-                MaThietBi: MaThietBi,
-            }
-            var res = CommonController.postData(CommonController.urlAPI.API_ThemLinhKienThietBi, linhKienThem);
-            res.then(
-                function succ(response) {
-                    alert("Thêm Linh Kiện Thành Công");
-                    linhKienThem.MaLinhKien = response.data;
-                    $scope.ThongTinThietBi.DanhSachLinhKien.push(linhKienThem);
-                },
-
-                function errorCallback(response) {
-                    console.log(response.data.Message);
+            if (window.confirm("Bạn chắc chắn thêm linh kiện với những thông tin vừa nhập chứ ? ")) {
+                let linhKienThem = {
+                    MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
+                    Serial: $scope.SerialThem,
+                    Model: $scope.ModelThem,
+                    MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
+                    GhiChu: $scope.GhiChuThem,
+                    MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
+                    MaThietBi: MaThietBi,
                 }
-            )
+                var res = CommonController.postData(CommonController.urlAPI.API_ThemLinhKienThietBi, linhKienThem);
+                res.then(
+                    function succ(response) {
+                        alert("Thêm Linh Kiện Thành Công");
+                        linhKienThem.MaLinhKien = response.data;
+                        $scope.ThongTinThietBi.DanhSachLinhKien.push(linhKienThem);
+                    },
+
+                    function errorCallback(response) {
+                        console.log(response.data.Message);
+                    }
+                )
+            }
         }
     })

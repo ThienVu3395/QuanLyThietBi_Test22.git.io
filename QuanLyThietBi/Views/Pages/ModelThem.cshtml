@@ -1,0 +1,416 @@
+﻿
+<div id="modal-table" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header no-padding">
+                <div class="table-header">
+                    <button type="button" class="close" id="closeBTN" data-dismiss="modal" aria-hidden="true">
+                        <span class="white">&times;</span>
+                    </button>
+                    Thêm Mới Thiết Bị
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <h4 class="blue">
+                    <span class="label label-purple arrowed-in-right">
+                        <i class="ace-icon fa fa-info-circle smaller-80 align-middle"></i>
+                        Thông Tin Chung
+                    </span>
+                </h4>
+
+                <form name="formTB" ng-submit="ThemThietBi()" novalidate>
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">
+                                Nhóm Thiết Bị<span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <select class="form-control" ng-model="MaCha" ng-options="item as item.Ten for item in DanhSachDanhMuc" ng-change="LayDsNhom('them')"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">
+                                Loại Thiết Bị<span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <select class="form-control" ng-model="MaCon" ng-options="item as item.Ten for item in DanhSachNhom" ng-change="ChonDanhMuc()"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="usr">
+                                Dòng Máy <span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <input type="text" name="Model" ng-model="ThietBi.Model" class="form-control" ng-minlength="6" ng-required="true">
+                            <span class="error text-danger" ng-show="formTB.Model.$error.required">Bạn chưa nhập trường này</span>
+                            <span class="error text-danger" ng-show="formTB.Model.$error.minlength">Tối thiểu 5 ký tự</span>
+                            <span class="valid" ng-show="formTB.Model.$valid"></span>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="usr">
+                                Tên Thiết Bị <span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <input type="text" name="Ten" ng-model="ThietBi.Ten" class="form-control" ng-minlength="5" ng-required="true">
+                            <span class="error text-danger" ng-show="formTB.Ten.$error.required">Bạn chưa nhập trường này</span>
+                            <span class="error text-danger" ng-show="formTB.Ten.$error.minlength">Tối thiểu 5 ký tự</span>
+                            <span class="valid" ng-show="formTB.Ten.$valid"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="usr">
+                                Hãng Sản Xuất <span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <select class="form-control"
+                                    ng-model="MaNhaCungCap"
+                                    ng-options="item.Ten for item in DanhSachHSX track by item.MaNhaCungCap"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="usr">Mã Tài Sản</label>
+                            <input ng-model="ThietBi.MaTaiSan"
+                                   type="text"
+                                   class="form-control"
+                                   ng-disabled="SoLuongThietBi > 1">
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="usr">
+                                Mã Số Thiết Bị <span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <input type="text" name="Serial" id="Seri" ng-model="ThietBi.Serial" class="form-control" ng-minlength="6" ng-required="true" ng-disabled="SoLuongThietBi > 1">
+                            <span class="error text-danger" ng-show="formTB.Serial.$error.required">Bạn chưa nhập trường này</span>
+                            <span class="error text-danger" ng-show="formTB.Serial.$error.minlength">Tối thiểu 5 ký tự</span>
+                            <span class="valid" ng-show="formTB.Serial.$valid"></span>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="usr">
+                                Số Lượng <span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <input type="number" name="SoLuong" class="form-control" ng-model="SoLuongThietBi" ng-minlength="1" ng-required=true ng-change="showSerial()">
+                            <span class="error text-danger" ng-show="formTB.SoLuong.$error.required">Bạn chưa nhập & nhập sai thông tin này</span>
+                            <span class="error text-danger" ng-show="!formTB.SoLuong.$error.required && formTB.SoLuong.$invalid">Số lượng phải là số</span>
+                            <span class="valid" ng-show="formTB.SoLuong.$valid"></span>
+                        </div>
+
+                        <div class="col-lg-12 col-sm-6 widget-container-col" id="widget-container-col-1" ng-show="SoLuongThietBi > 1">
+                            <div class="widget-box" id="widget-box-1">
+                                <div class="widget-header">
+                                    <h5 class="widget-title">
+                                        <span class="label label-purple arrowed-in-right">
+                                            <i class="ace-icon fa fa-info-circle smaller-80 align-middle"></i>
+                                            Thông Tin Chi Tiết {{SoLuongThietBi}} Thiết Bị
+                                        </span>
+                                    </h5>
+
+                                    <div class="widget-toolbar">
+                                        <a href="#" data-action="collapse">
+                                            <i class="ace-icon fa fa-chevron-up"></i>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Serial</th>
+                                                    <th>Mã Tài Sản</th>
+                                                    <th>Phòng Ban</th>
+                                                    <th>Người Sử Dụng</th>
+                                                    <th>Tình Trạng</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr ng-repeat="i in [].constructor(SoLuongThietBi) track by $index">
+                                                    <td>{{$index + 1}}</td>
+                                                    <td><input type="text" id="Serial{{$index + 1}}" class="form-control"></td>
+                                                    <td><input type="text" id="MaTaiSan{{$index + 1}}" class="form-control"></td>
+                                                    <td>
+                                                        <select class="form-control"
+                                                                id=MaPhongBan{{$index+1}}
+                                                                ng-model="DonVi"
+                                                                ng-options="item as item.Ten for item in DanhSachPhongBan track by item.MaPhongBan"
+                                                                ng-change="getUser($index + 1,'none')"></select>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" id="MaNguoiDung{{$index + 1}}">
+                                                            <option ng-repeat="item in DanhSachNguoiDung"
+                                                                    value={{item.MaNguoiDung}}>
+                                                                {{item.Ten}}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <select class="form-control" id="MaTinhTrang{{$index + 1}}">
+                                                            <option ng-repeat="item in DanhSachTinhTrang"
+                                                                    value="{{item.MaTinhTrang}}">
+                                                                {{item.Ten}}
+                                                            </option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Nhà Cung Cấp
+                            </label>
+                            <input type="text" name="NhaCungCap" ng-model="ThietBi.NhaCungCap" class="form-control">
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="usr">
+                                Giá Trị (VNĐ) <span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <input type="number" name="Gia" class="form-control" ng-model="ThietBi.Gia" ng-required=true>
+                            <span class="error text-danger" ng-show="formTB.Gia.$error.required">Bạn chưa nhập thông tin này</span>
+                            <span class="error text-danger" ng-show="!formTB.Gia.$error.required && formTB.Gia.$invalid">Giá phải là số</span>
+                            <span class="valid" ng-show="formTB.Gia.$valid"></span>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">Dự Án & Hợp Đồng</label>
+
+                            <select class="form-control"
+                                    ng-model="MaHopDong"
+                                    ng-options="item as item.Ten for item in DanhSachHopDong track by item.MaHopDong"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Số Hợp Đồng
+                            </label>
+                            <input type="text" name="SoHopDong" ng-model="ThietBi.SoHopDong" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Ngày Ký Hợp Đồng
+                            </label>
+                            <input type="date" name="NgayKy" ng-model="ThietBi.NgayKy" class="form-control" style="line-height: 20px !important">
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Giá Trị Hợp Đồng
+                            </label>
+                            <input type="number" name="GiaTriHD" class="form-control" ng-model="ThietBi.GiaTriHD">
+                            <span class="error text-danger" ng-show="!formTB.GiaTriHD.$error.required && formTB.GiaTriHD.$invalid">Giá trị phải là số</span>
+                            <span class="valid" ng-show="formTB.GiaTriHD.$valid"></span>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Ngày Mua @*<span class="bigger-110 red">
+                                        *
+                                    </span>*@<span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
+                                </span><span class="bigger-110 red">
+                                </span>
+                            </label>
+                            <input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayMua" class="form-control" style="line-height: 20px !important">
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="form-field-mask-1">
+                                Năm Bảo Hành
+                            </label>
+                            <input name="NamBaoHanh" ng-model="ThietBi.NamBaoHanh" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">Hiện Trạng Thiết Bị</label>
+                            <select class="form-control"
+                                    ng-model="MaTinhTrang"
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">Đơn Vị Sử Dụng</label>
+                            <select class="form-control"
+                                    ng-model="DonVi"
+                                    ng-options="item as item.Ten for item in DanhSachPhongBan"
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-change="LayNguoiDung()"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">Người Sử Dụng</label>
+                            <select class="form-control"
+                                    ng-model="MaNguoiDung"
+                                    ng-options="item as item.Ten for item in DanhSachNguoiDung"
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-change="ChonNguoiDung()"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="comment">Vị Trí Phòng</label>
+                            <input class="form-control"
+                                   type="text"
+                                   ng-model="ThietBi.ViTri" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="comment">Địa Chỉ IP</label>
+                            <input class="form-control"
+                                   type="text"
+                                   ng-model="ThietBi.IP" />
+                        </div>
+
+                        <div class="form-group col-lg-9">
+                            <label for="comment">Ghi Chú</label>
+                            <input class="form-control"
+                                   type="text"
+                                   ng-model="ThietBi.GhiChu" />
+                        </div>
+                    </div>
+
+                    <h4 class="blue">
+                        <span class="label label-purple arrowed-in-right">
+                            <i class="ace-icon fa fa-info-circle smaller-80 align-middle"></i>
+                            Thông Tin + Thông Số Linh Kiện Đi Kèm
+                        </span>
+                    </h4>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Serial</th>
+                                <th>Model</th>
+                                <th>Nhà Cung Cấp</th>
+                                <th>Ghi Chú</th>
+                                <th ng-show="ThietBi.DanhSachLinhKien.length > 0"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="item in ThietBi.DanhSachLinhKien">
+                                <td>{{item.TenLoaiLinhKien}}</td>
+                                <td>{{item.Serial}}</td>
+                                <td>{{item.Model}}</td>
+                                <td>{{item.TenNhaCungCap}}</td>
+                                <td>{{item.GhiChu}}</td>
+                                <td>
+                                    <div class="row" style="margin-right:0px !important">
+                                        <div class="col-lg-6">
+                                            <button type="button" class="btn btn-xs btn-danger" ng-click="XoaLinhKien($index)" ng-show="!suaLinhKien">
+                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button type="button" class="btn btn-xs btn-info" ng-click="LayThongTinLinhKien($index)">
+                                                <i class="ace-icon fa fa-eye bigger-120"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <select class="form-control" id="LoaiLinhKien">
+                                        <option ng-repeat="item in DanhSachLoaiLinhKien"
+                                                value="{{item.MaLoaiLinhKien}}">
+                                            {{item.TenLinhKien}}
+                                        </option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input class="form-control"
+                                           type="text"
+                                           id="Serial" />
+                                </td>
+
+                                <td>
+                                    <input class="form-control"
+                                           type="text"
+                                           id="Model" />
+                                </td>
+
+                                <td>
+                                    <select class="form-control" id="MaNhaCungCap">
+                                        <option ng-repeat="item in DanhSachHSX"
+                                                value="{{item.MaNhaCungCap}}">
+                                            {{item.Ten}}
+                                        </option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <input class="form-control"
+                                           type="text"
+                                           id="GhiChu" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button type="button" class="btn btn-info" ng-click="ThemLinhKien()" ng-show="!suaLinhKien">
+                        <i class="ace-icon fa fa-plus"></i>Thêm Linh Kiện
+                    </button>
+
+                    <button type="button" class="btn btn-danger" ng-click="huySua()" ng-show="suaLinhKien">
+                        <i class="ace-icon fa fa-times"></i>Hủy
+                    </button>
+
+                    <button type="button" class="btn btn-info" ng-click="SuaLinhKien()" ng-show="suaLinhKien">
+                        <i class="ace-icon fa fa-edit"></i>Sửa
+                    </button>
+
+                    <button type="submit" class="btn btn-success pull-right" ng-disabled="formTB.$invalid">
+                        <i class="ace-icon fa fa-plus"></i>Thêm Thiết Bị
+                    </button>
+                </form>
+            </div>
+
+            <div class="modal-footer no-margin-top">
+                <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+                    <i class="ace-icon fa fa-times"></i>
+                    Đóng
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

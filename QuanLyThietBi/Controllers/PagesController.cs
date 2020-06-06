@@ -25,5 +25,20 @@ namespace QuanLyThietBi.Controllers
         {
             return View();
         }
+
+        public PartialViewResult ModelChiTiet()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult ModelThem()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult ModelSua()
+        {
+            return PartialView();
+        }
     }
 }
