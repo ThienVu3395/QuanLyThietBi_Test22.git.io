@@ -12,7 +12,7 @@
     </style>
 }
     <div class="row">
-        <form name="formHSX" ng-submit="ThemHSX()" novalidate>
+        <form name="formHSX" novalidate>
             <div class="form-group col-lg-3">
                 <label for="usr">
                     Tên Hãng Sản Xuất <span class="bigger-110 red">
@@ -25,18 +25,20 @@
                 <span class="valid" ng-show="formHSX.Ten.$valid"></span>
             </div>
 
-            <div class="form-group col-lg-3">
+            <div class="form-group col-lg-1">
                 <label for="usr">
                     Thêm
                 </label>
-                <button class="form-control btn btn-success" type="submit" ng-disabled="formHSX.$invalid">Thêm</button>
+                <button class="form-control btn btn-success" ng-disabled="formHSX.$invalid" ng-click="ThemHSX()">
+                    <i class="ace-icon fa fa-plus"></i>
+                </button>
             </div>
         </form>
     </div>
 
 <div class="row" ng-init="LayDanhSachHangSanXuat()">
     <div class="col-xs-12">
-        <table id="simple-table" class="table  table-bordered table-hover">
+        <table id="simple-table" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Tên</th>
@@ -45,14 +47,14 @@
             </thead>
 
             <tbody>
-                <tr ng-repeat="item in DanhSachHSX track by item.MaNhaCungCap" ng-show="item.MaNhaCungCap != 0">
+                <tr ng-repeat="item in DanhSachHSX track by item.MaNhaCungCap" ng-show="item.MaNhaCungCap != -1">
                     <td>
                         {{item.Ten}}
                     </td>
 
                     <td>
                         <div class="hidden-sm hidden-xs btn-group">
-                            <button class="btn btn-xs btn-danger" ng-click="XoaHSX()">
+                            <button class="btn btn-xs btn-danger" ng-click="XoaHSX(item.MaNhaCungCap)">
                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                             </button>
                         </div>

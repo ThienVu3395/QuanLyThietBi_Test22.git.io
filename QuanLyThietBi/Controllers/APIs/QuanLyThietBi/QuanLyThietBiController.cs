@@ -1032,5 +1032,75 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 return BadRequest("Nội dung lỗi 01 : " + exceptionMessage + "Nội dung lỗi 02 :" + ex.EntityValidationErrors);
             }
         }
+
+        [HttpDelete]
+        [Route("XoaHangSanXuat")]
+        public IHttpActionResult XoaHangSanXuat(int MaNhaCungCap)
+        {
+            try
+            {
+                var ncc = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == MaNhaCungCap).FirstOrDefault();
+                if (ncc != null)
+                {
+                    var tb = dbContext.ThietBis.Where(x => x.MaHangSanXuat == MaNhaCungCap).ToList();
+                    if(tb.Count > 0)
+                    {
+                        return BadRequest("Không thể xóa,hãng sản xuất này đã tồn tại trên các thiết bị");
+                    }
+                    dbContext.NhaCungCaps.Remove(ncc);
+                    dbContext.SaveChanges();
+                    return Ok("Xóa hãng sản xuất thành công");
+                }
+                return BadRequest("Có lỗi xảy ra,xin vui lòng thử lại");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                //throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                return BadRequest("Nội dung lỗi 01 : " + exceptionMessage + "Nội dung lỗi 02 :" + ex.EntityValidationErrors);
+            }
+        }
+
+        [HttpPost]
+        [Route("ThemHangSanXuat")]
+        public IHttpActionResult ThemHangSanXuat(HangSanXuatViewModel tbModel)
+        {
+            try
+            {
+                NhaCungCap ncc = new NhaCungCap();
+                ncc.Ten = tbModel.Ten;
+                dbContext.NhaCungCaps.Add(ncc);
+                dbContext.SaveChanges();
+                return Ok(ncc.MaNhaCungCap);
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                //throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                return BadRequest("Nội dung lỗi 01 : " + exceptionMessage + "Nội dung lỗi 02 :" + ex.EntityValidationErrors);
+            }
+        }
     }
 }

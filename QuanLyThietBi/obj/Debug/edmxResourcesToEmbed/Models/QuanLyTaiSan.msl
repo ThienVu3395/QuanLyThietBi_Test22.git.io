@@ -52,14 +52,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="NhaCungCaps">
-      <EntityTypeMapping TypeName="QuanLyThietBiModel.NhaCungCap">
-        <MappingFragment StoreEntitySet="NhaCungCap">
-          <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
-          <ScalarProperty Name="Ten" ColumnName="Ten" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PhongBans">
       <EntityTypeMapping TypeName="QuanLyThietBiModel.PhongBan">
         <MappingFragment StoreEntitySet="PhongBan">
@@ -185,6 +177,14 @@
           <ScalarProperty Name="Serial" ColumnName="Serial" />
           <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
           <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhaCungCaps">
+      <EntityTypeMapping TypeName="QuanLyThietBiModel.NhaCungCap">
+        <MappingFragment StoreEntitySet="NhaCungCap">
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

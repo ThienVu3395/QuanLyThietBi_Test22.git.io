@@ -103,7 +103,7 @@
           <Key>
             <PropertyRef Name="MaNhaCungCap" />
           </Key>
-          <Property Name="MaNhaCungCap" Type="int" Nullable="false" />
+          <Property Name="MaNhaCungCap" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ten" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="PhongBan">
@@ -504,15 +504,6 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
           <NavigationProperty Name="PhongBan" Relationship="Self.FK_NguoiSuDung_PhongBan" FromRole="NguoiSuDung" ToRole="PhongBan" />
           <NavigationProperty Name="LichSuThietBis" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_NguoiSuDung" FromRole="NguoiSuDung" ToRole="LichSuThietBi" />
         </EntityType>
-        <EntityType Name="NhaCungCap">
-          <Key>
-            <PropertyRef Name="MaNhaCungCap" />
-          </Key>
-          <Property Name="MaNhaCungCap" Type="Int32" Nullable="false" />
-          <Property Name="Ten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ThietBis" Relationship="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" FromRole="NhaCungCap" ToRole="ThietBi" />
-          <NavigationProperty Name="LinhKiens" Relationship="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" FromRole="NhaCungCap" ToRole="LinhKien" />
-        </EntityType>
         <EntityType Name="PhongBan">
           <Key>
             <PropertyRef Name="MaPhongBan" />
@@ -572,7 +563,6 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
           <EntitySet Name="HopDongThietBis" EntityType="Self.HopDongThietBi" />
           <EntitySet Name="LinhKienThietBis" EntityType="Self.LinhKienThietBi" />
           <EntitySet Name="NguoiSuDungs" EntityType="Self.NguoiSuDung" />
-          <EntitySet Name="NhaCungCaps" EntityType="Self.NhaCungCap" />
           <EntitySet Name="PhongBans" EntityType="Self.PhongBan" />
           <EntitySet Name="TinhTrangs" EntityType="Self.TinhTrang" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -641,10 +631,6 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
             <End Role="ThietBi" EntitySet="ThietBis" />
             <End Role="LinhKienThietBi" EntitySet="LinhKienThietBis" />
           </AssociationSet>
-          <AssociationSet Name="FK_ThietBi_NhaCungCap" Association="QuanLyThietBiModel.FK_ThietBi_NhaCungCap">
-            <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
-            <End Role="ThietBi" EntitySet="ThietBis" />
-          </AssociationSet>
           <AssociationSet Name="FK_ThietBi_PhongBan" Association="QuanLyThietBiModel.FK_ThietBi_PhongBan">
             <End Role="PhongBan" EntitySet="PhongBans" />
             <End Role="ThietBi" EntitySet="ThietBis" />
@@ -659,13 +645,18 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
             <End Role="LoaiLinhKien" EntitySet="LoaiLinhKiens" />
             <End Role="LinhKien" EntitySet="LinhKiens" />
           </AssociationSet>
+          <AssociationSet Name="FK_LinhKienThietBi_LinhKien" Association="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien">
+            <End Role="LinhKien" EntitySet="LinhKiens" />
+            <End Role="LinhKienThietBi" EntitySet="LinhKienThietBis" />
+          </AssociationSet>
+          <EntitySet Name="NhaCungCaps" EntityType="QuanLyThietBiModel.NhaCungCap" />
           <AssociationSet Name="FK_LinhKien_NhaCungCap" Association="QuanLyThietBiModel.FK_LinhKien_NhaCungCap">
             <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
             <End Role="LinhKien" EntitySet="LinhKiens" />
           </AssociationSet>
-          <AssociationSet Name="FK_LinhKienThietBi_LinhKien" Association="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien">
-            <End Role="LinhKien" EntitySet="LinhKiens" />
-            <End Role="LinhKienThietBi" EntitySet="LinhKienThietBis" />
+          <AssociationSet Name="FK_ThietBi_NhaCungCap" Association="QuanLyThietBiModel.FK_ThietBi_NhaCungCap">
+            <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
+            <End Role="ThietBi" EntitySet="ThietBis" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -767,8 +758,8 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
           <NavigationProperty Name="HopDongThietBis" Relationship="QuanLyThietBiModel.FK_HopDongThietBi_ThietBi" FromRole="ThietBi" ToRole="HopDongThietBi" />
           <NavigationProperty Name="LichSuThietBis" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" FromRole="ThietBi" ToRole="LichSuThietBi" />
           <NavigationProperty Name="LinhKienThietBis" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_ThietBi" FromRole="ThietBi" ToRole="LinhKienThietBi" />
-          <NavigationProperty Name="NhaCungCap1" Relationship="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" FromRole="ThietBi" ToRole="NhaCungCap" />
           <NavigationProperty Name="PhongBan" Relationship="QuanLyThietBiModel.FK_ThietBi_PhongBan" FromRole="ThietBi" ToRole="PhongBan" />
+          <NavigationProperty Name="NhaCungCap1" Relationship="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" FromRole="ThietBi" ToRole="NhaCungCap" />
         </EntityType>
         <Association Name="FK_ThietBi_DanhMuc">
           <End Type="QuanLyThietBiModel.DanhMuc" Role="DanhMuc" Multiplicity="1" />
@@ -818,18 +809,6 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ThietBi_NhaCungCap">
-          <End Type="QuanLyThietBiModel.NhaCungCap" Role="NhaCungCap" Multiplicity="0..1" />
-          <End Type="QuanLyThietBiModel.ThietBi" Role="ThietBi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NhaCungCap">
-              <PropertyRef Name="MaNhaCungCap" />
-            </Principal>
-            <Dependent Role="ThietBi">
-              <PropertyRef Name="MaNhaCungCap" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ThietBi_PhongBan">
           <End Type="QuanLyThietBiModel.PhongBan" Role="PhongBan" Multiplicity="0..1" />
           <End Type="QuanLyThietBiModel.ThietBi" Role="ThietBi" Multiplicity="*" />
@@ -864,8 +843,8 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
           <Property Name="NamBaoHanh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LichSuLinhKiens" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien" FromRole="LinhKien" ToRole="LichSuLinhKien" />
           <NavigationProperty Name="LoaiLinhKien" Relationship="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien" FromRole="LinhKien" ToRole="LoaiLinhKien" />
-          <NavigationProperty Name="NhaCungCap" Relationship="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" FromRole="LinhKien" ToRole="NhaCungCap" />
           <NavigationProperty Name="LinhKienThietBis" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien" FromRole="LinhKien" ToRole="LinhKienThietBi" />
+          <NavigationProperty Name="NhaCungCap" Relationship="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" FromRole="LinhKien" ToRole="NhaCungCap" />
         </EntityType>
         <Association Name="FK_LichSuLinhKien_LinhKien">
           <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="1" />
@@ -891,6 +870,27 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LinhKienThietBi_LinhKien">
+          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="1" />
+          <End Type="QuanLyThietBiModel.LinhKienThietBi" Role="LinhKienThietBi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LinhKien">
+              <PropertyRef Name="MaLinhKien" />
+            </Principal>
+            <Dependent Role="LinhKienThietBi">
+              <PropertyRef Name="MaLinhKien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NhaCungCap">
+          <Key>
+            <PropertyRef Name="MaNhaCungCap" />
+          </Key>
+          <Property Name="MaNhaCungCap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ten" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LinhKiens" Relationship="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" FromRole="NhaCungCap" ToRole="LinhKien" />
+          <NavigationProperty Name="ThietBis" Relationship="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" FromRole="NhaCungCap" ToRole="ThietBi" />
+        </EntityType>
         <Association Name="FK_LinhKien_NhaCungCap">
           <End Type="QuanLyThietBiModel.NhaCungCap" Role="NhaCungCap" Multiplicity="0..1" />
           <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="*" />
@@ -903,15 +903,15 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LinhKienThietBi_LinhKien">
-          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="1" />
-          <End Type="QuanLyThietBiModel.LinhKienThietBi" Role="LinhKienThietBi" Multiplicity="*" />
+        <Association Name="FK_ThietBi_NhaCungCap">
+          <End Type="QuanLyThietBiModel.NhaCungCap" Role="NhaCungCap" Multiplicity="0..1" />
+          <End Type="QuanLyThietBiModel.ThietBi" Role="ThietBi" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="LinhKien">
-              <PropertyRef Name="MaLinhKien" />
+            <Principal Role="NhaCungCap">
+              <PropertyRef Name="MaNhaCungCap" />
             </Principal>
-            <Dependent Role="LinhKienThietBi">
-              <PropertyRef Name="MaLinhKien" />
+            <Dependent Role="ThietBi">
+              <PropertyRef Name="MaNhaCungCap" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -969,14 +969,6 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NhaCungCaps">
-            <EntityTypeMapping TypeName="QuanLyThietBiModel.NhaCungCap">
-              <MappingFragment StoreEntitySet="NhaCungCap">
-                <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
-                <ScalarProperty Name="Ten" ColumnName="Ten" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1105,6 +1097,14 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
                 <ScalarProperty Name="Serial" ColumnName="Serial" />
                 <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
                 <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhaCungCaps">
+            <EntityTypeMapping TypeName="QuanLyThietBiModel.NhaCungCap">
+              <MappingFragment StoreEntitySet="NhaCungCap">
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

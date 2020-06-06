@@ -190,7 +190,7 @@
                 function succ(response) {
                     $scope.DanhSachHSX = response.data;
                     let objKhac = {
-                        MaNhaCungCap: 0,
+                        MaNhaCungCap: -1,
                         Ten: "--- Khác ---"
                     }
                     $scope.DanhSachHSX.push(objKhac);
@@ -805,13 +805,42 @@
 
         //////////////////////// HÃNG SẢN XUẤT /////////////////////////
         $scope.ThemHSX = function () {
-            alert("đang thêm nè haha");
+            if (window.confirm("Bạn có chắc thêm hãng sản xuất này không ?")) {
+                var res = CommonController.postData(CommonController.urlAPI.API_ThemHangSanXuat, $scope.HangSanXuat);
+                res.then(
+                    function succ(response) {
+                        alert("Thêm hãng sản xuất Thành Công");
+                        let objHsx = {
+                            MaNhaCungCap: response.data,
+                            Ten: $scope.HangSanXuat.Ten,
+                        }
+                        $scope.DanhSachHSX.push(objHsx);
+                    },
+
+                    function errorCallback(response) {
+                        console.log(response.data.Message);
+                    }
+                )
+            }
+            else return;
         }
 
         $scope.XoaHSX = function (MaHSX) {
-            if (window.confirm("Bạn có chắc xóa sản phẩm này không ?")) {
-                alert("ok xóa nha");
+            if (window.confirm("Bạn có chắc xóa hãng sản xuất này không ?")) {
+                var param = "?MaNhaCungCap=" + MaHSX;
+                var res = CommonController.deleteData(CommonController.urlAPI.API_XoaHangSanXuat, param);
+                res.then(
+                    function succ(response) {
+                        alert(response.data);
+                        let index = $scope.DanhSachHSX.findIndex(x => x.MaNhaCungCap == MaHSX);
+                        $scope.DanhSachHSX.splice(index, 1);
+                    },
+
+                    function errorCallback(response) {
+                        alert(response.data.Message);
+                    }
+                )
             }
-            return;
+            else return;
         }
     })

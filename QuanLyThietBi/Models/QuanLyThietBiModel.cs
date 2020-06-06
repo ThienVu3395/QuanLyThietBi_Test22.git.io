@@ -208,4 +208,10 @@ namespace QuanLyThietBi.Models
         public string ChucVu { get; set; }
         public List<ChiTietThietBiModel> DanhSachThietBi { get; set; }
     }
+
+    public class HangSanXuatViewModel
+    {
+        public int MaNhaCungCap { get; set; }
+        public string Ten { get; set; }
+    }
 }

@@ -98,7 +98,7 @@
     <Key>
       <PropertyRef Name="MaNhaCungCap" />
     </Key>
-    <Property Name="MaNhaCungCap" Type="int" Nullable="false" />
+    <Property Name="MaNhaCungCap" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Ten" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="PhongBan">

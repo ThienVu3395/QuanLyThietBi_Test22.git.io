@@ -32,8 +32,8 @@ namespace QuanLyThietBi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichSuLinhKien> LichSuLinhKiens { get; set; }
         public virtual LoaiLinhKien LoaiLinhKien { get; set; }
-        public virtual NhaCungCap NhaCungCap { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LinhKienThietBi> LinhKienThietBis { get; set; }
+        public virtual NhaCungCap NhaCungCap { get; set; }
     }
 }

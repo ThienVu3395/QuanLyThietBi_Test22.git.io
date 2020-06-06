@@ -33,6 +33,8 @@ angular.module("CommonApp", ['ui.bootstrap'])
                 API_ThemLinhKienThietBi: "API/QuanLyTaiSan/ThemLinhKienThietBi",
                 API_XoaLinhKienThietBi: "API/QuanLyTaiSan/XoaLinhKienThietBi",
                 API_CapNhatThongTinLinhKien: "API/QuanLyTaiSan/CapNhatThongTinLinhKien",
+                API_ThemHangSanXuat: "API/QuanLyTaiSan/ThemHangSanXuat",
+                API_XoaHangSanXuat: "API/QuanLyTaiSan/XoaHangSanXuat",
                 // API lọc thiết bị theo các điều kiện
                 API_LocThietBi: "API/QuanLyTaiSan/LocThietBi",
                 API_LocThietBi_All: "API/QuanLyTaiSan/LocThietBi_All",
@@ -40,7 +42,7 @@ angular.module("CommonApp", ['ui.bootstrap'])
                 API_LocThietBi_TheoPhongBan: "API/QuanLyTaiSan/LocThietBi_TheoPhongBan",
                 // API đăng nhập / đăng xuất / đăng ký
                 API_DangNhap: "API/QuanLyTaiSan/DangNhap",
-                API_KiemTraNguoiDung: "API/QuanLyTaiSan/KiemTraNguoiDung"
+                API_KiemTraNguoiDung: "API/QuanLyTaiSan/KiemTraNguoiDung",
             };
 
             // Hàm Tạo Ra Mã Xác Nhận Ngẫu Nhiên 
