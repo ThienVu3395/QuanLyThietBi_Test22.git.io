@@ -21,6 +21,11 @@ namespace QuanLyThietBi.Controllers
             return View();
         }
 
+        public ActionResult HangSanXuat()
+        {
+            return View();
+        }
+
         public ActionResult Login()
         {
             return View();
@@ -37,6 +42,16 @@ namespace QuanLyThietBi.Controllers
         }
 
         public PartialViewResult ModelSua()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult ModelHSXThem()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult ModelHSXSua()
         {
             return PartialView();
         }

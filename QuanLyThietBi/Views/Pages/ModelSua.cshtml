@@ -96,14 +96,12 @@
 
                                     <div class="form-group col-lg-3">
                                         <label for="usr">
-                                            Serial <span class="bigger-110 red">
-                                                *
-                                            </span>
+                                            Serial
                                         </label>
-                                        <input type="text" name="Serial" ng-model="ThongTinThietBi.Serial" class="form-control" ng-minlength="6" ng-required="true">
-                                        <span class="error text-danger" ng-show="formSuaTB.Serial.$error.required">Bạn chưa nhập trường này</span>
+                                        <input type="text" name="Serial" ng-model="ThongTinThietBi.Serial" class="form-control">
+                                        @*<span class="error text-danger" ng-show="formSuaTB.Serial.$error.required">Bạn chưa nhập trường này</span>
                                         <span class="error text-danger" ng-show="formSuaTB.Serial.$error.minlength">Tối thiểu 5 ký tự</span>
-                                        <span class="valid" ng-show="formSuaTB.Serial.$valid"></span>
+                                        <span class="valid" ng-show="formSuaTB.Serial.$valid"></span>*@
                                     </div>
 
                                     <div class="form-group col-lg-3">
@@ -144,20 +142,26 @@
                                     </div>
 
                                     <div class="col-lg-3">
+                                        <label for="form-field-select-1">Hiện Trạng</label>
+                                        <select class="form-control"
+                                                ng-model="MaTinhTrangSua"
+                                                ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang">
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-3">
                                         <label for="form-field-select-1">Đơn Vị Sử Dụng Hiện Tại</label>
                                         <select class="form-control"
-                                                ng-model="DonVi"
+                                                ng-model="MaPhongBanSua"
                                                 ng-options="item as item.Ten for item in DanhSachPhongBan track by item.MaPhongBan"
-                                                ng-change="LayNguoiDung()"></select>
+                                                ng-change="LayNguoiDungSua(0)"></select>
                                     </div>
 
                                     <div class="col-lg-3">
                                         <label for="form-field-select-1">Người Sử Dụng Hiện Tại</label>
                                         <select class="form-control"
-                                                ng-model="MaNguoiDung"
-                                                ng-options="item as item.Ten for item in DanhSachNguoiDung"
-                                                ng-disabled="SoLuongThietBi > 1"
-                                                ng-change="ChonNguoiDung()"></select>
+                                                ng-model="MaNguoiDungSua"
+                                                ng-options="item as item.Ten for item in DanhSachNguoiDung track by item.MaNguoiDung"></select>
                                     </div>
 
                                     <div class="form-group col-lg-3">
@@ -168,6 +172,13 @@
                                     </div>
 
                                     <div class="form-group col-lg-3">
+                                        <label for="form-field-mask-1">
+                                            Chi Phí ( Nếu Có )
+                                        </label>
+                                        <input type="number" class="form-control" ng-model="ThongTinThietBi.ChiPhi">
+                                    </div>
+
+                                    <div class="form-group col-lg-9">
                                         <label for="comment">Ghi Chú</label>
                                         <input class="form-control"
                                                type="text"
@@ -196,6 +207,7 @@
                                         <th>Hãng SX</th>
                                         <th>Mô Tả</th>
                                         <th>Hiện Trạng</th>
+                                        <th>Năm BH</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -205,15 +217,19 @@
                                         <td>
                                             <span>{{item.TenLoaiLinhKien}}</span>
                                         </td>
+
                                         <td>
                                             <span>{{item.Serial}}</span>
                                         </td>
+
                                         <td>
                                             <span>{{item.Model}}</span>
                                         </td>
+
                                         <td>
                                             <span>{{item.TenNhaCungCap}}</span>
                                         </td>
+
                                         <td>
                                             <span>{{item.GhiChu}}</span>
                                         </td>
@@ -223,9 +239,10 @@
                                         <td ng-show="item.MaTinhTrang == 3"><span class="label label-sm label-primary">Đang Bảo Hành</span></td>
                                         <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Đã Hỏng</span></td>
                                         <td ng-show="item.MaTinhTrang == 5"><span class="label label-sm label-success">Đang Sử Dụng</span></td>
-                                        @*<td>
-                                                <span class="label label-sm label-success">{{item.TenTinhTrang}}</span>
-                                            </td>*@
+
+                                        <td>
+                                            <span>{{item.NamBaoHanh}}</span>
+                                        </td>
                                         <td>
                                             <div class="row" style="margin-right:0px !important">
                                                 <div class="col-lg-6">
@@ -257,6 +274,7 @@
                                         <th>Hãng SX</th>
                                         <th>Mô Tả</th>
                                         <th>Hiện Trạng</th>
+                                        <th>Năm BH</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -290,17 +308,19 @@
                                                     ng-model="MaTinhTrangThem"></select>
                                         </td>
 
+                                        <td><input type="text" class="form-control" ng-model="NamBHThem" /></td>
+
                                         <td>
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <button class="form-control btn btn-info" ng-click="CapNhatLinhKienDB()">
-                                                        <i class="ace-icon fa fa-floppy-o bigger-120"></i>
+                                                        <i class="ace-icon fa fa-floppy-o"></i>
                                                     </button>
                                                 </div>
 
                                                 <div class="col-lg-6">
                                                     <button class="form-control btn btn-primary" ng-click="ThemLinhKienDB(ThongTinThietBi.MaThietBi)">
-                                                        <i class="ace-icon fa fa-plus bigger-120"></i>
+                                                        <i class="ace-icon fa fa-plus"></i>
                                                     </button>
                                                 </div>
                                             </div>

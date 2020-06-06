@@ -446,13 +446,13 @@
 
                             <ul class="submenu">
                                 @*<li class="">
-                                    <a href="@Url.Action("Index","Pages")?MaDanhMuc=-1">
-                                        <i class="menu-icon fa fa-eye purple"></i>
-                                        Xem Tất Cả
-                                    </a>
+                                        <a href="@Url.Action("Index","Pages")?MaDanhMuc=-1">
+                                            <i class="menu-icon fa fa-eye purple"></i>
+                                            Xem Tất Cả
+                                        </a>
 
-                                    <b class="arrow"></b>
-                                </li>*@
+                                        <b class="arrow"></b>
+                                    </li>*@
 
                                 <li class="" ng-repeat="item in DanhSachDanhMuc" ng-show="item.DanhSachNhom.length > 0">
                                     <a href="#" class="dropdown-toggle">
@@ -465,13 +465,13 @@
 
                                     <ul class="submenu" ng-show="item.DanhSachNhom.length > 0">
                                         @*<li class="">
-                                            <a href="@Url.Action("Index","Pages")?MaDanhMuc={{item.MaDanhMuc}}">
-                                                <i class="menu-icon fa fa-eye orange"></i>
-                                                <span class="menu-text"> Xem Tất Cả </span>
-                                            </a>
+                                                <a href="@Url.Action("Index","Pages")?MaDanhMuc={{item.MaDanhMuc}}">
+                                                    <i class="menu-icon fa fa-eye orange"></i>
+                                                    <span class="menu-text"> Xem Tất Cả </span>
+                                                </a>
 
-                                            <b class="arrow"></b>
-                                        </li>*@
+                                                <b class="arrow"></b>
+                                            </li>*@
 
                                         <li class="" ng-repeat="i in item.DanhSachNhom">
                                             <a href="@Url.Action("Index","Pages")?MaDanhMuc={{i.MaDanhMuc}}">
@@ -496,6 +496,15 @@
                         </li>
 
                         <li class="">
+                            <a href="@Url.Action("HangSanXuat","Pages")">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Danh Mục Hãng SX
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="">
                             <a href="#" class="dropdown-toggle">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Thống Kê Thiết Bị
@@ -515,6 +524,7 @@
                                 </li>
                             </ul>
                         </li>
+
                     </ul>
                 </li>
             </ul><!-- /.nav-list -->

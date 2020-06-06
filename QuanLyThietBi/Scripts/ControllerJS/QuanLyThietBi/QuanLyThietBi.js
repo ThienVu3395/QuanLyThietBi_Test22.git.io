@@ -155,6 +155,29 @@
             )
         }
 
+        // Lấy Danh Sách Người Dùng Theo Phòng Ban Sửa
+        $scope.LayNguoiDungSua = function (tt) {
+            let maPhongBan = $scope.MaPhongBanSua.MaPhongBan;
+            var param = "?MaPhongBan=" + maPhongBan;
+            var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachNguoiDungTheoPhongBan, param);
+            res.then(
+                function succ(response) {
+                    $scope.DanhSachNguoiDung = response.data;
+                    if (tt == 0) {
+                        $scope.MaNguoiDungSua = $scope.DanhSachNguoiDung[0];
+                    }
+                    else if (tt == 1) {
+                        let t = $scope.DanhSachNguoiDung.findIndex(x => x.MaNguoiDung == $scope.ThongTinThietBi.MaNguoiDung);
+                        $scope.MaNguoiDungSua = $scope.DanhSachNguoiDung[t];
+                    }
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
+        }
+
         // Chọn Người Dùng
         $scope.ChonNguoiDung = function () {
             $scope.ThietBi.MaNguoiDung = $scope.MaNguoiDung.MaNguoiDung;
@@ -168,7 +191,7 @@
                     $scope.DanhSachHSX = response.data;
                     let objKhac = {
                         MaNhaCungCap: 0,
-                        Ten : "--- Khác ---"
+                        Ten: "--- Khác ---"
                     }
                     $scope.DanhSachHSX.push(objKhac);
                     $scope.MaNhaCungCap = $scope.DanhSachHSX[0];
@@ -189,6 +212,7 @@
                     $scope.DanhSachTinhTrang = response.data;
                     $scope.MaTinhTrang = $scope.DanhSachTinhTrang[0];
                     $scope.MaTinhTrangThem = $scope.DanhSachTinhTrang[0];
+                    $scope.MaTinhTrangSua = $scope.DanhSachTinhTrang[0];
                 },
 
                 function errorCallback(response) {
@@ -454,6 +478,14 @@
                     $scope.ngayMua = $scope.ThongTinThietBi.NgayNhapKho;
                     let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.MaPhongBan);
                     $scope.MaPhongBanSua = $scope.DanhSachPhongBan[i];
+                    $scope.LayNguoiDungSua(1);
+                    if ($scope.ThongTinThietBi.MaTinhTrang > 0) {
+                        let t = $scope.DanhSachTinhTrang.findIndex(x => x.MaTinhTrang == $scope.ThongTinThietBi.MaTinhTrang);
+                        $scope.MaTinhTrangSua = $scope.DanhSachTinhTrang[t];
+                    }
+                    //let j = $scope.DanhSach
+                    //$scope.MaNguoiDungSua = $scope.DanhSachNguoiDung.findIndex(x => x.MaNguoiDung == $scope.ThongTinThietBi)
+
                     //for (let index = 0; index < $scope.ThongTinThietBi.LichSuThietBi.length; index++) {
                     //    let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi);
                     //    $scope.ThongTinThietBi.LichSuThietBi[index].MaDonVi = $scope.DanhSachPhongBan[i];
@@ -567,25 +599,28 @@
         // Sửa thiết bị
         $scope.CapNhatThongTinTB = function () {
             let API = CommonController.urlAPI.API_CapNhatThongTinThietBi;
-
+            $scope.ThongTinThietBi.Check = 0;
+            if ($scope.ThongTinThietBi.MaNguoiDung == $scope.MaNguoiDungSua.MaNguoiDung && $scope.ThongTinThietBi.MaTinhTrang == $scope.MaTinhTrangSua.MaTinhTrang) {
+                $scope.ThongTinThietBi.Check = 1;
+            }
             $scope.ThongTinThietBi.MaNhaCungCap = $scope.MaNCC.MaNhaCungCap;
+            $scope.ThongTinThietBi.MaNguoiDung = $scope.MaNguoiDungSua.MaNguoiDung;
+            $scope.ThongTinThietBi.MaPhongBan = $scope.MaPhongBanSua.MaPhongBan;
+            $scope.ThongTinThietBi.MaTinhTrang = $scope.MaTinhTrangSua.MaTinhTrang;
             if ($scope.MaConSua.MaDanhMuc != 0) {
                 $scope.ThongTinThietBi.MaDanhMuc = $scope.MaConSua.MaDanhMuc;
             }
-            console.log($scope.ThongTinThietBi);
             var res = CommonController.postData(API, $scope.ThongTinThietBi);
             res.then(
                 function succ(response) {
-                    alert(response.data);
-                    $scope.ngayMua = $scope.ThongTinThietBi.NgayNhapKho;
-                    //Swal.fire({
-                    //    position: 'center',
-                    //    icon: 'success',
-                    //    title: response.data,
-                    //    showConfirmButton: false,
-                    //    timer: 1500
-                    //})
-                    //$scope.LayDanhSachThietBi($scope.MaDanhMuc);
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: response.data,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setTimeout(function () { window.location.href = "" }, 1000);
                 },
 
                 function errorCallback(response) {
@@ -683,6 +718,7 @@
             $scope.SerialThem = $scope.objSua.Serial;
             $scope.ModelThem = $scope.objSua.Model;
             $scope.GhiChuThem = $scope.objSua.GhiChu;
+            $scope.NamBHThem = $scope.objSua.NamBaoHanh;
             let index = $scope.DanhSachLoaiLinhKien.findIndex(x => x.MaLoaiLinhKien == $scope.objSua.MaLoaiLinhKien);
             let index2 = $scope.DanhSachTinhTrang.findIndex(x => x.MaTinhTrang == $scope.objSua.MaTinhTrang);
             let index3 = $scope.DanhSachHSX.findIndex(x => x.MaNhaCungCap == $scope.objSua.MaNhaCungCap);
@@ -701,6 +737,7 @@
                     Model: $scope.ModelThem,
                     MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
                     GhiChu: $scope.GhiChuThem,
+                    NamBaoHanh: $scope.NamBHThem,
                     MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
                     MaTinhTrangCu: $scope.objSua.MaTinhTrang,
                     MaThietBi: $scope.objSua.MaThietBi,
@@ -747,6 +784,7 @@
                     Model: $scope.ModelThem,
                     MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
                     GhiChu: $scope.GhiChuThem,
+                    NamBaoHanh: $scope.NamBHThem,
                     MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
                     MaThietBi: MaThietBi,
                 }
@@ -763,5 +801,17 @@
                     }
                 )
             }
+        }
+
+        //////////////////////// HÃNG SẢN XUẤT /////////////////////////
+        $scope.ThemHSX = function () {
+            alert("đang thêm nè haha");
+        }
+
+        $scope.XoaHSX = function (MaHSX) {
+            if (window.confirm("Bạn có chắc xóa sản phẩm này không ?")) {
+                alert("ok xóa nha");
+            }
+            return;
         }
     })

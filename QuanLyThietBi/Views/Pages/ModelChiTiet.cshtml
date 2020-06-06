@@ -105,7 +105,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <label for="form-field-select-1">Hiện Trạng</label>
-                        <div class="form-control">Đang Sử Dụng</div>
+                        <div class="form-control">{{ThongTinThietBi.TenTinhTrang}}</div>
                     </div>
 
                     <div class="col-lg-3">
@@ -133,12 +133,13 @@
                             </a>
                         </li>
 
-                        @*<li>
+                        <li>
                             <a data-toggle="tab" href="#messages">
                                 <i class="green ace-icon fa fa-cogs bigger-120"></i>
                                 Lịch Sử Thiết Bị
                             </a>
-                        </li>*@
+                        </li>
+
                         @*
                             <li>
                                 <a data-toggle="tab" href="#contracts">
@@ -160,6 +161,7 @@
                                         <th>Nhà Cung Cấp</th>
                                         <th>Mô Tả</th>
                                         <th>Hiện Trạng</th>
+                                        <th>Năm Bảo Hành</th>
                                     </tr>
                                 </thead>
 
@@ -175,6 +177,7 @@
                                         <td ng-show="item.MaTinhTrang == 3"><span class="label label-sm label-primary">Đang Bảo Hành</span></td>
                                         <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Đã Hỏng</span></td>
                                         <td ng-show="item.MaTinhTrang == 5"><span class="label label-sm label-success">Đang Sử Dụng</span></td>
+                                        <td>{{item.NamBaoHanh}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -187,18 +190,20 @@
                                         <th>Ngày</th>
                                         <th>Người Sử Dụng</th>
                                         <th>Đơn Vị</th>
-                                        <th>Hình Thức</th>
+                                        <th>Hiện Trạng</th>
                                         <th>Chi Phí</th>
+                                        <th>Ghi Chú</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <tr ng-repeat="item in ThongTinThietBi.LichSuThietBi">
-                                        <td>12/02/2020</td>
+                                        <td>{{item.Ngay | date : 'dd/MM/yyyy'}}</td>
                                         <td>{{item.NguoiDung}}</td>
                                         <td>{{item.DonVi}}</td>
                                         <td>{{item.TinhTrang}}</td>
-                                        <td>Đang Cập Nhật</td>
+                                        <td>{{item.ChiPhi}}</td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>

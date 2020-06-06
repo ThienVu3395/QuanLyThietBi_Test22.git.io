@@ -20,7 +20,7 @@ namespace QuanLyThietBi.Models
         public Nullable<System.DateTime> Ngay { get; set; }
         public Nullable<decimal> ChiPhi { get; set; }
     
-        public virtual LinhKien LinhKien { get; set; }
         public virtual TinhTrang TinhTrang { get; set; }
+        public virtual LinhKien LinhKien { get; set; }
     }
 }

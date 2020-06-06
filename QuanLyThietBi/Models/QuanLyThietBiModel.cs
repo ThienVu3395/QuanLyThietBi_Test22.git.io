@@ -91,13 +91,20 @@ namespace QuanLyThietBi.Models
         public string TrangThai { get; set; }
         public string ChiTietTaiSan { get; set; }
         public string NguoiSuDung { get; set; }
+        public int MaNguoiDung { get; set; }
         public int? MaPhongBan { get; set; }
+        public int MaTinhTrang { get; set; }
+        public string TenTinhTrang { get; set; }
         public string TenPhongBan { get; set; }
+        public decimal ChiPhi { get; set; }
         public string IP { get; set; }
         public string SoHopDong { get; set; }
         public string HangSanXuat { get; set; }
         public string ViTri { get; set; }
         public string NamBaoHanh { get; set; }
+
+        // Biến kiểm tra để xét có add vào lịch sử thiết bị hay không
+        public int Check { get; set; }
     }
 
     public class PhongBanModel
@@ -148,6 +155,7 @@ namespace QuanLyThietBi.Models
         public int MaTinhTrang { get; set; }
         public int MaTinhTrangCu { get; set; }
         public string TenTinhTrang { get; set; }
+        public string NamBaoHanh { get; set; }
         public Nullable<int> MaNhaCungCap { get; set; }
         public string TenNhaCungCap { get; set; }
         public string NhaCungCap { get; set; }

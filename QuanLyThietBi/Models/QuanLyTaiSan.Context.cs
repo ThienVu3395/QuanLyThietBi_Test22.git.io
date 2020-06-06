@@ -30,7 +30,6 @@ namespace QuanLyThietBi.Models
         public virtual DbSet<DanhMuc> DanhMucs { get; set; }
         public virtual DbSet<HopDong> HopDongs { get; set; }
         public virtual DbSet<HopDongThietBi> HopDongThietBis { get; set; }
-        public virtual DbSet<LinhKien> LinhKiens { get; set; }
         public virtual DbSet<LinhKienThietBi> LinhKienThietBis { get; set; }
         public virtual DbSet<NguoiSuDung> NguoiSuDungs { get; set; }
         public virtual DbSet<NhaCungCap> NhaCungCaps { get; set; }
@@ -41,6 +40,7 @@ namespace QuanLyThietBi.Models
         public virtual DbSet<LichSuThietBi> LichSuThietBis { get; set; }
         public virtual DbSet<ThietBi> ThietBis { get; set; }
         public virtual DbSet<LoaiLinhKien> LoaiLinhKiens { get; set; }
+        public virtual DbSet<LinhKien> LinhKiens { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

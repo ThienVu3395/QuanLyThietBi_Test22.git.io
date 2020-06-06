@@ -1063,6 +1063,7 @@ C:\Users\ASUS\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Web.H
 C:\Users\ASUS\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\ASUS\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\ASUS\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\ASUS\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csprojAssemblyReference.cache
 C:\Users\ASUS\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csproj.CoreCompileInputs.cache
 C:\Users\ASUS\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csproj.CopyComplete
 C:\Users\ASUS\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.dll

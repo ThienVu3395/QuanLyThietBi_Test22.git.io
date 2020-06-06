@@ -31,18 +31,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="LinhKiens">
-      <EntityTypeMapping TypeName="QuanLyThietBiModel.LinhKien">
-        <MappingFragment StoreEntitySet="LinhKien">
-          <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
-          <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
-          <ScalarProperty Name="Serial" ColumnName="Serial" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
-          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="LinhKienThietBis">
       <EntityTypeMapping TypeName="QuanLyThietBiModel.LinhKienThietBi">
         <MappingFragment StoreEntitySet="LinhKienThietBi">
@@ -184,6 +172,19 @@
           <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
           <ScalarProperty Name="TenLinhKien" ColumnName="TenLinhKien" />
           <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LinhKiens">
+      <EntityTypeMapping TypeName="QuanLyThietBiModel.LinhKien">
+        <MappingFragment StoreEntitySet="LinhKien">
+          <ScalarProperty Name="NamBaoHanh" ColumnName="NamBaoHanh" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
+          <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

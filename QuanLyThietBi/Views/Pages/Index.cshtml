@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="~/Content/assets/css/select2.min.css" />
     <style>
         .modal-lg {
-            width: 1050px
+            width: 1200px
         }
     </style>
 }
@@ -92,7 +92,13 @@
                     <td>{{item.NguoiSuDung}}</td>
                     <td>{{item.ViTri}}</td>
 
-                    <td><span class="label label-sm label-success">Đang Sử Dụng</span></td>
+                    @*<td><span class="label label-sm label-success">Đang Sử Dụng</span></td>*@
+                    <td ng-show="item.MaTinhTrang == 1"><span class="label label-sm label-info">Chờ Bàn Giao</span></td>
+                    <td ng-show="item.MaTinhTrang == 2"><span class="label label-sm label-warning">Đang Sửa Chữa</span></td>
+                    <td ng-show="item.MaTinhTrang == 3"><span class="label label-sm label-primary">Đang Bảo Hành</span></td>
+                    <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Đã Hỏng</span></td>
+                    <td ng-show="item.MaTinhTrang == 5"><span class="label label-sm label-success">Đang Sử Dụng</span></td>
+                    <td ng-show="item.MaTinhTrang == -1"><span class="label label-sm label-purple">Chưa Cập Nhật</span></td>
 
                     <td>
                         <div class="hidden-sm hidden-xs btn-group">

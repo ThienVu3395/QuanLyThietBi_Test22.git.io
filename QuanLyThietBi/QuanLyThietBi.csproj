@@ -387,6 +387,7 @@
     <Content Include="Views\Pages\ModelChiTiet.cshtml" />
     <Content Include="Views\Pages\ModelThem.cshtml" />
     <Content Include="Views\Pages\ModelSua.cshtml" />
+    <Content Include="Views\Pages\HangSanXuat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

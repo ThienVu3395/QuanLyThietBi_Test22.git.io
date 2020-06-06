@@ -145,10 +145,13 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     thietBi.Model = item.Model;
                     thietBi.MaTaiSan = item.MaTaiSan;
                     thietBi.Loai = item.DanhMuc.Ten;
-                    thietBi.NguoiSuDung = item.NguoiSuDung;
+                    var lstb = item.LichSuThietBis.Where(x => x.MaThietBi == thietBi.MaThietBi).OrderByDescending(x => x.ID).Take(1).FirstOrDefault();
+                    thietBi.NguoiSuDung = lstb == null ? "" : lstb.NguoiSuDung.Ten;
+                    thietBi.MaTinhTrang = lstb == null ? -1 : lstb.MaTinhTrang;
+                    thietBi.MaNguoiDung = lstb == null ? 0 : lstb.MaNguoiDung;
                     thietBi.ViTri = item.ViTri;
                     thietBi.MaDanhMuc = item.MaDanhMuc;
-                    thietBi.Serial = item.Serial == null ? "Chưa Cập Nhật..." : item.Serial;
+                    thietBi.Serial = item.Serial;
                     _dsThietBi.Add(thietBi);
                 }
                 return Ok(_dsThietBi);
@@ -205,10 +208,13 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     thietBi.Model = item.Model;
                     thietBi.Loai = item.DanhMuc.Ten;
                     thietBi.MaTaiSan = item.MaTaiSan;
-                    thietBi.NguoiSuDung = item.NguoiSuDung;
                     thietBi.ViTri = item.ViTri;
                     thietBi.MaDanhMuc = item.MaDanhMuc;
-                    thietBi.Serial = item.Serial == null ? "Chưa Cập Nhật..." : item.Serial;
+                    thietBi.Serial = item.Serial;
+                    var lstb = item.LichSuThietBis.Where(x => x.MaThietBi == thietBi.MaThietBi).OrderByDescending(x => x.ID).Take(1).FirstOrDefault();
+                    thietBi.NguoiSuDung = lstb == null ? "" : lstb.NguoiSuDung.Ten;
+                    thietBi.MaTinhTrang = lstb == null ? -1 : lstb.MaTinhTrang;
+                    thietBi.MaNguoiDung = lstb == null ? 0 : lstb.MaNguoiDung;
                     _dsThietBi.Add(thietBi);
                 }
                 return Ok(_dsThietBi.Skip(offset).Take(limit));
@@ -404,6 +410,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                             linhKien.Model = item.Model;
                             linhKien.MaNhaCungCap = item.MaNhaCungCap;
                             linhKien.GhiChu = item.GhiChu;
+                            linhKien.NamBaoHanh = item.NamBaoHanh;
                             dbContext.LinhKiens.Add(linhKien);
                             dbContext.SaveChanges();
 
@@ -486,9 +493,21 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             thietBiModel.HangSanXuat = thietBi.HangSanXuat;
             thietBiModel.MaHangSanXuat = thietBi.MaHangSanXuat;
             thietBiModel.ViTri = thietBi.ViTri;
-            thietBiModel.NguoiSuDung = thietBi.NguoiSuDung;
-            thietBiModel.MaPhongBan = thietBi.MaPhongBan;
-            thietBiModel.TenPhongBan = thietBi.PhongBan.Ten;
+            var lstb = thietBi.LichSuThietBis.Where(x => x.MaThietBi == thietBi.MaThietBi).OrderByDescending(x => x.ID).Take(1).FirstOrDefault();
+            thietBiModel.NguoiSuDung = lstb == null ? "Đang Cập Nhật..." : lstb.NguoiSuDung.Ten ;
+            thietBiModel.MaNguoiDung = lstb == null ? 1 : lstb.MaNguoiDung;
+            thietBiModel.MaPhongBan = lstb == null ? 1 : lstb.NguoiSuDung.MaPhongBan;
+            thietBiModel.TenPhongBan = lstb == null ? "Đang Cập Nhật..." : lstb.NguoiSuDung.PhongBan.Ten;
+            thietBiModel.MaTinhTrang = lstb == null ? 0 : lstb.MaTinhTrang;
+            if(lstb == null)
+            {
+                thietBiModel.TenTinhTrang = "Đang Cập Nhật...";
+            }
+            else
+            {
+                var tentt = dbContext.TinhTrangs.Where(x => x.MaTinhTrang == lstb.MaTinhTrang).FirstOrDefault().Ten;
+                thietBiModel.TenTinhTrang = tentt;
+            }
             thietBiModel.ChiTietTaiSan = thietBi.ChiTietTaiSan;
             thietBiModel.NamBaoHanh = thietBi.NamBaoHanh;
             thietBiModel.SoHopDong = thietBi.SoHopDong;
@@ -514,6 +533,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     linhKienModel.MaTinhTrang = linhKien.LichSuLinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).OrderByDescending(x => x.ID).Take(1).FirstOrDefault().MaTinhTrang;
                     linhKienModel.TenTinhTrang = linhKien.LichSuLinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).OrderByDescending(x => x.ID).Take(1).FirstOrDefault().TinhTrang.Ten;
                     linhKienModel.GhiChu = linhKien.GhiChu;
+                    linhKienModel.NamBaoHanh = linhKien.NamBaoHanh;
                     linhKienModel.NhaCungCap = linhKien.NhaCungCap.Ten;
                     DanhSachLinhKien.Add(linhKienModel);
                 }
@@ -651,11 +671,24 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 tb.Serial = tbModel.Serial;
                 tb.NamBaoHanh = tbModel.NamBaoHanh;
                 tb.GhiChu = tbModel.GhiChu;
-                tb.NgayMua = tbModel.NgayNhapKho;
+                tb.NgayMua = tbModel.NgayNhapKho.Value.Date.AddDays(1);
+                tb.MaPhongBan = tbModel.MaPhongBan;
                 tb.IP = tbModel.IP;
                 tb.SoHopDong = tbModel.SoHopDong;
                 tb.ViTri = tbModel.ViTri;
                 dbContext.SaveChanges();
+
+                if(tbModel.Check == 0)
+                {
+                    LichSuThietBi lstb = new LichSuThietBi();
+                    lstb.MaThietBi = tbModel.MaThietBi;
+                    lstb.MaTinhTrang = tbModel.MaTinhTrang;
+                    lstb.MaNguoiDung = tbModel.MaNguoiDung;
+                    lstb.Ngay = DateTime.Now;
+                    lstb.ChiPhi = tbModel.ChiPhi;
+                    dbContext.LichSuThietBis.Add(lstb);
+                    dbContext.SaveChanges();
+                }
                 return Ok("Cập Nhật Thành Công");
             }
             catch (DbEntityValidationException ex)
@@ -868,6 +901,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 linhKien.Model = tbModel.Model;
                 linhKien.MaNhaCungCap = tbModel.MaNhaCungCap;
                 linhKien.GhiChu = tbModel.GhiChu;
+                linhKien.NamBaoHanh = tbModel.NamBaoHanh;
                 dbContext.LinhKiens.Add(linhKien);
                 dbContext.SaveChanges();
 
@@ -964,6 +998,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     lk.Model = tbModel.Model;
                     lk.MaNhaCungCap = tbModel.MaNhaCungCap;
                     lk.GhiChu = tbModel.GhiChu;
+                    lk.NamBaoHanh = tbModel.NamBaoHanh;
                     dbContext.SaveChanges();
 
                     if(tbModel.MaTinhTrang != tbModel.MaTinhTrangCu)
