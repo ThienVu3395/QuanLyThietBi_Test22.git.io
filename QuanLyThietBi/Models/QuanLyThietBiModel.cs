@@ -83,7 +83,10 @@ namespace QuanLyThietBi.Models
         public int MaDanhMuc { get; set; }
         public int MaDanhMucCha { get; set; }
         public Nullable<System.DateTime> NgayNhapKho { get; set; }
+        public Nullable<System.DateTime> NgayNhapKhoo { get; set; }
         public Nullable<System.DateTime> NgayXuatKho { get; set; }
+        public Nullable<System.DateTime> NgayHienTrang { get; set; }
+        public Nullable<System.DateTime> NgayHienTrangg { get; set; }
         public Nullable<System.DateTime> ThoiGianBaoHanh { get; set; }
         public List<LichSuThietBiModel> LichSuThietBi { get; set; }
         public List<LinhKienModel> DanhSachLinhKien { get; set; }

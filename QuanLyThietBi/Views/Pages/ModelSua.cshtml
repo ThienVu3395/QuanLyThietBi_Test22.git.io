@@ -100,17 +100,17 @@
                                         </label>
                                         <input type="text" name="Serial" ng-model="ThongTinThietBi.Serial" class="form-control">
                                         @*<span class="error text-danger" ng-show="formSuaTB.Serial.$error.required">Bạn chưa nhập trường này</span>
-                                        <span class="error text-danger" ng-show="formSuaTB.Serial.$error.minlength">Tối thiểu 5 ký tự</span>
-                                        <span class="valid" ng-show="formSuaTB.Serial.$valid"></span>*@
+                                            <span class="error text-danger" ng-show="formSuaTB.Serial.$error.minlength">Tối thiểu 5 ký tự</span>
+                                            <span class="valid" ng-show="formSuaTB.Serial.$valid"></span>*@
                                     </div>
 
                                     <div class="form-group col-lg-3">
                                         <label>
-                                            Ngày Mua : <span class="bigger-110 red">
+                                            Ngày Mua Hiện Tại : <span class="bigger-110 red">
                                                 {{ngayMua | date : 'dd/MM/yyyy'}}
                                             </span>
                                         </label>
-                                        <input type="date" class="form-control" ng-model="ThongTinThietBi.NgayNhapKho">
+                                        <input type="date" class="form-control" ng-model="ThongTinThietBi.NgayNhapKhoo">
                                     </div>
                                 </div>
 
@@ -141,12 +141,11 @@
                                         <input class="form-control" ng-model="ThongTinThietBi.SoHopDong">
                                     </div>
 
-                                    <div class="col-lg-3">
+                                    @*<div class="col-lg-3">
                                         <label for="form-field-select-1">Hiện Trạng</label>
                                         <select class="form-control"
                                                 ng-model="MaTinhTrangSua"
-                                                ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang">
-                                        </select>
+                                                ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang"></select>
                                     </div>
 
                                     <div class="col-lg-3">
@@ -162,13 +161,21 @@
                                         <select class="form-control"
                                                 ng-model="MaNguoiDungSua"
                                                 ng-options="item as item.Ten for item in DanhSachNguoiDung track by item.MaNguoiDung"></select>
-                                    </div>
+                                    </div>*@
 
-                                    <div class="form-group col-lg-3">
+                                    @*<div class="form-group col-lg-3">
                                         <label for="form-field-mask-1">
                                             Vị Trí Phòng Ban
                                         </label>
                                         <input class="form-control" ng-model="ThongTinThietBi.ViTri">
+                                    </div>*@
+
+                                    @*<div class="form-group col-lg-3">
+                                        <label>
+                                            Ngày Hiện Trạng : <span class="bigger-110 red">
+                                                {{ThongTinThietBi.NgayHienTrang | date : 'dd/MM/yyyy'}}</span>
+                                        </label>
+                                        <input type="date" name="ngayhientrang" class="form-control" ng-model="ThongTinThietBi.NgayHienTrangg">
                                     </div>
 
                                     <div class="form-group col-lg-3">
@@ -176,14 +183,15 @@
                                             Chi Phí ( Nếu Có )
                                         </label>
                                         <input type="number" class="form-control" ng-model="ThongTinThietBi.ChiPhi">
-                                    </div>
+                                    </div>*@
 
-                                    <div class="form-group col-lg-9">
+                                    <div class="form-group col-lg-12">
                                         <label for="comment">Ghi Chú</label>
                                         <input class="form-control"
                                                type="text"
                                                ng-model="ThongTinThietBi.GhiChu" />
                                     </div>
+
                                 </div>
 
                                 <button type="submit" class="btn btn-success" ng-disabled="formSuaTB.$invalid" ng-click="CapNhatThongTinTB()">
@@ -312,15 +320,21 @@
 
                                         <td>
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-12" ng-show="!trangThaiSua">
+                                                    <button class="form-control btn btn-success" ng-click="ThemLinhKienDB(ThongTinThietBi.MaThietBi)">
+                                                        <i class="ace-icon fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-lg-6" ng-show="trangThaiSua">
                                                     <button class="form-control btn btn-info" ng-click="CapNhatLinhKienDB()">
                                                         <i class="ace-icon fa fa-floppy-o"></i>
                                                     </button>
                                                 </div>
 
-                                                <div class="col-lg-6">
-                                                    <button class="form-control btn btn-primary" ng-click="ThemLinhKienDB(ThongTinThietBi.MaThietBi)">
-                                                        <i class="ace-icon fa fa-plus"></i>
+                                                <div class="col-lg-6" ng-show="trangThaiSua">
+                                                    <button class="form-control btn btn-danger" ng-click="HuySua()">
+                                                        <i class="ace-icon fa fa-times"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -663,10 +677,10 @@
             </div>
 
             <div class="modal-footer no-margin-top">
-                <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
+                @*<button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
                     <i class="ace-icon fa fa-times"></i>
                     Đóng
-                </button>
+                </button>*@
             </div>
         </div>
         <!-- /.modal-content -->

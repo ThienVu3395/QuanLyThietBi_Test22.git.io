@@ -18,7 +18,7 @@ namespace QuanLyThietBi.Models
         public int MaThietBi { get; set; }
         public Nullable<System.DateTime> Ngay { get; set; }
     
-        public virtual ThietBi ThietBi { get; set; }
         public virtual LinhKien LinhKien { get; set; }
+        public virtual ThietBi ThietBi { get; set; }
     }
 }

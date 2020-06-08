@@ -133,12 +133,12 @@
                             </a>
                         </li>
 
-                        <li>
+                        @*<li>
                             <a data-toggle="tab" href="#messages">
                                 <i class="green ace-icon fa fa-cogs bigger-120"></i>
                                 Lịch Sử Thiết Bị
                             </a>
-                        </li>
+                        </li>*@
 
                         @*
                             <li>
@@ -160,7 +160,7 @@
                                         <th>Model</th>
                                         <th>Nhà Cung Cấp</th>
                                         <th>Mô Tả</th>
-                                        <th>Hiện Trạng</th>
+                                        <th>Tình Trạng</th>
                                         <th>Năm Bảo Hành</th>
                                     </tr>
                                 </thead>
@@ -190,7 +190,8 @@
                                         <th>Ngày</th>
                                         <th>Người Sử Dụng</th>
                                         <th>Đơn Vị</th>
-                                        <th>Hiện Trạng</th>
+                                        @*<td>test</td>*@
+                                        <th>Tình Trạng</th>
                                         <th>Chi Phí</th>
                                         <th>Ghi Chú</th>
                                     </tr>
@@ -201,7 +202,12 @@
                                         <td>{{item.Ngay | date : 'dd/MM/yyyy'}}</td>
                                         <td>{{item.NguoiDung}}</td>
                                         <td>{{item.DonVi}}</td>
-                                        <td>{{item.TinhTrang}}</td>
+                                        @*<td>{{item.TinhTrang}}</td>*@
+                                        <td ng-show="item.MaTinhTrang == 1"><span class="label label-sm label-info">Chờ Bàn Giao</span></td>
+                                        <td ng-show="item.MaTinhTrang == 2"><span class="label label-sm label-warning">Đang Sửa Chữa</span></td>
+                                        <td ng-show="item.MaTinhTrang == 3"><span class="label label-sm label-primary">Đang Bảo Hành</span></td>
+                                        <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Đã Hỏng</span></td>
+                                        <td ng-show="item.MaTinhTrang == 5"><span class="label label-sm label-success">Đang Sử Dụng</span></td>
                                         <td>{{item.ChiPhi}}</td>
                                         <td></td>
                                     </tr>

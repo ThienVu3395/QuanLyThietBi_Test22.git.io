@@ -108,17 +108,13 @@
     <Property Name="MaPhongBan" Type="int" Nullable="false" />
     <Property Name="Ten" Type="nvarchar" MaxLength="150" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="sysdiagrams">
     <Key>
-      <PropertyRef Name="name" />
-      <PropertyRef Name="principal_id" />
       <PropertyRef Name="diagram_id" />
     </Key>
     <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
     <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
@@ -137,6 +133,7 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
     <Property Name="MaDanhMuc" Type="int" Nullable="false" />
     <Property Name="MaNhaCungCap" Type="int" />
     <Property Name="MaHangSanXuat" Type="int" />
+    <Property Name="MaTinhTrang" Type="int" Nullable="false" />
     <Property Name="Serial" Type="nvarchar" MaxLength="50" />
     <Property Name="GiaKhauHao" Type="decimal" Precision="18" Scale="3" />
     <Property Name="DonViTinh" Type="nvarchar" MaxLength="50" />
@@ -328,6 +325,18 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ThietBi_TinhTrang">
+    <End Role="TinhTrang" Type="Self.TinhTrang" Multiplicity="1" />
+    <End Role="ThietBi" Type="Self.ThietBi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TinhTrang">
+        <PropertyRef Name="MaTinhTrang" />
+      </Principal>
+      <Dependent Role="ThietBi">
+        <PropertyRef Name="MaTinhTrang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -371,17 +380,9 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
     <EntitySet Name="NguoiSuDung" EntityType="Self.NguoiSuDung" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NhaCungCap" EntityType="Self.NhaCungCap" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhongBan" EntityType="Self.PhongBan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ThietBi" EntityType="Self.ThietBi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TinhTrang" EntityType="Self.TinhTrang" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [sysdiagrams].[name] AS [name], 
-    [sysdiagrams].[principal_id] AS [principal_id], 
-    [sysdiagrams].[diagram_id] AS [diagram_id], 
-    [sysdiagrams].[version] AS [version], 
-    [sysdiagrams].[definition] AS [definition]
-    FROM [dbo].[sysdiagrams] AS [sysdiagrams]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="FK_HopDongThietBi_HopDong" Association="Self.FK_HopDongThietBi_HopDong">
       <End Role="HopDong" EntitySet="HopDong" />
       <End Role="HopDongThietBi" EntitySet="HopDongThietBi" />
@@ -436,6 +437,10 @@ warning 6002: The table/view 'QuanLyThietBi.dbo.sysdiagrams' does not have a pri
     </AssociationSet>
     <AssociationSet Name="FK_ThietBi_PhongBan" Association="Self.FK_ThietBi_PhongBan">
       <End Role="PhongBan" EntitySet="PhongBan" />
+      <End Role="ThietBi" EntitySet="ThietBi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ThietBi_TinhTrang" Association="Self.FK_ThietBi_TinhTrang">
+      <End Role="TinhTrang" EntitySet="TinhTrang" />
       <End Role="ThietBi" EntitySet="ThietBi" />
     </AssociationSet>
   </EntityContainer>

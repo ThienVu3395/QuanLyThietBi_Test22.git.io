@@ -33,6 +33,7 @@ namespace QuanLyThietBi.Models
         public int MaDanhMuc { get; set; }
         public Nullable<int> MaNhaCungCap { get; set; }
         public Nullable<int> MaHangSanXuat { get; set; }
+        public int MaTinhTrang { get; set; }
         public string Serial { get; set; }
         public Nullable<decimal> GiaKhauHao { get; set; }
         public string DonViTinh { get; set; }
@@ -56,7 +57,8 @@ namespace QuanLyThietBi.Models
         public virtual ICollection<LichSuThietBi> LichSuThietBis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LinhKienThietBi> LinhKienThietBis { get; set; }
-        public virtual PhongBan PhongBan { get; set; }
         public virtual NhaCungCap NhaCungCap1 { get; set; }
+        public virtual PhongBan PhongBan { get; set; }
+        public virtual TinhTrang TinhTrang { get; set; }
     }
 }

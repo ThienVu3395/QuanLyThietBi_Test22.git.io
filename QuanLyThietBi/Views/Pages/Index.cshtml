@@ -74,8 +74,8 @@
                     <th>Model</th>
                     <th>Serial</th>
                     <th>Tên</th>
-                    <th>Người Sử Dụng</th>
-                    <th>Đơn Vị Sử Dụng</th>
+                    <th>Người Sử Dụng Hiện Tại</th>
+                    <th>Đơn Vị Sử Dụng Hiện Tại</th>
                     <th>Hiện Trạng</th>
                     <th></th>
                 </tr>
@@ -83,7 +83,7 @@
 
             <tbody>
                 <tr ng-show="DanhSachThietBi.length > 0" ng-repeat="item in DanhSachThietBi track by $index">
-                    <td>{{$index + 1}}</td>
+                    <td>{{item.MaThietBi}}</td>
                     <td>{{item.Loai}}</td>
                     <td>{{item.MaTaiSan}}</td>
                     <td>{{item.Model}}</td>
@@ -96,7 +96,7 @@
                     <td ng-show="item.MaTinhTrang == 1"><span class="label label-sm label-info">Chờ Bàn Giao</span></td>
                     <td ng-show="item.MaTinhTrang == 2"><span class="label label-sm label-warning">Đang Sửa Chữa</span></td>
                     <td ng-show="item.MaTinhTrang == 3"><span class="label label-sm label-primary">Đang Bảo Hành</span></td>
-                    <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Đã Hỏng</span></td>
+                    <td ng-show="item.MaTinhTrang == 4"><span class="label label-sm label-danger">Không Sử Dụng</span></td>
                     <td ng-show="item.MaTinhTrang == 5"><span class="label label-sm label-success">Đang Sử Dụng</span></td>
                     <td ng-show="item.MaTinhTrang == -1"><span class="label label-sm label-purple">Chưa Cập Nhật</span></td>
 

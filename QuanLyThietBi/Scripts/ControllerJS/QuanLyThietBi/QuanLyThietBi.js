@@ -29,7 +29,7 @@
         }
 
         $scope.getUser = function (index, tt) {
-            let mpb = 1;
+            let mpb = 1;C
             if (tt == "sua") {
                 mpb = document.getElementById("Mpb" + index).value;
             }
@@ -189,11 +189,11 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachHSX = response.data;
-                    let objKhac = {
-                        MaNhaCungCap: -1,
-                        Ten: "--- Khác ---"
-                    }
-                    $scope.DanhSachHSX.push(objKhac);
+                    //let objKhac = {
+                    //    MaNhaCungCap: -1,
+                    //    Ten: "--- Khác ---"
+                    //}
+                    //$scope.DanhSachHSX.push(objKhac);
                     $scope.MaNhaCungCap = $scope.DanhSachHSX[0];
                     $scope.HangSXThem = $scope.DanhSachHSX[0];
                 },
@@ -474,11 +474,17 @@
             res.then(
                 function succ(response) {
                     $scope.ThongTinThietBi = response.data;
-                    console.log($scope.ThongTinThietBi);
+                    $scope.MaNguoiDungSua = response.data.MaNguoiDung;
+                    console.log($scope.MaNguoiDungSua);
                     $scope.ngayMua = $scope.ThongTinThietBi.NgayNhapKho;
                     let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.MaPhongBan);
                     $scope.MaPhongBanSua = $scope.DanhSachPhongBan[i];
-                    $scope.LayNguoiDungSua(1);
+                    if ($scope.ThongTinThietBi.MaNguoiDung == 0) {
+                        $scope.LayNguoiDungSua(0);
+                    }
+                    else {
+                        $scope.LayNguoiDungSua(1);
+                    }
                     if ($scope.ThongTinThietBi.MaTinhTrang > 0) {
                         let t = $scope.DanhSachTinhTrang.findIndex(x => x.MaTinhTrang == $scope.ThongTinThietBi.MaTinhTrang);
                         $scope.MaTinhTrangSua = $scope.DanhSachTinhTrang[t];
@@ -599,10 +605,11 @@
         // Sửa thiết bị
         $scope.CapNhatThongTinTB = function () {
             let API = CommonController.urlAPI.API_CapNhatThongTinThietBi;
-            $scope.ThongTinThietBi.Check = 0;
-            if ($scope.ThongTinThietBi.MaNguoiDung == $scope.MaNguoiDungSua.MaNguoiDung && $scope.ThongTinThietBi.MaTinhTrang == $scope.MaTinhTrangSua.MaTinhTrang) {
-                $scope.ThongTinThietBi.Check = 1;
-            }
+            //$scope.ThongTinThietBi.Check = 0;
+            //if ($scope.ThongTinThietBi.MaNguoiDung == $scope.MaNguoiDungSua.MaNguoiDung && $scope.ThongTinThietBi.MaTinhTrang == $scope.MaTinhTrangSua.MaTinhTrang) {
+            //    $scope.ThongTinThietBi.Check = 1;
+            //}
+
             $scope.ThongTinThietBi.MaNhaCungCap = $scope.MaNCC.MaNhaCungCap;
             $scope.ThongTinThietBi.MaNguoiDung = $scope.MaNguoiDungSua.MaNguoiDung;
             $scope.ThongTinThietBi.MaPhongBan = $scope.MaPhongBanSua.MaPhongBan;
@@ -713,6 +720,8 @@
         }
 
         // Lấy thông tin linh kiện cần sửa
+        $scope.trangThaiSua = false;
+
         $scope.SuaLinhKienDB = function (LinhKien) {
             $scope.objSua = LinhKien;
             $scope.SerialThem = $scope.objSua.Serial;
@@ -725,6 +734,18 @@
             $scope.MaLoaiLinhKienThem = $scope.DanhSachLoaiLinhKien[index];
             $scope.MaTinhTrangThem = $scope.DanhSachTinhTrang[index2];
             $scope.HangSXThem = $scope.DanhSachHSX[index3];
+            $scope.trangThaiSua = true;
+        }
+
+        $scope.HuySua = function () {
+            $scope.trangThaiSua = false;
+            $scope.SerialThem = "";
+            $scope.ModelThem = "";
+            $scope.GhiChuThem = "";
+            $scope.NamBHThem = "";
+            $scope.MaLoaiLinhKienThem = $scope.DanhSachLoaiLinhKien[0];
+            $scope.MaTinhTrangThem = $scope.DanhSachTinhTrang[0];
+            $scope.HangSXThem = $scope.DanhSachHSX[0];
         }
 
         // Cập nhật thông tin linh kiện trong db
@@ -780,9 +801,11 @@
             if (window.confirm("Bạn chắc chắn thêm linh kiện với những thông tin vừa nhập chứ ? ")) {
                 let linhKienThem = {
                     MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
+                    TenLoaiLinhKien: $scope.MaLoaiLinhKienThem.TenLinhKien,
                     Serial: $scope.SerialThem,
                     Model: $scope.ModelThem,
                     MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
+                    TenNhaCungCap: $scope.HangSXThem.Ten,
                     GhiChu: $scope.GhiChuThem,
                     NamBaoHanh: $scope.NamBHThem,
                     MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
