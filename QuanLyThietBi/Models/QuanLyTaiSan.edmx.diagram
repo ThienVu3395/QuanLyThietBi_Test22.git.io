@@ -23,17 +23,17 @@
         <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien" />
         <EntityTypeShape EntityType="QuanLyThietBiModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="7" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" />
-        <EntityTypeShape EntityType="QuanLyThietBiModel.ThietBi" Width="1.5" PointX="8.25" PointY="6.25" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.TinhTrang" Width="1.5" PointX="6" PointY="8.125" />
+        <AssociationConnector Association="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.sysdiagram" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="QuanLyThietBiModel.ThietBi" Width="1.5" PointX="8.25" PointY="7" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_ThietBi_DanhMuc" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_HopDongThietBi_ThietBi" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_LinhKienThietBi_ThietBi" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_ThietBi_PhongBan" />
-        <EntityTypeShape EntityType="QuanLyThietBiModel.TinhTrang" Width="1.5" PointX="6" PointY="8.125" />
-        <AssociationConnector Association="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang" />
         <AssociationConnector Association="QuanLyThietBiModel.FK_ThietBi_TinhTrang" />
-        <EntityTypeShape EntityType="QuanLyThietBiModel.sysdiagram" Width="1.5" PointX="0.75" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -27,18 +27,20 @@
                     </div>
 
                     <div class="form-group col-lg-3">
-                        <label for="usr">Mã Tài Sản</label>
-                        <div class="form-control">{{ThongTinThietBi.MaTaiSan}}</div>
+                        <label for="usr">
+                            Dòng Máy
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.Model}}</div>
                     </div>
 
-                    <div class="form-group col-lg-4">
+                    <div class="form-group col-lg-3">
                         <label for="usr">
                             Tên Thiết Bị
                         </label>
                         <div class="form-control">{{ThongTinThietBi.Ten}}</div>
                     </div>
 
-                    <div class="form-group col-lg-2">
+                    <div class="form-group col-lg-3">
                         <label for="usr">
                             Hãng Sản Xuất
                         </label>
@@ -48,15 +50,13 @@
 
                 <div class="row">
                     <div class="form-group col-lg-3">
-                        <label for="usr">
-                            Dòng Máy
-                        </label>
-                        <div class="form-control">{{ThongTinThietBi.Model}}</div>
+                        <label for="usr">Mã Tài Sản</label>
+                        <div class="form-control">{{ThongTinThietBi.MaTaiSan}}</div>
                     </div>
 
                     <div class="form-group col-lg-3">
                         <label for="usr">
-                            Mã Số Thiết Bị
+                            Mã Số Thiết Bị / Serial Number
                         </label>
                         <div class="form-control">{{ThongTinThietBi.Serial}}</div>
                     </div>
@@ -68,25 +68,9 @@
 
                     <div class="form-group col-lg-3">
                         <label for="usr">
-                            IP
+                            Giá Trị (VNĐ)
                         </label>
-                        <div class="form-control">{{ThongTinThietBi.IP}}</div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-lg-3">
-                        <label>
-                            Ngày Mua
-                        </label>
-                        <div class="form-control">{{ThongTinThietBi.NgayNhapKho | date : 'dd/MM/yyyy'}}</div>
-                    </div>
-
-                    <div class="form-group col-lg-3">
-                        <label for="form-field-mask-1">
-                            Ngày Bảo Hành
-                        </label>
-                        <div class="form-control">{{ThongTinThietBi.NamBaoHanh}}</div>
+                        <div class="form-control">{{ThongTinThietBi.GiaTri}}</div>
                     </div>
 
                     <div class="form-group col-lg-3">
@@ -97,30 +81,63 @@
                     </div>
 
                     <div class="form-group col-lg-3">
-                        <label for="sel1">Ghi Chú</label>
-                        <div class="form-control">{{ThongTinThietBi.GhiChu}}</div>
+                        <label>
+                            Ngày Mua / Ngày Ký Hợp Đồng
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.NgayMua | date : 'dd/MM/yyyy'}}</div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-lg-3">
-                        <label for="form-field-select-1">Hiện Trạng</label>
+                    <div class="form-group col-lg-3">
+                        <label>
+                            Giá Trị Hợp Đồng (VNĐ)
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.GiaTriHopDong}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label>
+                            Ngày Bàn Giao
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.NgayCapNhat | date : 'dd/MM/yyyy'}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="form-field-mask-1">
+                            Năm Bảo Hành
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.NamBaoHanh}}</div>
+                    </div>
+
+                    <div class="form-group  col-lg-3">
+                        <label for="form-field-select-1">Hiện Trạng Thiết Bị</label>
                         <div class="form-control">{{ThongTinThietBi.TenTinhTrang}}</div>
                     </div>
 
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-3">
                         <label for="form-field-select-1">Đơn Vị Sử Dụng Hiện Tại</label>
                         <div class="form-control">{{ThongTinThietBi.TenPhongBan}}</div>
                     </div>
 
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-3">
                         <label for="form-field-select-1">Người Sử Dụng Hiện Tại</label>
                         <div class="form-control">{{ThongTinThietBi.NguoiSuDung}}</div>
                     </div>
 
-                    <div class="col-lg-3">
+                    <div class="form-group col-lg-3">
                         <label for="form-field-select-1">Vị Trí Phòng Ban Sử Dụng Hiện Tại</label>
                         <div class="form-control">{{ThongTinThietBi.ViTri}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="usr">
+                            Địa Chỉ IP
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.IP}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label for="sel1">Ghi Chú</label>
+                        <div class="form-control">{{ThongTinThietBi.GhiChu}}</div>
                     </div>
                 </div>
 
@@ -134,11 +151,11 @@
                         </li>
 
                         @*<li>
-                            <a data-toggle="tab" href="#messages">
-                                <i class="green ace-icon fa fa-cogs bigger-120"></i>
-                                Lịch Sử Thiết Bị
-                            </a>
-                        </li>*@
+                                <a data-toggle="tab" href="#messages">
+                                    <i class="green ace-icon fa fa-cogs bigger-120"></i>
+                                    Lịch Sử Thiết Bị
+                                </a>
+                            </li>*@
 
                         @*
                             <li>

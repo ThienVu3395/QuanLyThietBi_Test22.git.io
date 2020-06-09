@@ -154,6 +154,8 @@
           <Property Name="NgayMua" Type="date" />
           <Property Name="NamBaoHanh" Type="nvarchar" MaxLength="255" />
           <Property Name="ViTri" Type="nvarchar" MaxLength="255" />
+          <Property Name="NgayCapNhat" Type="date" />
+          <Property Name="GiaTriHopDong" Type="decimal" Precision="18" Scale="3" />
         </EntityType>
         <EntityType Name="TinhTrang">
           <Key>
@@ -612,6 +614,12 @@
             <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
             <End Role="LinhKien" EntitySet="LinhKiens" />
           </AssociationSet>
+          <EntitySet Name="TinhTrangs" EntityType="QuanLyThietBiModel.TinhTrang" />
+          <AssociationSet Name="FK_LichSuLinhKien_TinhTrang" Association="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang">
+            <End Role="TinhTrang" EntitySet="TinhTrangs" />
+            <End Role="LichSuLinhKien" EntitySet="LichSuLinhKiens" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="QuanLyThietBiModel.sysdiagram" />
           <EntitySet Name="ThietBis" EntityType="QuanLyThietBiModel.ThietBi" />
           <AssociationSet Name="FK_ThietBi_DanhMuc" Association="QuanLyThietBiModel.FK_ThietBi_DanhMuc">
             <End Role="DanhMuc" EntitySet="DanhMucs" />
@@ -637,16 +645,10 @@
             <End Role="PhongBan" EntitySet="PhongBans" />
             <End Role="ThietBi" EntitySet="ThietBis" />
           </AssociationSet>
-          <EntitySet Name="TinhTrangs" EntityType="QuanLyThietBiModel.TinhTrang" />
-          <AssociationSet Name="FK_LichSuLinhKien_TinhTrang" Association="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang">
-            <End Role="TinhTrang" EntitySet="TinhTrangs" />
-            <End Role="LichSuLinhKien" EntitySet="LichSuLinhKiens" />
-          </AssociationSet>
           <AssociationSet Name="FK_ThietBi_TinhTrang" Association="QuanLyThietBiModel.FK_ThietBi_TinhTrang">
             <End Role="TinhTrang" EntitySet="TinhTrangs" />
             <End Role="ThietBi" EntitySet="ThietBis" />
           </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="QuanLyThietBiModel.sysdiagram" />
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -783,6 +785,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TinhTrang">
+          <Key>
+            <PropertyRef Name="MaTinhTrang" />
+          </Key>
+          <Property Name="MaTinhTrang" Type="Int32" Nullable="false" />
+          <Property Name="Ten" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LichSuLinhKiens" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang" FromRole="TinhTrang" ToRole="LichSuLinhKien" />
+          <NavigationProperty Name="ThietBis" Relationship="QuanLyThietBiModel.FK_ThietBi_TinhTrang" FromRole="TinhTrang" ToRole="ThietBi" />
+        </EntityType>
+        <Association Name="FK_LichSuLinhKien_TinhTrang">
+          <End Type="QuanLyThietBiModel.TinhTrang" Role="TinhTrang" Multiplicity="1" />
+          <End Type="QuanLyThietBiModel.LichSuLinhKien" Role="LichSuLinhKien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TinhTrang">
+              <PropertyRef Name="MaTinhTrang" />
+            </Principal>
+            <Dependent Role="LichSuLinhKien">
+              <PropertyRef Name="MaTinhTrang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="ThietBi">
           <Key>
             <PropertyRef Name="MaThietBi" />
@@ -814,6 +847,8 @@
           <Property Name="NgayMua" Type="DateTime" Precision="0" />
           <Property Name="NamBaoHanh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ViTri" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NgayCapNhat" Type="DateTime" Precision="0" />
+          <Property Name="GiaTriHopDong" Type="Decimal" Precision="18" Scale="3" />
           <NavigationProperty Name="DanhMuc" Relationship="QuanLyThietBiModel.FK_ThietBi_DanhMuc" FromRole="ThietBi" ToRole="DanhMuc" />
           <NavigationProperty Name="HopDongThietBis" Relationship="QuanLyThietBiModel.FK_HopDongThietBi_ThietBi" FromRole="ThietBi" ToRole="HopDongThietBi" />
           <NavigationProperty Name="LichSuThietBis" Relationship="QuanLyThietBiModel.FK_LichSuThietBi_ThietBi" FromRole="ThietBi" ToRole="LichSuThietBi" />
@@ -894,27 +929,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="TinhTrang">
-          <Key>
-            <PropertyRef Name="MaTinhTrang" />
-          </Key>
-          <Property Name="MaTinhTrang" Type="Int32" Nullable="false" />
-          <Property Name="Ten" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LichSuLinhKiens" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang" FromRole="TinhTrang" ToRole="LichSuLinhKien" />
-          <NavigationProperty Name="ThietBis" Relationship="QuanLyThietBiModel.FK_ThietBi_TinhTrang" FromRole="TinhTrang" ToRole="ThietBi" />
-        </EntityType>
-        <Association Name="FK_LichSuLinhKien_TinhTrang">
-          <End Type="QuanLyThietBiModel.TinhTrang" Role="TinhTrang" Multiplicity="1" />
-          <End Type="QuanLyThietBiModel.LichSuLinhKien" Role="LichSuLinhKien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TinhTrang">
-              <PropertyRef Name="MaTinhTrang" />
-            </Principal>
-            <Dependent Role="LichSuLinhKien">
-              <PropertyRef Name="MaTinhTrang" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ThietBi_TinhTrang">
           <End Type="QuanLyThietBiModel.TinhTrang" Role="TinhTrang" Multiplicity="1" />
           <End Type="QuanLyThietBiModel.ThietBi" Role="ThietBi" Multiplicity="*" />
@@ -927,16 +941,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1079,9 +1083,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TinhTrangs">
+            <EntityTypeMapping TypeName="QuanLyThietBiModel.TinhTrang">
+              <MappingFragment StoreEntitySet="TinhTrang">
+                <ScalarProperty Name="Ten" ColumnName="Ten" />
+                <ScalarProperty Name="MaTinhTrang" ColumnName="MaTinhTrang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="QuanLyThietBiModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ThietBis">
             <EntityTypeMapping TypeName="QuanLyThietBiModel.ThietBi">
               <MappingFragment StoreEntitySet="ThietBi">
+                <ScalarProperty Name="GiaTriHopDong" ColumnName="GiaTriHopDong" />
+                <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
                 <ScalarProperty Name="ViTri" ColumnName="ViTri" />
                 <ScalarProperty Name="NamBaoHanh" ColumnName="NamBaoHanh" />
                 <ScalarProperty Name="NgayMua" ColumnName="NgayMua" />
@@ -1109,25 +1134,6 @@
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="MaTaiSan" ColumnName="MaTaiSan" />
                 <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TinhTrangs">
-            <EntityTypeMapping TypeName="QuanLyThietBiModel.TinhTrang">
-              <MappingFragment StoreEntitySet="TinhTrang">
-                <ScalarProperty Name="Ten" ColumnName="Ten" />
-                <ScalarProperty Name="MaTinhTrang" ColumnName="MaTinhTrang" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="QuanLyThietBiModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -28,6 +28,7 @@ namespace QuanLyThietBi.Models
         public string MaTaiSan { get; set; }
         public string Ten { get; set; }
         public decimal? Gia { get; set; }
+        public decimal? GiaTriHopDong { get; set; }
         public string Model { get; set; }
         public int SoLuong { get; set; }
         public Nullable<System.DateTime> NgayNhapKho { get; set; }
@@ -48,6 +49,7 @@ namespace QuanLyThietBi.Models
         public string NamBaoHanh { get; set; }
         public string ViTri { get; set; }
         public string GhiChu { get; set; }
+        public Nullable<System.DateTime> NgayCapNhat { get; set; }
         //Dữ liệu chính trong db
 
         public string Loai { get; set; }
@@ -70,6 +72,7 @@ namespace QuanLyThietBi.Models
         public string Ten { get; set; }
         public decimal? Gia { get; set; }
         public decimal? GiaKhauHao { get; set; }
+        public decimal? GiaTriHopDong { get; set; }
         public string Model { get; set; }
         public string Serial { get; set; }
         public int SoLuong { get; set; }
@@ -87,6 +90,8 @@ namespace QuanLyThietBi.Models
         public Nullable<System.DateTime> NgayXuatKho { get; set; }
         public Nullable<System.DateTime> NgayHienTrang { get; set; }
         public Nullable<System.DateTime> NgayHienTrangg { get; set; }
+        public Nullable<System.DateTime> NgayCapNhat { get; set; }
+        public Nullable<System.DateTime> NgayMua { get; set; }
         public Nullable<System.DateTime> ThoiGianBaoHanh { get; set; }
         public List<LichSuThietBiModel> LichSuThietBi { get; set; }
         public List<LinhKienModel> DanhSachLinhKien { get; set; }
@@ -121,6 +126,7 @@ namespace QuanLyThietBi.Models
     {
         public int MaNguoiDung { get; set; }
         public string Ten { get; set; }
+        public string UserName { get; set; }
     }
 
     public class NhaCungCapModel

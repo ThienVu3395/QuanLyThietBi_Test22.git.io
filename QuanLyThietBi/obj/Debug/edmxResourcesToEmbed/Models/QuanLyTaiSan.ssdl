@@ -149,6 +149,8 @@
     <Property Name="NgayMua" Type="date" />
     <Property Name="NamBaoHanh" Type="nvarchar" MaxLength="255" />
     <Property Name="ViTri" Type="nvarchar" MaxLength="255" />
+    <Property Name="NgayCapNhat" Type="date" />
+    <Property Name="GiaTriHopDong" Type="decimal" Precision="18" Scale="3" />
   </EntityType>
   <EntityType Name="TinhTrang">
     <Key>

@@ -29,7 +29,7 @@
         }
 
         $scope.getUser = function (index, tt) {
-            let mpb = 1;C
+            let mpb = 1;
             if (tt == "sua") {
                 mpb = document.getElementById("Mpb" + index).value;
             }
@@ -86,7 +86,6 @@
 
         // Lấy danh sách thiết bị phân trang
         $scope.pageChanged = function () {
-            //console.log($scope.MaDanhMuc)
             var offset = ($scope.currentPage - 1) * $scope.itemsPerPage;
             var param = "?offset=" + offset + "&limit=" + $scope.itemsPerPage;
             var res = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi_PhanTrang, param);
@@ -163,12 +162,15 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachNguoiDung = response.data;
+                    let index = $scope.DanhSachNguoiDung.findIndex(x => x.UserName.toLowerCase() == $scope.ThongTinThietBi.NguoiSuDung.toLowerCase() || x.Ten == $scope.ThongTinThietBi.NguoiSuDung);
                     if (tt == 0) {
-                        $scope.MaNguoiDungSua = $scope.DanhSachNguoiDung[0];
+                        //$scope.MaNguoiDungSua = $scope.DanhSachNguoiDung[0];
+                        $scope.MaNguoiDungSua = $scope.DanhSachNguoiDung[index];
                     }
                     else if (tt == 1) {
-                        let t = $scope.DanhSachNguoiDung.findIndex(x => x.MaNguoiDung == $scope.ThongTinThietBi.MaNguoiDung);
-                        $scope.MaNguoiDungSua = $scope.DanhSachNguoiDung[t];
+                        //let t = $scope.DanhSachNguoiDung.findIndex(x => x.MaNguoiDung == $scope.ThongTinThietBi.MaNguoiDung);
+                        //$scope.MaNguoiDungSua = $scope.DanhSachNguoiDung[t];
+                        $scope.MaNguoiDungSua = $scope.DanhSachNguoiDung[0];
                     }
                 },
 
@@ -359,7 +361,6 @@
                 $scope.ThietBi.MaPhongBan = $scope.DonVi.MaPhongBan;
                 $scope.ThietBi.NguoiSuDung = $scope.MaNguoiDung.Ten;
                 $scope.listDanhSachThietBi.push($scope.ThietBi);
-                console.log($scope.listDanhSachThietBi);
             }
             else {
                 for (let i = 0; i < $scope.SoLuongThietBi; i++) {
@@ -389,7 +390,7 @@
                         timer: 1500
                     })
                     closeBtn.click();
-                    window.location.href = "";
+                    setTimeout(function () { window.location.href = ""; }, 1000);
                     //var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
                     //var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
                     //ress.then(
@@ -474,9 +475,9 @@
             res.then(
                 function succ(response) {
                     $scope.ThongTinThietBi = response.data;
+                    $scope.dt = $scope.ThongTinThietBi.NgayMua == null ? null : new Date($scope.ThongTinThietBi.NgayMua);
+                    $scope.dt2 = $scope.ThongTinThietBi.NgayCapNhat == null ? null : new Date($scope.ThongTinThietBi.NgayCapNhat);
                     $scope.MaNguoiDungSua = response.data.MaNguoiDung;
-                    console.log($scope.MaNguoiDungSua);
-                    $scope.ngayMua = $scope.ThongTinThietBi.NgayNhapKho;
                     let i = $scope.DanhSachPhongBan.findIndex(x => x.MaPhongBan == $scope.ThongTinThietBi.MaPhongBan);
                     $scope.MaPhongBanSua = $scope.DanhSachPhongBan[i];
                     if ($scope.ThongTinThietBi.MaNguoiDung == 0) {
@@ -488,6 +489,7 @@
                     if ($scope.ThongTinThietBi.MaTinhTrang > 0) {
                         let t = $scope.DanhSachTinhTrang.findIndex(x => x.MaTinhTrang == $scope.ThongTinThietBi.MaTinhTrang);
                         $scope.MaTinhTrangSua = $scope.DanhSachTinhTrang[t];
+
                     }
                     //let j = $scope.DanhSach
                     //$scope.MaNguoiDungSua = $scope.DanhSachNguoiDung.findIndex(x => x.MaNguoiDung == $scope.ThongTinThietBi)
@@ -612,8 +614,11 @@
 
             $scope.ThongTinThietBi.MaNhaCungCap = $scope.MaNCC.MaNhaCungCap;
             $scope.ThongTinThietBi.MaNguoiDung = $scope.MaNguoiDungSua.MaNguoiDung;
+            $scope.ThongTinThietBi.NguoiSuDung = $scope.MaNguoiDungSua.Ten;
             $scope.ThongTinThietBi.MaPhongBan = $scope.MaPhongBanSua.MaPhongBan;
             $scope.ThongTinThietBi.MaTinhTrang = $scope.MaTinhTrangSua.MaTinhTrang;
+            $scope.ThongTinThietBi.NgayMua = $scope.dt;
+            $scope.ThongTinThietBi.NgayCapNhat = $scope.dt2;
             if ($scope.MaConSua.MaDanhMuc != 0) {
                 $scope.ThongTinThietBi.MaDanhMuc = $scope.MaConSua.MaDanhMuc;
             }
@@ -627,7 +632,9 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    setTimeout(function () { window.location.href = "" }, 1000);
+                    //setTimeout(function () { window.location.href = "" }, 1000);
+                    console.log($scope.currentPage);
+                    $scope.pageChanged();
                 },
 
                 function errorCallback(response) {
@@ -750,80 +757,74 @@
 
         // Cập nhật thông tin linh kiện trong db
         $scope.CapNhatLinhKienDB = function () {
-            if (window.confirm("Bạn chắc chắn cập nhật thông tin linh kiện này với những thông tin vừa nhập chứ ? ")) {
-                let linhKienSua = {
-                    MaLinhKien: $scope.objSua.MaLinhKien,
-                    MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
-                    Serial: $scope.SerialThem,
-                    Model: $scope.ModelThem,
-                    MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
-                    GhiChu: $scope.GhiChuThem,
-                    NamBaoHanh: $scope.NamBHThem,
-                    MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
-                    MaTinhTrangCu: $scope.objSua.MaTinhTrang,
-                    MaThietBi: $scope.objSua.MaThietBi,
-                }
-                var res = CommonController.postData(CommonController.urlAPI.API_CapNhatThongTinLinhKien, linhKienSua);
-                res.then(
-                    function succ(response) {
-                        alert(response.data);
-                        $scope.LayThongTinChiTiet(linhKienSua.MaThietBi);
-                        $scope.objSua.MaTinhTrang = linhKienSua.MaTinhTrang;
-                    },
-
-                    function errorCallback(response) {
-                        console.log(response.data.Message);
-                    }
-                )
+            let linhKienSua = {
+                MaLinhKien: $scope.objSua.MaLinhKien,
+                MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
+                Serial: $scope.SerialThem,
+                Model: $scope.ModelThem,
+                MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
+                GhiChu: $scope.GhiChuThem,
+                NamBaoHanh: $scope.NamBHThem,
+                MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
+                MaTinhTrangCu: $scope.objSua.MaTinhTrang,
+                MaThietBi: $scope.objSua.MaThietBi,
             }
+            var res = CommonController.postData(CommonController.urlAPI.API_CapNhatThongTinLinhKien, linhKienSua);
+            res.then(
+                function succ(response) {
+                    $scope.LayThongTinChiTiet(linhKienSua.MaThietBi);
+                    $scope.objSua.MaTinhTrang = linhKienSua.MaTinhTrang;
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
         }
 
         // Xóa linh kiện database
         $scope.XoaLinhKienDB = function (MaLinhKien, index) {
-            if (window.confirm("Bạn chắc chắn xóa linh kiện này chứ ? ")) {
-                var param = "?MaLinhKien=" + MaLinhKien;
-                var res = CommonController.deleteData(CommonController.urlAPI.API_XoaLinhKienThietBi, param);
-                res.then(
-                    function succ(response) {
-                        $scope.ThongTinThietBi.DanhSachLinhKien.splice(index, 1);
-                        alert(response.data);
-                    },
-
-                    function errorCallback(response) {
-                        console.log(response.data.Message);
+            var param = "?MaLinhKien=" + MaLinhKien;
+            var res = CommonController.deleteData(CommonController.urlAPI.API_XoaLinhKienThietBi, param);
+            res.then(
+                function succ(response) {
+                    $scope.ThongTinThietBi.DanhSachLinhKien.splice(index, 1);
+                    if ($scope.ThongTinThietBi.DanhSachLinhKien.length == 0) {
+                        $scope.HuySua();
                     }
-                )
-            }
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
         }
 
         // Thêm linh kiện database
         $scope.ThemLinhKienDB = function (MaThietBi) {
-            if (window.confirm("Bạn chắc chắn thêm linh kiện với những thông tin vừa nhập chứ ? ")) {
-                let linhKienThem = {
-                    MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
-                    TenLoaiLinhKien: $scope.MaLoaiLinhKienThem.TenLinhKien,
-                    Serial: $scope.SerialThem,
-                    Model: $scope.ModelThem,
-                    MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
-                    TenNhaCungCap: $scope.HangSXThem.Ten,
-                    GhiChu: $scope.GhiChuThem,
-                    NamBaoHanh: $scope.NamBHThem,
-                    MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
-                    MaThietBi: MaThietBi,
-                }
-                var res = CommonController.postData(CommonController.urlAPI.API_ThemLinhKienThietBi, linhKienThem);
-                res.then(
-                    function succ(response) {
-                        alert("Thêm Linh Kiện Thành Công");
-                        linhKienThem.MaLinhKien = response.data;
-                        $scope.ThongTinThietBi.DanhSachLinhKien.push(linhKienThem);
-                    },
-
-                    function errorCallback(response) {
-                        console.log(response.data.Message);
-                    }
-                )
+            let linhKienThem = {
+                MaLoaiLinhKien: $scope.MaLoaiLinhKienThem.MaLoaiLinhKien,
+                TenLoaiLinhKien: $scope.MaLoaiLinhKienThem.TenLinhKien,
+                Serial: $scope.SerialThem,
+                Model: $scope.ModelThem,
+                MaNhaCungCap: $scope.HangSXThem.MaNhaCungCap,
+                TenNhaCungCap: $scope.HangSXThem.Ten,
+                GhiChu: $scope.GhiChuThem,
+                NamBaoHanh: $scope.NamBHThem,
+                MaTinhTrang: $scope.MaTinhTrangThem.MaTinhTrang,
+                MaThietBi: MaThietBi,
             }
+            var res = CommonController.postData(CommonController.urlAPI.API_ThemLinhKienThietBi, linhKienThem);
+            res.then(
+                function succ(response) {
+                    linhKienThem.MaLinhKien = response.data;
+                    $scope.ThongTinThietBi.DanhSachLinhKien.push(linhKienThem);
+                },
+
+                function errorCallback(response) {
+                    console.log(response.data.Message);
+                }
+            )
         }
 
         //////////////////////// HÃNG SẢN XUẤT /////////////////////////
@@ -865,5 +866,98 @@
                 )
             }
             else return;
+        }
+
+        ////////////////////// DATE TIME PICKER //////////////////////////
+        $scope.clear = function () {
+            $scope.dt = null;
+        };
+
+        $scope.inlineOptions = {
+            customClass: getDayClass,
+            minDate: new Date(),
+            showWeeks: true
+        };
+
+        $scope.dateOptions = {
+            dateDisabled: disabled,
+            formatYear: 'yy',
+            minDate: new Date(),
+            startingDay: 1
+        };
+
+        // Disable weekend selection
+        function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+        }
+
+        $scope.toggleMin = function () {
+            $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
+            $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        };
+
+        $scope.toggleMin();
+
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.open3 = function () {
+            $scope.popup3.opened = true;
+        };
+
+        $scope.setDate = function (year, month, day) {
+            $scope.dt = new Date(year, month, day);
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'shortDate'];
+        $scope.format = $scope.formats[2];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        $scope.popup1 = {
+            opened: false
+        };
+
+        $scope.popup2 = {
+            opened: false
+        };
+
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var afterTomorrow = new Date();
+        afterTomorrow.setDate(tomorrow.getDate() + 1);
+        $scope.events = [
+            {
+                date: tomorrow,
+                status: 'full'
+            },
+            {
+                date: afterTomorrow,
+                status: 'partially'
+            }
+        ];
+
+        function getDayClass(data) {
+            var date = data.date,
+                mode = data.mode;
+            if (mode === 'day') {
+                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
+
+                for (var i = 0; i < $scope.events.length; i++) {
+                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+
+                    if (dayToCheck === currentDay) {
+                        return $scope.events[i].status;
+                    }
+                }
+            }
+
+            return '';
         }
     })
