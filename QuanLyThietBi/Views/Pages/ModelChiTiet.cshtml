@@ -27,29 +27,6 @@
                     </div>
 
                     <div class="form-group col-lg-3">
-                        <label for="usr">
-                            Dòng Máy
-                        </label>
-                        <div class="form-control">{{ThongTinThietBi.Model}}</div>
-                    </div>
-
-                    <div class="form-group col-lg-3">
-                        <label for="usr">
-                            Tên Thiết Bị
-                        </label>
-                        <div class="form-control">{{ThongTinThietBi.Ten}}</div>
-                    </div>
-
-                    <div class="form-group col-lg-3">
-                        <label for="usr">
-                            Hãng Sản Xuất
-                        </label>
-                        <div class="form-control">{{ThongTinThietBi.HangSanXuat}}</div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="form-group col-lg-3">
                         <label for="usr">Mã Tài Sản</label>
                         <div class="form-control">{{ThongTinThietBi.MaTaiSan}}</div>
                     </div>
@@ -62,22 +39,50 @@
                     </div>
 
                     <div class="form-group col-lg-3">
-                        <label for="usr">Nhà Cung Cấp</label>
-                        <div class="form-control">{{ThongTinThietBi.NhaCungCap}}</div>
+                        <label for="usr">
+                            Hãng Sản Xuất
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.HangSanXuat}}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <label for="usr">
+                            Dòng Máy / Model
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.Model}}</div>
                     </div>
 
                     <div class="form-group col-lg-3">
                         <label for="usr">
-                            Giá Trị (VNĐ)
+                            Tên Thiết Bị
                         </label>
-                        <div class="form-control">{{ThongTinThietBi.GiaTri}}</div>
+                        <div class="form-control">{{ThongTinThietBi.Ten}}</div>
                     </div>
 
                     <div class="form-group col-lg-3">
-                        <label for="form-field-mask-1">
-                            Số Hợp Đồng
+                        <label for="form-field-select-1">Người Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.NguoiSuDung}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="form-field-select-1">Đơn Vị Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.TenPhongBan}}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <label for="form-field-select-1">Vị Trí Phòng Ban Sử Dụng Hiện Tại</label>
+                        <div class="form-control">{{ThongTinThietBi.ViTri}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
+                        <label for="usr">
+                            Địa Chỉ IP
                         </label>
-                        <div class="form-control">{{ThongTinThietBi.SoHopDong}}</div>
+                        <div class="form-control">{{ThongTinThietBi.IP}}</div>
                     </div>
 
                     <div class="form-group col-lg-3">
@@ -88,12 +93,40 @@
                     </div>
 
                     <div class="form-group col-lg-3">
+                        <label for="usr">
+                            Giá Trị Thiết Bị (VNĐ)
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.GiaTri}}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-lg-3">
+                        <label for="form-field-mask-1">
+                            Số Hợp Đồng
+                        </label>
+                        <div class="form-control">{{ThongTinThietBi.SoHopDong}}</div>
+                    </div>
+
+                    <div class="form-group col-lg-3">
                         <label>
                             Giá Trị Hợp Đồng (VNĐ)
                         </label>
                         <div class="form-control">{{ThongTinThietBi.GiaTriHopDong}}</div>
                     </div>
 
+                    <div class="form-group col-lg-3">
+                        <label for="usr">Nhà Cung Cấp</label>
+                        <div class="form-control">{{ThongTinThietBi.NhaCungCap}}</div>
+                    </div>
+
+                    <div class="form-group  col-lg-3">
+                        <label for="form-field-select-1">Hiện Trạng Thiết Bị</label>
+                        <div class="form-control">{{ThongTinThietBi.TenTinhTrang}}</div>
+                    </div>
+                </div>
+
+                <div class="row">                 
                     <div class="form-group col-lg-3">
                         <label>
                             Ngày Bàn Giao
@@ -106,33 +139,6 @@
                             Năm Bảo Hành
                         </label>
                         <div class="form-control">{{ThongTinThietBi.NamBaoHanh}}</div>
-                    </div>
-
-                    <div class="form-group  col-lg-3">
-                        <label for="form-field-select-1">Hiện Trạng Thiết Bị</label>
-                        <div class="form-control">{{ThongTinThietBi.TenTinhTrang}}</div>
-                    </div>
-
-                    <div class="form-group col-lg-3">
-                        <label for="form-field-select-1">Đơn Vị Sử Dụng Hiện Tại</label>
-                        <div class="form-control">{{ThongTinThietBi.TenPhongBan}}</div>
-                    </div>
-
-                    <div class="form-group col-lg-3">
-                        <label for="form-field-select-1">Người Sử Dụng Hiện Tại</label>
-                        <div class="form-control">{{ThongTinThietBi.NguoiSuDung}}</div>
-                    </div>
-
-                    <div class="form-group col-lg-3">
-                        <label for="form-field-select-1">Vị Trí Phòng Ban Sử Dụng Hiện Tại</label>
-                        <div class="form-control">{{ThongTinThietBi.ViTri}}</div>
-                    </div>
-
-                    <div class="form-group col-lg-3">
-                        <label for="usr">
-                            Địa Chỉ IP
-                        </label>
-                        <div class="form-control">{{ThongTinThietBi.IP}}</div>
                     </div>
 
                     <div class="form-group col-lg-6">
@@ -151,19 +157,19 @@
                         </li>
 
                         @*<li>
-                                <a data-toggle="tab" href="#messages">
-                                    <i class="green ace-icon fa fa-cogs bigger-120"></i>
-                                    Lịch Sử Thiết Bị
-                                </a>
-                            </li>*@
+                    <a data-toggle="tab" href="#messages">
+                        <i class="green ace-icon fa fa-cogs bigger-120"></i>
+                        Lịch Sử Thiết Bị
+                    </a>
+                </li>*@
 
                         @*
-                            <li>
-                                <a data-toggle="tab" href="#contracts">
-                                    <i class="green ace-icon fa fa-book bigger-120"></i>
-                                    Danh Sách Hợp Đồng
-                                </a>
-                            </li>
+                <li>
+                    <a data-toggle="tab" href="#contracts">
+                        <i class="green ace-icon fa fa-book bigger-120"></i>
+                        Danh Sách Hợp Đồng
+                    </a>
+                </li>
                         *@
                     </ul>
 
@@ -256,6 +262,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="modal-footer no-margin-top">
                 <button class="btn btn-sm btn-danger pull-right" data-dismiss="modal">
                     <i class="ace-icon fa fa-times"></i>

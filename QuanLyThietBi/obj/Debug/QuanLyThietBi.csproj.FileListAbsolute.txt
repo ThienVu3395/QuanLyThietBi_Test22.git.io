@@ -1067,3 +1067,4 @@ C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyTh
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csproj.CopyComplete
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.dll
 C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.pdb
+C:\Users\VU\Desktop\QuanLyThietBi_Test22.git.io\QuanLyThietBi\obj\Debug\QuanLyThietBi.csprojAssemblyReference.cache

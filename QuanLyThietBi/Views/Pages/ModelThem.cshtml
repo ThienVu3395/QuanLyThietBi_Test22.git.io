@@ -40,6 +40,34 @@
                         </div>
 
                         <div class="form-group col-lg-3">
+                            <label for="usr">Mã Tài Sản</label>
+                            <input ng-model="ThietBi.MaTaiSan"
+                                   type="text"
+                                   class="form-control"
+                                   ng-disabled="SoLuongThietBi > 1">
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="usr">
+                                Mã Số Thiết Bị / Serial Number
+                            </label>
+                            <input type="text" name="Serial" id="Seri" ng-model="ThietBi.Serial" class="form-control" ng-disabled="SoLuongThietBi > 1">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="usr">
+                                Hãng Sản Xuất <span class="bigger-110 red">
+                                    *
+                                </span>
+                            </label>
+                            <select class="form-control"
+                                    ng-model="MaNhaCungCap"
+                                    ng-options="item.Ten for item in DanhSachHSX track by item.MaNhaCungCap"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
                             <label for="usr">
                                 Dòng Máy / Model<span class="bigger-110 red">
                                     *
@@ -62,33 +90,121 @@
                             <span class="error text-danger" ng-show="formTB.Ten.$error.minlength">Tối thiểu 5 ký tự</span>
                             <span class="valid" ng-show="formTB.Ten.$valid"></span>
                         </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">Người Sử Dụng</label>
+                            <select class="form-control"
+                                    ng-model="MaNguoiDung"
+                                    ng-options="item as item.Ten for item in DanhSachNguoiDung"
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-change="ChonNguoiDung()"></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">Đơn Vị Sử Dụng</label>
+                            <select class="form-control"
+                                    ng-model="DonVi"
+                                    ng-options="item as item.Ten for item in DanhSachPhongBan"
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-change="LayNguoiDung()"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="comment">Vị Trí Phòng</label>
+                            <input class="form-control"
+                                   type="text"
+                                   ng-model="ThietBi.ViTri" />
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="comment">Địa Chỉ IP</label>
+                            <input class="form-control"
+                                   type="text"
+                                   ng-model="ThietBi.IP" />
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Ngày Mua / Ký Hợp Đồng
+                            </label>
+                            <input type="date" name="NgayKy" ng-model="ThietBi.NgayMua" class="form-control" style="line-height: 20px !important">
+                        </div>
                     </div>
 
                     <div class="row">
                         <div class="form-group col-lg-3">
                             <label for="usr">
-                                Hãng Sản Xuất <span class="bigger-110 red">
-                                    *
-                                </span>
+                                Giá Trị Thiết Bị (VNĐ)
                             </label>
+                            <input type="number" name="Gia" class="form-control" ng-model="ThietBi.Gia">
+                            <span class="error text-danger" ng-show="!formTB.Gia.$error.required && formTB.Gia.$invalid">Giá phải là số</span>
+                            <span class="valid" ng-show="formTB.Gia.$valid"></span>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">Dự Án & Hợp Đồng</label>
+
                             <select class="form-control"
-                                    ng-model="MaNhaCungCap"
-                                    ng-options="item.Ten for item in DanhSachHSX track by item.MaNhaCungCap"></select>
+                                    ng-model="MaHopDong"
+                                    ng-options="item as item.Ten for item in DanhSachHopDong track by item.MaHopDong"></select>
                         </div>
 
                         <div class="form-group col-lg-3">
-                            <label for="usr">Mã Tài Sản</label>
-                            <input ng-model="ThietBi.MaTaiSan"
-                                   type="text"
-                                   class="form-control"
-                                   ng-disabled="SoLuongThietBi > 1">
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label for="usr">
-                                Mã Số Thiết Bị / Serial Number
+                            <label>
+                                Số Hợp Đồng
                             </label>
-                            <input type="text" name="Serial" id="Seri" ng-model="ThietBi.Serial" class="form-control" ng-disabled="SoLuongThietBi > 1">
+                            <input type="text" name="SoHopDong" ng-model="ThietBi.SoHopDong" class="form-control">
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Giá Trị Hợp Đồng
+                            </label>
+                            <input type="number" name="GiaTriHD" class="form-control" ng-model="ThietBi.GiaTriHD">
+                            <span class="error text-danger" ng-show="!formTB.GiaTriHD.$error.required && formTB.GiaTriHD.$invalid">Giá trị phải là số</span>
+                            <span class="valid" ng-show="formTB.GiaTriHD.$valid"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Nhà Cung Cấp
+                            </label>
+                            <input type="text" name="NhaCungCap" ng-model="ThietBi.NhaCungCap" class="form-control">
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="sel1">Hiện Trạng Thiết Bị</label>
+                            <select class="form-control"
+                                    ng-model="MaTinhTrang"
+                                    ng-disabled="SoLuongThietBi > 1"
+                                    ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang"></select>
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label>
+                                Ngày Bàn Giao
+                            </label>
+                            <input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayCapNhat" class="form-control" style="line-height: 20px !important">
+                        </div>
+
+                        <div class="form-group col-lg-3">
+                            <label for="form-field-mask-1">
+                                Năm Bảo Hành
+                            </label>
+                            <input name="NamBaoHanh" ng-model="ThietBi.NamBaoHanh" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-9">
+                            <label for="comment">Ghi Chú</label>
+                            <input class="form-control"
+                                   type="text"
+                                   ng-model="ThietBi.GhiChu" />
                         </div>
 
                         <div class="form-group col-lg-3">
@@ -168,122 +284,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-3">
-                            <label>
-                                Nhà Cung Cấp
-                            </label>
-                            <input type="text" name="NhaCungCap" ng-model="ThietBi.NhaCungCap" class="form-control">
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label for="usr">
-                                Giá Trị (VNĐ)
-                            </label>
-                            <input type="number" name="Gia" class="form-control" ng-model="ThietBi.Gia">
-                            <span class="error text-danger" ng-show="!formTB.Gia.$error.required && formTB.Gia.$invalid">Giá phải là số</span>
-                            <span class="valid" ng-show="formTB.Gia.$valid"></span>
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label for="sel1">Dự Án & Hợp Đồng</label>
-
-                            <select class="form-control"
-                                    ng-model="MaHopDong"
-                                    ng-options="item as item.Ten for item in DanhSachHopDong track by item.MaHopDong"></select>
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label>
-                                Số Hợp Đồng
-                            </label>
-                            <input type="text" name="SoHopDong" ng-model="ThietBi.SoHopDong" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-3">
-                            <label>
-                                Ngày Mua / Ký Hợp Đồng
-                            </label>
-                            <input type="date" name="NgayKy" ng-model="ThietBi.NgayMua" class="form-control" style="line-height: 20px !important">
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label>
-                                Giá Trị Hợp Đồng
-                            </label>
-                            <input type="number" name="GiaTriHD" class="form-control" ng-model="ThietBi.GiaTriHD">
-                            <span class="error text-danger" ng-show="!formTB.GiaTriHD.$error.required && formTB.GiaTriHD.$invalid">Giá trị phải là số</span>
-                            <span class="valid" ng-show="formTB.GiaTriHD.$valid"></span>
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label>
-                                Ngày Bàn Giao
-                            </label>
-                            <input type="date" name="NgayNhapKho" ng-model="ThietBi.NgayCapNhat" class="form-control" style="line-height: 20px !important">
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label for="form-field-mask-1">
-                                Năm Bảo Hành
-                            </label>
-                            <input name="NamBaoHanh" ng-model="ThietBi.NamBaoHanh" class="form-control">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-3">
-                            <label for="sel1">Hiện Trạng Thiết Bị</label>
-                            <select class="form-control"
-                                    ng-model="MaTinhTrang"
-                                    ng-disabled="SoLuongThietBi > 1"
-                                    ng-options="item as item.Ten for item in DanhSachTinhTrang track by item.MaTinhTrang"></select>
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label for="sel1">Đơn Vị Sử Dụng</label>
-                            <select class="form-control"
-                                    ng-model="DonVi"
-                                    ng-options="item as item.Ten for item in DanhSachPhongBan"
-                                    ng-disabled="SoLuongThietBi > 1"
-                                    ng-change="LayNguoiDung()"></select>
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label for="sel1">Người Sử Dụng</label>
-                            <select class="form-control"
-                                    ng-model="MaNguoiDung"
-                                    ng-options="item as item.Ten for item in DanhSachNguoiDung"
-                                    ng-disabled="SoLuongThietBi > 1"
-                                    ng-change="ChonNguoiDung()"></select>
-                        </div>
-
-                        <div class="form-group col-lg-3">
-                            <label for="comment">Vị Trí Phòng</label>
-                            <input class="form-control"
-                                   type="text"
-                                   ng-model="ThietBi.ViTri" />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-lg-3">
-                            <label for="comment">Địa Chỉ IP</label>
-                            <input class="form-control"
-                                   type="text"
-                                   ng-model="ThietBi.IP" />
-                        </div>
-
-                        <div class="form-group col-lg-9">
-                            <label for="comment">Ghi Chú</label>
-                            <input class="form-control"
-                                   type="text"
-                                   ng-model="ThietBi.GhiChu" />
                         </div>
                     </div>
 
