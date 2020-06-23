@@ -622,6 +622,9 @@
             if ($scope.MaConSua.MaDanhMuc != 0) {
                 $scope.ThongTinThietBi.MaDanhMuc = $scope.MaConSua.MaDanhMuc;
             }
+            $scope.ThongTinNguoiDung = JSON.parse(sessionStorage.getItem("UserID"));
+            $scope.ThongTinThietBi.NguoiCapNhat = $scope.ThongTinNguoiDung.Ten;
+            //console.log($scope.ThongTinThietBi);
             var res = CommonController.postData(API, $scope.ThongTinThietBi);
             res.then(
                 function succ(response) {
@@ -632,8 +635,6 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    //setTimeout(function () { window.location.href = "" }, 1000);
-                    console.log($scope.currentPage);
                     $scope.pageChanged();
                 },
 
@@ -724,6 +725,14 @@
                     Swal.fire(response.data.Message, 'Xin vui lòng thử lại', 'error');
                 }
             )
+        }
+
+        // Đăng Xuất
+        $scope.logout = function () {
+            sessionStorage.clear();
+            var baseURL = window.location.protocol + "//" + window.location.host + "/";
+            var appURL = { pathAPI: baseURL };
+            window.location.href = appURL.pathAPI;
         }
 
         // Lấy thông tin linh kiện cần sửa
@@ -917,7 +926,9 @@
         };
 
         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'shortDate'];
+
         $scope.format = $scope.formats[2];
+
         $scope.altInputFormats = ['M!/d!/yyyy'];
 
         $scope.popup1 = {

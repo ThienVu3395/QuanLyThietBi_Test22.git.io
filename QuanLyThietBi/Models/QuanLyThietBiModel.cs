@@ -50,6 +50,7 @@ namespace QuanLyThietBi.Models
         public string ViTri { get; set; }
         public string GhiChu { get; set; }
         public Nullable<System.DateTime> NgayCapNhat { get; set; }
+        public string NguoiCapNhat { get; set; }
         //Dữ liệu chính trong db
 
         public string Loai { get; set; }
@@ -92,6 +93,7 @@ namespace QuanLyThietBi.Models
         public Nullable<System.DateTime> NgayHienTrangg { get; set; }
         public Nullable<System.DateTime> NgayCapNhat { get; set; }
         public Nullable<System.DateTime> NgayMua { get; set; }
+        public string NguoiCapNhat { get; set; }
         public Nullable<System.DateTime> ThoiGianBaoHanh { get; set; }
         public List<LichSuThietBiModel> LichSuThietBi { get; set; }
         public List<LinhKienModel> DanhSachLinhKien { get; set; }

@@ -151,6 +151,7 @@
     <Property Name="ViTri" Type="nvarchar" MaxLength="255" />
     <Property Name="NgayCapNhat" Type="date" />
     <Property Name="GiaTriHopDong" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="NguoiCapNhat" Type="nvarchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="TinhTrang">
     <Key>

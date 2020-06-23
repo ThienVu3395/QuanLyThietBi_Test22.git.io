@@ -388,6 +388,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     thietBi.NamBaoHanh = tb.NamBaoHanh;
                     thietBi.ViTri = tb.ViTri;
                     thietBi.NgayCapNhat = tb.NgayCapNhat;
+                    thietBi.NguoiCapNhat = null;
                     thietBi.MaTinhTrang = tb.MaTinhTrang;
                     dbContext.ThietBis.Add(thietBi);
                     dbContext.SaveChanges();
@@ -695,6 +696,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 tb.GhiChu = tbModel.GhiChu;
                 tb.NgayMua = tbModel.NgayMua?.AddDays(1);
                 tb.NgayCapNhat = tbModel.NgayCapNhat?.AddDays(1);
+                tb.NguoiCapNhat = tbModel.NguoiCapNhat;
                 tb.MaPhongBan = tbModel.MaPhongBan;
                 tb.IP = tbModel.IP;
                 tb.SoHopDong = tbModel.SoHopDong;

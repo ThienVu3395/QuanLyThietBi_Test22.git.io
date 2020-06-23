@@ -51,6 +51,7 @@ namespace QuanLyThietBi.Models
         public string ViTri { get; set; }
         public Nullable<System.DateTime> NgayCapNhat { get; set; }
         public Nullable<decimal> GiaTriHopDong { get; set; }
+        public string NguoiCapNhat { get; set; }
     
         public virtual DanhMuc DanhMuc { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

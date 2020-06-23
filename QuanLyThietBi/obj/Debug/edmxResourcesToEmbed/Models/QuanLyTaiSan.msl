@@ -159,6 +159,7 @@
     <EntitySetMapping Name="ThietBis">
       <EntityTypeMapping TypeName="QuanLyThietBiModel.ThietBi">
         <MappingFragment StoreEntitySet="ThietBi">
+          <ScalarProperty Name="NguoiCapNhat" ColumnName="NguoiCapNhat" />
           <ScalarProperty Name="GiaTriHopDong" ColumnName="GiaTriHopDong" />
           <ScalarProperty Name="NgayCapNhat" ColumnName="NgayCapNhat" />
           <ScalarProperty Name="ViTri" ColumnName="ViTri" />
