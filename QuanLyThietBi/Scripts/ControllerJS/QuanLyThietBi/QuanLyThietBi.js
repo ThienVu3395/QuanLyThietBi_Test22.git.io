@@ -828,6 +828,14 @@
                 function succ(response) {
                     linhKienThem.MaLinhKien = response.data;
                     $scope.ThongTinThietBi.DanhSachLinhKien.push(linhKienThem);
+
+                    $scope.SerialThem = "";
+                    $scope.ModelThem = "";
+                    $scope.GhiChuThem = "";
+                    $scope.NamBHThem = "";
+                    $scope.MaLoaiLinhKienThem = $scope.DanhSachLoaiLinhKien[0];
+                    $scope.MaTinhTrangThem = $scope.DanhSachTinhTrang[0];
+                    $scope.HangSXThem = $scope.DanhSachHSX[0];
                 },
 
                 function errorCallback(response) {
