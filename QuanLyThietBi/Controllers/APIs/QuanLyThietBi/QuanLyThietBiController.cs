@@ -127,11 +127,11 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             List<ThietBi> dsThietBi;
             if (MaDanhMuc == -1)
             {
-                dsThietBi = dbContext.ThietBis.ToList();
+                dsThietBi = dbContext.ThietBis.OrderByDescending(x => x.MaThietBi).ToList();
             }
             else
             {
-                dsThietBi = dbContext.ThietBis.Where(x => x.MaDanhMuc == MaDanhMuc).ToList();
+                dsThietBi = dbContext.ThietBis.Where(x => x.MaDanhMuc == MaDanhMuc).OrderByDescending(x => x.MaThietBi).ToList();
             }
             if (dsThietBi.Count > 0)
             {
@@ -168,7 +168,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 {
                     foreach (var i in dsDanhMuc)
                     {
-                        var _dstb = dbContext.ThietBis.Where(x => x.MaDanhMuc == i.MaDanhMuc).ToList();
+                        var _dstb = dbContext.ThietBis.Where(x => x.MaDanhMuc == i.MaDanhMuc).OrderByDescending(x => x.MaThietBi).ToList();
                         foreach (var j in _dstb)
                         {
                             ThietBiModel thietBi = new ThietBiModel();
@@ -194,7 +194,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             List<ThietBi> dsThietBi;
             //if (MaDanhMuc == -1)
             //{
-            dsThietBi = dbContext.ThietBis.ToList();
+            dsThietBi = dbContext.ThietBis.OrderByDescending(x => x.MaThietBi).OrderByDescending(x => x.MaThietBi).ToList();
             //}
             //else
             //{

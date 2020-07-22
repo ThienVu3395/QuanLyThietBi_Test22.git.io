@@ -377,7 +377,7 @@
                     $scope.listDanhSachThietBi.push($scope.ThietBiMoi);
                 }
             }
-            console.log($scope.listDanhSachThietBi);
+            //console.log($scope.listDanhSachThietBi);
             let closeBtn = document.getElementById("closeBTN");
             var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
             res.then(
@@ -390,6 +390,7 @@
                         timer: 1500
                     })
                     closeBtn.click();
+                    //$scope.pageChanged();
                     setTimeout(function () { window.location.href = ""; }, 1000);
                     //var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
                     //var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
@@ -573,6 +574,7 @@
                                 response.data,
                                 'success'
                             )
+                            //$scope.pageChanged();
                             $scope.totalItems = $scope.DanhSachThietBi.length;
                             setTimeout(function () { window.location.href = "" }, 700);
                         },
