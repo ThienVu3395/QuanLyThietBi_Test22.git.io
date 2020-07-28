@@ -16,11 +16,91 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
     public class QuanLyThietBiController : ApiController
     {
         QuanLyThietBiEntities dbContext = new QuanLyThietBiEntities();
-        //private readonly string _cnn;
-        //public QuanLyThietBiController()
-        //{
-        //    _cnn = System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyTaiSanConnection"].ConnectionString;
-        //}
+        private readonly string _cnn;
+        public QuanLyThietBiController()
+        {
+            _cnn = System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyThietBiEntities"].ConnectionString;
+        }
+
+        // ĐÃ ÁP DỤNG DAPPER
+        [HttpGet]
+        [Route("LayDanhSachHopDong")]
+        public IHttpActionResult LayDanhSachHopDong()
+        {
+            var dsHD = dbContext.HopDongs.ToList();
+            List<HopDongModel> dsHdModel = new List<HopDongModel>();
+            if (dsHD.Count > 0)
+            {
+                foreach (var item in dsHD)
+                {
+                    HopDongModel hdModel = new HopDongModel();
+                    hdModel.MaHopDong = item.MaHopDong;
+                    hdModel.Ten = item.Ten;
+                    dsHdModel.Add(hdModel);
+                }
+            }
+            return Ok(dsHdModel);
+        }
+
+        [HttpGet]
+        [Route("LayDanhSachTinhTrang")]
+        public IHttpActionResult LayDanhSachTinhTrang()
+        {
+            var dsHD = dbContext.TinhTrangs.ToList();
+            List<TinhTrangModel> dsTinhTrangModel = new List<TinhTrangModel>();
+            if (dsHD.Count > 0)
+            {
+                foreach (var item in dsHD)
+                {
+                    TinhTrangModel tinhTrangModel = new TinhTrangModel();
+                    tinhTrangModel.MaTinhTrang = item.MaTinhTrang;
+                    tinhTrangModel.Ten = item.Ten;
+                    dsTinhTrangModel.Add(tinhTrangModel);
+                }
+            }
+            return Ok(dsTinhTrangModel);
+        }
+
+        [HttpGet]
+        [Route("LayDanhSachLinhKien")]
+        public IHttpActionResult LayDanhSachLinhKien()
+        {
+            var dsLoaiLinhKien = dbContext.LoaiLinhKiens.ToList();
+            List<LoaiLinhKienModel> ds = new List<LoaiLinhKienModel>();
+            if (dsLoaiLinhKien.Count > 0)
+            {
+                foreach (var item in dsLoaiLinhKien)
+                {
+                    LoaiLinhKienModel loaiLinhKien = new LoaiLinhKienModel();
+                    loaiLinhKien.MaLoaiLinhKien = item.MaLoaiLinhKien;
+                    loaiLinhKien.TenLinhKien = item.TenLinhKien;
+                    ds.Add(loaiLinhKien);
+                }
+            }
+            return Ok(ds);
+        }
+
+        [HttpGet]
+        [Route("LayDanhSachNguoiDungTheoPhongBan")]
+        public IHttpActionResult LayDanhSachNguoiDungTheoPhongBan(int MaPhongBan)
+        {
+            var dsNguoiDung = dbContext.NguoiSuDungs.Where(x => x.MaPhongBan == MaPhongBan).ToList();
+            List<NguoiDungModel> dsNguoiDungModel = new List<NguoiDungModel>();
+            if (dsNguoiDung.Count > 0)
+            {
+                foreach (var item in dsNguoiDung)
+                {
+                    NguoiDungModel nguoiDungModel = new NguoiDungModel();
+                    nguoiDungModel.MaNguoiDung = item.MaNguoiDung;
+                    nguoiDungModel.Ten = item.Ten;
+                    nguoiDungModel.UserName = item.UserName;
+                    dsNguoiDungModel.Add(nguoiDungModel);
+                }
+            }
+            return Ok(dsNguoiDungModel);
+        }
+
+        // CHƯA ÁP DỤNG DAPPER
         [HttpGet]
         [Route("LayDanhSachDanhMuc")]
         public IHttpActionResult LayDanhSachDanhMuc()
@@ -279,83 +359,6 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             return Ok(dsHsxModel);
         }
 
-        [HttpGet]
-        [Route("LayDanhSachHopDong")]
-        public IHttpActionResult LayDanhSachHopDong()
-        {
-            var dsHD = dbContext.HopDongs.ToList();
-            List<HopDongModel> dsHdModel = new List<HopDongModel>();
-            if (dsHD.Count > 0)
-            {
-                foreach (var item in dsHD)
-                {
-                    HopDongModel hdModel = new HopDongModel();
-                    hdModel.MaHopDong = item.MaHopDong;
-                    hdModel.Ten = item.Ten;
-                    dsHdModel.Add(hdModel);
-                }
-            }
-            return Ok(dsHdModel);
-        }
-
-        [HttpGet]
-        [Route("LayDanhSachTinhTrang")]
-        public IHttpActionResult LayDanhSachTinhTrang()
-        {
-            var dsHD = dbContext.TinhTrangs.ToList();
-            List<TinhTrangModel> dsTinhTrangModel = new List<TinhTrangModel>();
-            if (dsHD.Count > 0)
-            {
-                foreach (var item in dsHD)
-                {
-                    TinhTrangModel tinhTrangModel = new TinhTrangModel();
-                    tinhTrangModel.MaTinhTrang = item.MaTinhTrang;
-                    tinhTrangModel.Ten = item.Ten;
-                    dsTinhTrangModel.Add(tinhTrangModel);
-                }
-            }
-            return Ok(dsTinhTrangModel);
-        }
-
-        [HttpGet]
-        [Route("LayDanhSachLinhKien")]
-        public IHttpActionResult LayDanhSachLinhKien()
-        {
-            var dsLoaiLinhKien = dbContext.LoaiLinhKiens.ToList();
-            List<LoaiLinhKienModel> ds = new List<LoaiLinhKienModel>();
-            if (dsLoaiLinhKien.Count > 0)
-            {
-                foreach (var item in dsLoaiLinhKien)
-                {
-                    LoaiLinhKienModel loaiLinhKien = new LoaiLinhKienModel();
-                    loaiLinhKien.MaLoaiLinhKien = item.MaLoaiLinhKien;
-                    loaiLinhKien.TenLinhKien = item.TenLinhKien;
-                    ds.Add(loaiLinhKien);
-                }
-            }
-            return Ok(ds);
-        }
-
-        [HttpGet]
-        [Route("LayDanhSachNguoiDungTheoPhongBan")]
-        public IHttpActionResult LayDanhSachNguoiDungTheoPhongBan(int MaPhongBan)
-        {
-            var dsNguoiDung = dbContext.NguoiSuDungs.Where(x => x.MaPhongBan == MaPhongBan).ToList();
-            List<NguoiDungModel> dsNguoiDungModel = new List<NguoiDungModel>();
-            if (dsNguoiDung.Count > 0)
-            {
-                foreach (var item in dsNguoiDung)
-                {
-                    NguoiDungModel nguoiDungModel = new NguoiDungModel();
-                    nguoiDungModel.MaNguoiDung = item.MaNguoiDung;
-                    nguoiDungModel.Ten = item.Ten;
-                    nguoiDungModel.UserName = item.UserName;
-                    dsNguoiDungModel.Add(nguoiDungModel);
-                }
-            }
-            return Ok(dsNguoiDungModel);
-        }
-
         [HttpPost]
         [Route("ThemThietBi")]
         public IHttpActionResult ThemThietBi(List<ThietBiModel> dsthietBiModel)
@@ -401,6 +404,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     lichSuThietBi.ChiPhi = null;
                     dbContext.LichSuThietBis.Add(lichSuThietBi);
                     dbContext.SaveChanges();
+
 
                     HopDongThietBi hopDongThietBi = new HopDongThietBi();
                     hopDongThietBi.MaThietBi = thietBi.MaThietBi;
@@ -552,12 +556,13 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     linhKienModel.MaThietBi = item.ThietBi.MaThietBi;
                     linhKienModel.Model = linhKien.Model;
                     linhKienModel.MaNhaCungCap = linhKien.MaNhaCungCap;
-                    linhKienModel.TenNhaCungCap = linhKien.NhaCungCap.Ten;
+                    var tenhsx = dbContext.NhaCungCaps.Where(x => x.MaNhaCungCap == linhKien.MaNhaCungCap).FirstOrDefault();
+                    linhKienModel.TenNhaCungCap = tenhsx != null ? tenhsx.Ten : "Khác";
                     linhKienModel.MaTinhTrang = linhKien.LichSuLinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).OrderByDescending(x => x.ID).Take(1).FirstOrDefault().MaTinhTrang;
                     linhKienModel.TenTinhTrang = linhKien.LichSuLinhKiens.Where(x => x.MaLinhKien == item.MaLinhKien).OrderByDescending(x => x.ID).Take(1).FirstOrDefault().TinhTrang.Ten;
                     linhKienModel.GhiChu = linhKien.GhiChu;
                     linhKienModel.NamBaoHanh = linhKien.NamBaoHanh;
-                    linhKienModel.NhaCungCap = linhKien.NhaCungCap.Ten;
+                    linhKienModel.NhaCungCap = tenhsx != null ? tenhsx.Ten : "Khác";
                     DanhSachLinhKien.Add(linhKienModel);
                 }
             }

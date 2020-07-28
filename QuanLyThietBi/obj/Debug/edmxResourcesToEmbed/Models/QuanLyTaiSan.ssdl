@@ -244,18 +244,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_LinhKien_NhaCungCap">
-    <End Role="NhaCungCap" Type="Self.NhaCungCap" Multiplicity="0..1" />
-    <End Role="LinhKien" Type="Self.LinhKien" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NhaCungCap">
-        <PropertyRef Name="MaNhaCungCap" />
-      </Principal>
-      <Dependent Role="LinhKien">
-        <PropertyRef Name="MaNhaCungCap" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_LinhKienThietBi_LinhKien">
     <End Role="LinhKien" Type="Self.LinhKien" Multiplicity="1" />
     <End Role="LinhKienThietBi" Type="Self.LinhKienThietBi" Multiplicity="*" />
@@ -412,10 +400,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_LinhKien_LoaiLinhKien" Association="Self.FK_LinhKien_LoaiLinhKien">
       <End Role="LoaiLinhKien" EntitySet="LoaiLinhKien" />
-      <End Role="LinhKien" EntitySet="LinhKien" />
-    </AssociationSet>
-    <AssociationSet Name="FK_LinhKien_NhaCungCap" Association="Self.FK_LinhKien_NhaCungCap">
-      <End Role="NhaCungCap" EntitySet="NhaCungCap" />
       <End Role="LinhKien" EntitySet="LinhKien" />
     </AssociationSet>
     <AssociationSet Name="FK_LinhKienThietBi_LinhKien" Association="Self.FK_LinhKienThietBi_LinhKien">

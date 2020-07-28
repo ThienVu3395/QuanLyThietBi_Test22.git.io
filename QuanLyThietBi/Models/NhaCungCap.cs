@@ -17,15 +17,12 @@ namespace QuanLyThietBi.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhaCungCap()
         {
-            this.LinhKiens = new HashSet<LinhKien>();
             this.ThietBis = new HashSet<ThietBi>();
         }
     
         public int MaNhaCungCap { get; set; }
         public string Ten { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LinhKien> LinhKiens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThietBi> ThietBis { get; set; }
     }

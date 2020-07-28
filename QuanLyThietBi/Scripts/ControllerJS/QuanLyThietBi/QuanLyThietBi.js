@@ -191,11 +191,12 @@
             res.then(
                 function succ(response) {
                     $scope.DanhSachHSX = response.data;
-                    //let objKhac = {
-                    //    MaNhaCungCap: -1,
-                    //    Ten: "--- Khác ---"
-                    //}
-                    //$scope.DanhSachHSX.push(objKhac);
+                    //console.log($scope.DanhSachHSX);
+                    let objKhac = {
+                        MaNhaCungCap: 0,
+                        Ten: "Khác"
+                    }
+                    $scope.DanhSachHSX.push(objKhac);
                     $scope.MaNhaCungCap = $scope.DanhSachHSX[0];
                     $scope.HangSXThem = $scope.DanhSachHSX[0];
                 },
@@ -266,7 +267,7 @@
             LinhKien.Serial = document.getElementById("Serial").value;
             LinhKien.Model = document.getElementById("Model").value;
             LinhKien.MaNhaCungCap = document.getElementById("MaNhaCungCap").value;
-            LinhKien.TenNhaCungCap = $scope.DanhSachHSX[LinhKien.MaNhaCungCap - 1].Ten;
+            LinhKien.TenNhaCungCap = LinhKien.MaNhaCungCap != 0 ? $scope.DanhSachHSX[LinhKien.MaNhaCungCap - 1].Ten : "Khác";
             LinhKien.GhiChu = document.getElementById("GhiChu").value;
             $scope.ThietBi.DanhSachLinhKien.push(LinhKien);
             document.getElementById("Serial").value = "";
@@ -369,6 +370,8 @@
                     $scope.ThietBiMoi.MaTaiSan = document.getElementById("MaTaiSan" + (i + 1)).value;
                     $scope.ThietBiMoi.MaTinhTrang = document.getElementById("MaTinhTrang" + (i + 1)).value;
                     $scope.ThietBiMoi.MaNguoiDung = document.getElementById("MaNguoiDung" + (i + 1)).value;
+                    $scope.ThietBiMoi.NgayCapNhat = document.getElementById("NgayNhapKho" + (i + 1)).value;
+                    $scope.ThietBiMoi.IP = document.getElementById("IP" + (i + 1)).value;
                     let index = document.getElementById("MaNguoiDung" + (i + 1)).options.selectedIndex;
                     let nsd = document.getElementById("MaNguoiDung" + (i + 1)).options[index].innerHTML.trim();
                     $scope.ThietBiMoi.NguoiSuDung = nsd;
@@ -377,7 +380,7 @@
                     $scope.listDanhSachThietBi.push($scope.ThietBiMoi);
                 }
             }
-            //console.log($scope.listDanhSachThietBi);
+            console.log($scope.listDanhSachThietBi);
             let closeBtn = document.getElementById("closeBTN");
             var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
             res.then(
@@ -390,21 +393,7 @@
                         timer: 1500
                     })
                     closeBtn.click();
-                    //$scope.pageChanged();
-                    setTimeout(function () { window.location.href = ""; }, 1000);
-                    //var param = "?MaDanhMuc=" + $scope.MaDanhMuc;
-                    //var ress = CommonController.getData(CommonController.urlAPI.API_LayDanhSachThietBi, param);
-                    //ress.then(
-                    //    function succ(response) {
-                    //        $scope.DanhSachThietBi = response.data;
-                    //        $scope.totalItems = $scope.DanhSachThietBi.length;
-                    //        $scope.DanhSachThietBi.splice($scope.itemsPerPage, $scope.DanhSachThietBi.length);
-                    //    },
-
-                    //    function errorCallback(response) {
-                    //        swal(response.data.Message, "", "error");
-                    //    }
-                    //)
+                    $scope.pageChanged();
                 },
 
                 function errorCallback(response) {

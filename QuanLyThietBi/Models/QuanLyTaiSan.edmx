@@ -249,18 +249,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_LinhKien_NhaCungCap">
-          <End Role="NhaCungCap" Type="Self.NhaCungCap" Multiplicity="0..1" />
-          <End Role="LinhKien" Type="Self.LinhKien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NhaCungCap">
-              <PropertyRef Name="MaNhaCungCap" />
-            </Principal>
-            <Dependent Role="LinhKien">
-              <PropertyRef Name="MaNhaCungCap" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LinhKienThietBi_LinhKien">
           <End Role="LinhKien" Type="Self.LinhKien" Multiplicity="1" />
           <End Role="LinhKienThietBi" Type="Self.LinhKienThietBi" Multiplicity="*" />
@@ -419,10 +407,6 @@
             <End Role="LoaiLinhKien" EntitySet="LoaiLinhKien" />
             <End Role="LinhKien" EntitySet="LinhKien" />
           </AssociationSet>
-          <AssociationSet Name="FK_LinhKien_NhaCungCap" Association="Self.FK_LinhKien_NhaCungCap">
-            <End Role="NhaCungCap" EntitySet="NhaCungCap" />
-            <End Role="LinhKien" EntitySet="LinhKien" />
-          </AssociationSet>
           <AssociationSet Name="FK_LinhKienThietBi_LinhKien" Association="Self.FK_LinhKienThietBi_LinhKien">
             <End Role="LinhKien" EntitySet="LinhKien" />
             <End Role="LinhKienThietBi" EntitySet="LinhKienThietBi" />
@@ -496,8 +480,8 @@
           <Property Name="MaLinhKien" Type="Int32" Nullable="false" />
           <Property Name="MaThietBi" Type="Int32" Nullable="false" />
           <Property Name="Ngay" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="LinhKien" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien" FromRole="LinhKienThietBi" ToRole="LinhKien" />
           <NavigationProperty Name="ThietBi" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_ThietBi" FromRole="LinhKienThietBi" ToRole="ThietBi" />
+          <NavigationProperty Name="LinhKien" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien" FromRole="LinhKienThietBi" ToRole="LinhKien" />
         </EntityType>
         <EntityType Name="NguoiSuDung">
           <Key>
@@ -597,24 +581,7 @@
             <End Role="LichSuThietBi" EntitySet="LichSuThietBis" />
           </AssociationSet>
           <EntitySet Name="LoaiLinhKiens" EntityType="QuanLyThietBiModel.LoaiLinhKien" />
-          <EntitySet Name="LinhKiens" EntityType="QuanLyThietBiModel.LinhKien" />
-          <AssociationSet Name="FK_LichSuLinhKien_LinhKien" Association="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien">
-            <End Role="LinhKien" EntitySet="LinhKiens" />
-            <End Role="LichSuLinhKien" EntitySet="LichSuLinhKiens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LinhKien_LoaiLinhKien" Association="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien">
-            <End Role="LoaiLinhKien" EntitySet="LoaiLinhKiens" />
-            <End Role="LinhKien" EntitySet="LinhKiens" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LinhKienThietBi_LinhKien" Association="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien">
-            <End Role="LinhKien" EntitySet="LinhKiens" />
-            <End Role="LinhKienThietBi" EntitySet="LinhKienThietBis" />
-          </AssociationSet>
           <EntitySet Name="NhaCungCaps" EntityType="QuanLyThietBiModel.NhaCungCap" />
-          <AssociationSet Name="FK_LinhKien_NhaCungCap" Association="QuanLyThietBiModel.FK_LinhKien_NhaCungCap">
-            <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
-            <End Role="LinhKien" EntitySet="LinhKiens" />
-          </AssociationSet>
           <EntitySet Name="TinhTrangs" EntityType="QuanLyThietBiModel.TinhTrang" />
           <AssociationSet Name="FK_LichSuLinhKien_TinhTrang" Association="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang">
             <End Role="TinhTrang" EntitySet="TinhTrangs" />
@@ -650,6 +617,19 @@
             <End Role="TinhTrang" EntitySet="TinhTrangs" />
             <End Role="ThietBi" EntitySet="ThietBis" />
           </AssociationSet>
+          <EntitySet Name="LinhKiens" EntityType="QuanLyThietBiModel.LinhKien" />
+          <AssociationSet Name="FK_LichSuLinhKien_LinhKien" Association="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien">
+            <End Role="LinhKien" EntitySet="LinhKiens" />
+            <End Role="LichSuLinhKien" EntitySet="LichSuLinhKiens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinhKien_LoaiLinhKien" Association="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien">
+            <End Role="LoaiLinhKien" EntitySet="LoaiLinhKiens" />
+            <End Role="LinhKien" EntitySet="LinhKiens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinhKienThietBi_LinhKien" Association="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien">
+            <End Role="LinhKien" EntitySet="LinhKiens" />
+            <End Role="LinhKienThietBi" EntitySet="LinhKienThietBis" />
+          </AssociationSet>
           </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -673,8 +653,8 @@
           <Property Name="MaTinhTrang" Type="Int32" Nullable="false" />
           <Property Name="Ngay" Type="DateTime" Precision="3" />
           <Property Name="ChiPhi" Type="Decimal" Precision="18" Scale="3" />
-          <NavigationProperty Name="LinhKien" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien" FromRole="LichSuLinhKien" ToRole="LinhKien" />
           <NavigationProperty Name="TinhTrang" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_TinhTrang" FromRole="LichSuLinhKien" ToRole="TinhTrang" />
+          <NavigationProperty Name="LinhKien" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien" FromRole="LichSuLinhKien" ToRole="LinhKien" />
         </EntityType>
         <EntityType Name="LichSuThietBi">
           <Key>
@@ -713,79 +693,14 @@
           <Property Name="DisplayOrder" Type="Int32" />
           <NavigationProperty Name="LinhKiens" Relationship="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien" FromRole="LoaiLinhKien" ToRole="LinhKien" />
         </EntityType>
-        <EntityType Name="LinhKien">
-          <Key>
-            <PropertyRef Name="MaLinhKien" />
-          </Key>
-          <Property Name="MaLinhKien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MaLoaiLinhKien" Type="Int32" Nullable="false" />
-          <Property Name="Serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MaNhaCungCap" Type="Int32" />
-          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="NamBaoHanh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LichSuLinhKiens" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien" FromRole="LinhKien" ToRole="LichSuLinhKien" />
-          <NavigationProperty Name="LoaiLinhKien" Relationship="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien" FromRole="LinhKien" ToRole="LoaiLinhKien" />
-          <NavigationProperty Name="LinhKienThietBis" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien" FromRole="LinhKien" ToRole="LinhKienThietBi" />
-          <NavigationProperty Name="NhaCungCap" Relationship="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" FromRole="LinhKien" ToRole="NhaCungCap" />
-        </EntityType>
-        <Association Name="FK_LichSuLinhKien_LinhKien">
-          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="1" />
-          <End Type="QuanLyThietBiModel.LichSuLinhKien" Role="LichSuLinhKien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LinhKien">
-              <PropertyRef Name="MaLinhKien" />
-            </Principal>
-            <Dependent Role="LichSuLinhKien">
-              <PropertyRef Name="MaLinhKien" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LinhKien_LoaiLinhKien">
-          <End Type="QuanLyThietBiModel.LoaiLinhKien" Role="LoaiLinhKien" Multiplicity="1" />
-          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoaiLinhKien">
-              <PropertyRef Name="MaLoaiLinhKien" />
-            </Principal>
-            <Dependent Role="LinhKien">
-              <PropertyRef Name="MaLoaiLinhKien" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LinhKienThietBi_LinhKien">
-          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="1" />
-          <End Type="QuanLyThietBiModel.LinhKienThietBi" Role="LinhKienThietBi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LinhKien">
-              <PropertyRef Name="MaLinhKien" />
-            </Principal>
-            <Dependent Role="LinhKienThietBi">
-              <PropertyRef Name="MaLinhKien" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="NhaCungCap">
           <Key>
             <PropertyRef Name="MaNhaCungCap" />
           </Key>
           <Property Name="MaNhaCungCap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ten" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="LinhKiens" Relationship="QuanLyThietBiModel.FK_LinhKien_NhaCungCap" FromRole="NhaCungCap" ToRole="LinhKien" />
           <NavigationProperty Name="ThietBis" Relationship="QuanLyThietBiModel.FK_ThietBi_NhaCungCap" FromRole="NhaCungCap" ToRole="ThietBi" />
         </EntityType>
-        <Association Name="FK_LinhKien_NhaCungCap">
-          <End Type="QuanLyThietBiModel.NhaCungCap" Role="NhaCungCap" Multiplicity="0..1" />
-          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NhaCungCap">
-              <PropertyRef Name="MaNhaCungCap" />
-            </Principal>
-            <Dependent Role="LinhKien">
-              <PropertyRef Name="MaNhaCungCap" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="TinhTrang">
           <Key>
             <PropertyRef Name="MaTinhTrang" />
@@ -943,6 +858,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LinhKien">
+          <Key>
+            <PropertyRef Name="MaLinhKien" />
+          </Key>
+          <Property Name="MaLinhKien" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaLoaiLinhKien" Type="Int32" Nullable="false" />
+          <Property Name="Serial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaNhaCungCap" Type="Int32" />
+          <Property Name="GhiChu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NamBaoHanh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LichSuLinhKiens" Relationship="QuanLyThietBiModel.FK_LichSuLinhKien_LinhKien" FromRole="LinhKien" ToRole="LichSuLinhKien" />
+          <NavigationProperty Name="LoaiLinhKien" Relationship="QuanLyThietBiModel.FK_LinhKien_LoaiLinhKien" FromRole="LinhKien" ToRole="LoaiLinhKien" />
+          <NavigationProperty Name="LinhKienThietBis" Relationship="QuanLyThietBiModel.FK_LinhKienThietBi_LinhKien" FromRole="LinhKien" ToRole="LinhKienThietBi" />
+        </EntityType>
+        <Association Name="FK_LichSuLinhKien_LinhKien">
+          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="1" />
+          <End Type="QuanLyThietBiModel.LichSuLinhKien" Role="LichSuLinhKien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LinhKien">
+              <PropertyRef Name="MaLinhKien" />
+            </Principal>
+            <Dependent Role="LichSuLinhKien">
+              <PropertyRef Name="MaLinhKien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinhKien_LoaiLinhKien">
+          <End Type="QuanLyThietBiModel.LoaiLinhKien" Role="LoaiLinhKien" Multiplicity="1" />
+          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiLinhKien">
+              <PropertyRef Name="MaLoaiLinhKien" />
+            </Principal>
+            <Dependent Role="LinhKien">
+              <PropertyRef Name="MaLoaiLinhKien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinhKienThietBi_LinhKien">
+          <End Type="QuanLyThietBiModel.LinhKien" Role="LinhKien" Multiplicity="1" />
+          <End Type="QuanLyThietBiModel.LinhKienThietBi" Role="LinhKienThietBi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LinhKien">
+              <PropertyRef Name="MaLinhKien" />
+            </Principal>
+            <Dependent Role="LinhKienThietBi">
+              <PropertyRef Name="MaLinhKien" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1064,19 +1030,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LinhKiens">
-            <EntityTypeMapping TypeName="QuanLyThietBiModel.LinhKien">
-              <MappingFragment StoreEntitySet="LinhKien">
-                <ScalarProperty Name="NamBaoHanh" ColumnName="NamBaoHanh" />
-                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
-                <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Serial" ColumnName="Serial" />
-                <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
-                <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="NhaCungCaps">
             <EntityTypeMapping TypeName="QuanLyThietBiModel.NhaCungCap">
               <MappingFragment StoreEntitySet="NhaCungCap">
@@ -1137,6 +1090,19 @@
                 <ScalarProperty Name="Ten" ColumnName="Ten" />
                 <ScalarProperty Name="MaTaiSan" ColumnName="MaTaiSan" />
                 <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinhKiens">
+            <EntityTypeMapping TypeName="QuanLyThietBiModel.LinhKien">
+              <MappingFragment StoreEntitySet="LinhKien">
+                <ScalarProperty Name="NamBaoHanh" ColumnName="NamBaoHanh" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="MaNhaCungCap" ColumnName="MaNhaCungCap" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="MaLoaiLinhKien" ColumnName="MaLoaiLinhKien" />
+                <ScalarProperty Name="MaLinhKien" ColumnName="MaLinhKien" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
