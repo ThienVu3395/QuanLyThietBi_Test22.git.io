@@ -19,7 +19,7 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
         private readonly string _cnn;
         public QuanLyThietBiController()
         {
-            _cnn = System.Configuration.ConfigurationManager.ConnectionStrings["QuanLyThietBiEntities"].ConnectionString;
+            _cnn = System.Configuration.ConfigurationManager.ConnectionStrings["dbConnectionString"].ConnectionString;
         }
 
         // ĐÃ ÁP DỤNG DAPPER
@@ -27,77 +27,48 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
         [Route("LayDanhSachHopDong")]
         public IHttpActionResult LayDanhSachHopDong()
         {
-            var dsHD = dbContext.HopDongs.ToList();
-            List<HopDongModel> dsHdModel = new List<HopDongModel>();
-            if (dsHD.Count > 0)
+            using (IDbConnection db = new SqlConnection(_cnn))
             {
-                foreach (var item in dsHD)
-                {
-                    HopDongModel hdModel = new HopDongModel();
-                    hdModel.MaHopDong = item.MaHopDong;
-                    hdModel.Ten = item.Ten;
-                    dsHdModel.Add(hdModel);
-                }
+                string query = "select * from dbo.HopDong";
+                var aa = db.Query<HopDongModel>(query).ToList();
+                return Ok(aa);
             }
-            return Ok(dsHdModel);
         }
 
         [HttpGet]
         [Route("LayDanhSachTinhTrang")]
         public IHttpActionResult LayDanhSachTinhTrang()
         {
-            var dsHD = dbContext.TinhTrangs.ToList();
-            List<TinhTrangModel> dsTinhTrangModel = new List<TinhTrangModel>();
-            if (dsHD.Count > 0)
+            using (IDbConnection db = new SqlConnection(_cnn))
             {
-                foreach (var item in dsHD)
-                {
-                    TinhTrangModel tinhTrangModel = new TinhTrangModel();
-                    tinhTrangModel.MaTinhTrang = item.MaTinhTrang;
-                    tinhTrangModel.Ten = item.Ten;
-                    dsTinhTrangModel.Add(tinhTrangModel);
-                }
+                string query = "select * from dbo.TinhTrang";
+                var aa = db.Query<TinhTrangModel>(query).ToList();
+                return Ok(aa);
             }
-            return Ok(dsTinhTrangModel);
         }
 
         [HttpGet]
         [Route("LayDanhSachLinhKien")]
         public IHttpActionResult LayDanhSachLinhKien()
         {
-            var dsLoaiLinhKien = dbContext.LoaiLinhKiens.ToList();
-            List<LoaiLinhKienModel> ds = new List<LoaiLinhKienModel>();
-            if (dsLoaiLinhKien.Count > 0)
+            using (IDbConnection db = new SqlConnection(_cnn))
             {
-                foreach (var item in dsLoaiLinhKien)
-                {
-                    LoaiLinhKienModel loaiLinhKien = new LoaiLinhKienModel();
-                    loaiLinhKien.MaLoaiLinhKien = item.MaLoaiLinhKien;
-                    loaiLinhKien.TenLinhKien = item.TenLinhKien;
-                    ds.Add(loaiLinhKien);
-                }
+                string query = "select * from dbo.LoaiLinhKien";
+                var aa = db.Query<LoaiLinhKienModel>(query).ToList();
+                return Ok(aa);
             }
-            return Ok(ds);
         }
 
         [HttpGet]
         [Route("LayDanhSachNguoiDungTheoPhongBan")]
         public IHttpActionResult LayDanhSachNguoiDungTheoPhongBan(int MaPhongBan)
         {
-            var dsNguoiDung = dbContext.NguoiSuDungs.Where(x => x.MaPhongBan == MaPhongBan).ToList();
-            List<NguoiDungModel> dsNguoiDungModel = new List<NguoiDungModel>();
-            if (dsNguoiDung.Count > 0)
+            using (IDbConnection db = new SqlConnection(_cnn))
             {
-                foreach (var item in dsNguoiDung)
-                {
-                    NguoiDungModel nguoiDungModel = new NguoiDungModel();
-                    nguoiDungModel.MaNguoiDung = item.MaNguoiDung;
-                    nguoiDungModel.Ten = item.Ten;
-                    nguoiDungModel.UserName = item.UserName;
-                    dsNguoiDungModel.Add(nguoiDungModel);
-                }
+                string query = "select * from dbo.NguoiSuDung where MaPhongBan = @MaPhongBan";
+                var aa = db.Query<NguoiDungModel>(query,new { MaPhongBan = MaPhongBan }).ToList();
+                return Ok(aa);
             }
-            return Ok(dsNguoiDungModel);
         }
 
         // CHƯA ÁP DỤNG DAPPER
