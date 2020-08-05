@@ -71,6 +71,18 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
             }
         }
 
+        [HttpGet]
+        [Route("LayDanhSachHangSanXuat")]
+        public IHttpActionResult LayDanhSachHangSanXuat()
+        {
+            using (IDbConnection db = new SqlConnection(_cnn))
+            {
+                string query = "select * from dbo.NhaCungCap";
+                var dsHsx = db.Query<NhaCungCapModel>(query).ToList();
+                return Ok(dsHsx);
+            }
+        }
+
         // CHƯA ÁP DỤNG DAPPER
         [HttpPost]
         [Route("ThemThietBi")]
@@ -117,7 +129,6 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                     lichSuThietBi.ChiPhi = null;
                     dbContext.LichSuThietBis.Add(lichSuThietBi);
                     dbContext.SaveChanges();
-
 
                     HopDongThietBi hopDongThietBi = new HopDongThietBi();
                     hopDongThietBi.MaThietBi = thietBi.MaThietBi;
@@ -418,25 +429,6 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 return Ok(dsPhongBanModel);
             }
             return Ok("Có lỗi");
-        }
-
-        [HttpGet]
-        [Route("LayDanhSachHangSanXuat")]
-        public IHttpActionResult LayDanhSachHangSanXuat()
-        {
-            var dsHsx = dbContext.NhaCungCaps.ToList();
-            List<NhaCungCapModel> dsHsxModel = new List<NhaCungCapModel>();
-            if (dsHsx.Count > 0)
-            {
-                foreach (var item in dsHsx)
-                {
-                    NhaCungCapModel hsxModel = new NhaCungCapModel();
-                    hsxModel.MaNhaCungCap = item.MaNhaCungCap;
-                    hsxModel.Ten = item.Ten;
-                    dsHsxModel.Add(hsxModel);
-                }
-            }
-            return Ok(dsHsxModel);
         }
 
         [HttpGet]
