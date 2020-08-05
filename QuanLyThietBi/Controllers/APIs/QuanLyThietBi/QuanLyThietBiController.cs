@@ -72,6 +72,115 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
         }
 
         // CHƯA ÁP DỤNG DAPPER
+        [HttpPost]
+        [Route("ThemThietBi")]
+        public IHttpActionResult ThemThietBi(List<ThietBiModel> dsthietBiModel)
+        {
+            try
+            {
+                foreach (var tb in dsthietBiModel)
+                {
+                    ThietBi thietBi = new ThietBi();
+                    thietBi.MaTaiSan = tb.MaTaiSan;
+                    thietBi.Ten = tb.Ten;
+                    thietBi.Gia = tb.Gia;
+                    thietBi.Model = tb.Model;
+                    thietBi.NgayNhapKho = null;
+                    thietBi.NgayXuatKho = null;
+                    thietBi.MaDanhMuc = tb.MaDanhMuc;
+                    thietBi.MaHangSanXuat = tb.MaNhaCungCap;
+                    thietBi.Serial = tb.Serial;
+                    thietBi.GiaKhauHao = null;
+                    thietBi.DonViTinh = null;
+                    thietBi.GhiChu = tb.GhiChu;
+                    thietBi.NgayBaoHanh = null;
+                    thietBi.HangSanXuat = tb.HangSanXuat;
+                    thietBi.NguoiSuDung = tb.NguoiSuDung;
+                    thietBi.MaPhongBan = tb.MaPhongBan;
+                    thietBi.IP = tb.IP;
+                    thietBi.SoHopDong = tb.SoHopDong;
+                    thietBi.NhaCungCap = tb.NhaCungCap;
+                    thietBi.NgayMua = tb.NgayMua;
+                    thietBi.NamBaoHanh = tb.NamBaoHanh;
+                    thietBi.ViTri = tb.ViTri;
+                    thietBi.NgayCapNhat = tb.NgayCapNhat;
+                    thietBi.NguoiCapNhat = null;
+                    thietBi.MaTinhTrang = tb.MaTinhTrang;
+                    dbContext.ThietBis.Add(thietBi);
+                    dbContext.SaveChanges();
+
+                    LichSuThietBi lichSuThietBi = new LichSuThietBi();
+                    lichSuThietBi.MaThietBi = thietBi.MaThietBi;
+                    lichSuThietBi.MaTinhTrang = tb.MaTinhTrang;
+                    lichSuThietBi.MaNguoiDung = tb.MaNguoiDung;
+                    lichSuThietBi.Ngay = DateTime.Now;
+                    lichSuThietBi.ChiPhi = null;
+                    dbContext.LichSuThietBis.Add(lichSuThietBi);
+                    dbContext.SaveChanges();
+
+
+                    HopDongThietBi hopDongThietBi = new HopDongThietBi();
+                    hopDongThietBi.MaThietBi = thietBi.MaThietBi;
+                    hopDongThietBi.MaHopDong = tb.MaHopDong;
+                    hopDongThietBi.GiaTriHD = tb.GiaTriHD;
+                    hopDongThietBi.NgayKy = tb.NgayKy;
+                    hopDongThietBi.SoHopDong = tb.SoHopDong;
+                    hopDongThietBi.Ngay = DateTime.Now;
+                    dbContext.HopDongThietBis.Add(hopDongThietBi);
+                    dbContext.SaveChanges();
+
+                    if (tb.DanhSachLinhKien.Count > 0)
+                    {
+                        foreach (var item in tb.DanhSachLinhKien)
+                        {
+                            LinhKien linhKien = new LinhKien();
+                            linhKien.Serial = item.Serial;
+                            linhKien.MaLoaiLinhKien = item.MaLoaiLinhKien;
+                            linhKien.Model = item.Model;
+                            linhKien.MaNhaCungCap = item.MaNhaCungCap;
+                            linhKien.GhiChu = item.GhiChu;
+                            linhKien.NamBaoHanh = item.NamBaoHanh;
+                            dbContext.LinhKiens.Add(linhKien);
+                            dbContext.SaveChanges();
+
+                            LinhKienThietBi linhKienThietBi = new LinhKienThietBi();
+                            linhKienThietBi.MaLinhKien = linhKien.MaLinhKien;
+                            linhKienThietBi.MaThietBi = thietBi.MaThietBi;
+                            linhKienThietBi.Ngay = DateTime.Now;
+                            dbContext.LinhKienThietBis.Add(linhKienThietBi);
+                            dbContext.SaveChanges();
+
+                            LichSuLinhKien lichSuLinhKien = new LichSuLinhKien();
+                            lichSuLinhKien.MaLinhKien = linhKien.MaLinhKien;
+                            lichSuLinhKien.MaTinhTrang = tb.MaTinhTrang;
+                            lichSuLinhKien.Ngay = DateTime.Now;
+                            lichSuLinhKien.ChiPhi = null;
+                            dbContext.LichSuLinhKiens.Add(lichSuLinhKien);
+                            dbContext.SaveChanges();
+                        }
+                    }
+                }
+                return Ok("Thêm Thiết Bị Thành Công");
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                //throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                return BadRequest("Nội dung lỗi 01 : " + exceptionMessage + "Nội dung lỗi 02 :" + ex.EntityValidationErrors);
+            }
+        }
+
         [HttpGet]
         [Route("LayDanhSachDanhMuc")]
         public IHttpActionResult LayDanhSachDanhMuc()
@@ -328,115 +437,6 @@ namespace QuanLyThietBi.Controllers.APIs.QuanLyThietBi
                 }
             }
             return Ok(dsHsxModel);
-        }
-
-        [HttpPost]
-        [Route("ThemThietBi")]
-        public IHttpActionResult ThemThietBi(List<ThietBiModel> dsthietBiModel)
-        {
-            try
-            {
-                foreach (var tb in dsthietBiModel)
-                {
-                    ThietBi thietBi = new ThietBi();
-                    thietBi.MaTaiSan = tb.MaTaiSan;
-                    thietBi.Ten = tb.Ten;
-                    thietBi.Gia = tb.Gia;
-                    thietBi.Model = tb.Model;
-                    thietBi.NgayNhapKho = null;
-                    thietBi.NgayXuatKho = null;
-                    thietBi.MaDanhMuc = tb.MaDanhMuc;
-                    thietBi.MaHangSanXuat = tb.MaNhaCungCap;
-                    thietBi.Serial = tb.Serial;
-                    thietBi.GiaKhauHao = null;
-                    thietBi.DonViTinh = null;
-                    thietBi.GhiChu = tb.GhiChu;
-                    thietBi.NgayBaoHanh = null;
-                    thietBi.HangSanXuat = tb.HangSanXuat;
-                    thietBi.NguoiSuDung = tb.NguoiSuDung;
-                    thietBi.MaPhongBan = tb.MaPhongBan;
-                    thietBi.IP = tb.IP;
-                    thietBi.SoHopDong = tb.SoHopDong;
-                    thietBi.NhaCungCap = tb.NhaCungCap;
-                    thietBi.NgayMua = tb.NgayMua;
-                    thietBi.NamBaoHanh = tb.NamBaoHanh;
-                    thietBi.ViTri = tb.ViTri;
-                    thietBi.NgayCapNhat = tb.NgayCapNhat;
-                    thietBi.NguoiCapNhat = null;
-                    thietBi.MaTinhTrang = tb.MaTinhTrang;
-                    dbContext.ThietBis.Add(thietBi);
-                    dbContext.SaveChanges();
-
-                    LichSuThietBi lichSuThietBi = new LichSuThietBi();
-                    lichSuThietBi.MaThietBi = thietBi.MaThietBi;
-                    lichSuThietBi.MaTinhTrang = tb.MaTinhTrang;
-                    lichSuThietBi.MaNguoiDung = tb.MaNguoiDung;
-                    lichSuThietBi.Ngay = DateTime.Now;
-                    lichSuThietBi.ChiPhi = null;
-                    dbContext.LichSuThietBis.Add(lichSuThietBi);
-                    dbContext.SaveChanges();
-
-
-                    HopDongThietBi hopDongThietBi = new HopDongThietBi();
-                    hopDongThietBi.MaThietBi = thietBi.MaThietBi;
-                    hopDongThietBi.MaHopDong = tb.MaHopDong;
-                    hopDongThietBi.GiaTriHD = tb.GiaTriHD;
-                    hopDongThietBi.NgayKy = tb.NgayKy;
-                    hopDongThietBi.SoHopDong = tb.SoHopDong;
-                    hopDongThietBi.Ngay = DateTime.Now;
-                    dbContext.HopDongThietBis.Add(hopDongThietBi);
-                    dbContext.SaveChanges();
-
-                    if (tb.DanhSachLinhKien.Count > 0)
-                    {
-                        foreach (var item in tb.DanhSachLinhKien)
-                        {
-                            LinhKien linhKien = new LinhKien();
-                            linhKien.Serial = item.Serial;
-                            linhKien.MaLoaiLinhKien = item.MaLoaiLinhKien;
-                            linhKien.Model = item.Model;
-                            linhKien.MaNhaCungCap = item.MaNhaCungCap;
-                            linhKien.GhiChu = item.GhiChu;
-                            linhKien.NamBaoHanh = item.NamBaoHanh;
-                            dbContext.LinhKiens.Add(linhKien);
-                            dbContext.SaveChanges();
-
-                            LinhKienThietBi linhKienThietBi = new LinhKienThietBi();
-                            linhKienThietBi.MaLinhKien = linhKien.MaLinhKien;
-                            linhKienThietBi.MaThietBi = thietBi.MaThietBi;
-                            linhKienThietBi.Ngay = DateTime.Now;
-                            dbContext.LinhKienThietBis.Add(linhKienThietBi);
-                            dbContext.SaveChanges();
-
-                            LichSuLinhKien lichSuLinhKien = new LichSuLinhKien();
-                            lichSuLinhKien.MaLinhKien = linhKien.MaLinhKien;
-                            lichSuLinhKien.MaTinhTrang = 1;
-                            lichSuLinhKien.Ngay = DateTime.Now;
-                            lichSuLinhKien.ChiPhi = null;
-                            dbContext.LichSuLinhKiens.Add(lichSuLinhKien);
-                            dbContext.SaveChanges();
-                        }
-                    }
-                }
-                return Ok("Thêm Thiết Bị Thành Công");
-            }
-            catch (DbEntityValidationException ex)
-            {
-                // Retrieve the error messages as a list of strings.
-                var errorMessages = ex.EntityValidationErrors
-                        .SelectMany(x => x.ValidationErrors)
-                        .Select(x => x.ErrorMessage);
-
-                // Join the list to a single string.
-                var fullErrorMessage = string.Join("; ", errorMessages);
-
-                // Combine the original exception message with the new one.
-                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
-
-                // Throw a new DbEntityValidationException with the improved exception message.
-                //throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
-                return BadRequest("Nội dung lỗi 01 : " + exceptionMessage + "Nội dung lỗi 02 :" + ex.EntityValidationErrors);
-            }
         }
 
         [HttpGet]

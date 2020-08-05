@@ -380,8 +380,8 @@
                     $scope.listDanhSachThietBi.push($scope.ThietBiMoi);
                 }
             }
-            console.log($scope.listDanhSachThietBi);
-            let closeBtn = document.getElementById("closeBTN");
+            //console.log($scope.listDanhSachThietBi);
+            //let closeBtn = document.getElementById("closeBTN");
             var res = CommonController.postData(CommonController.urlAPI.API_ThemThietBi, $scope.listDanhSachThietBi);
             res.then(
                 function succ(response) {
@@ -392,8 +392,9 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    closeBtn.click();
-                    $scope.pageChanged();
+                    setTimeout(function () { window.location.href = ""; }, 1000);
+                    //closeBtn.click();
+                    //$scope.pageChanged();
                 },
 
                 function errorCallback(response) {
